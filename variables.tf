@@ -174,6 +174,22 @@ variable "network" {
   }
 }
 
+variable "public_subnets" {
+  type = "map"
+  default = {
+    publicAz1  = "10.100.80.0/22"
+    publicAz2  = "10.100.84.0/22"
+  }
+}
+
+variable "private_subnets" {
+  type = "map"
+  default = {
+    privateAz1 = "10.100.88.0/22"
+    privateAz2 = "10.100.92.0/22"
+  }
+}
+
 #variable "public_subnets" {
 #  type = "map"
 #  default = {
