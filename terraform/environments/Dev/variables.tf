@@ -45,8 +45,8 @@ variable "public_subnets" {
   #default = "["10.100.80.0/22", "10.100.84.0/22"]"
   value = <<EOF
   {
-      "publicAz1" : "10.100.80.0/22", 
-      "publicAz2" : "10.100.84.0/22"
+      "publicAz1" = "10.100.80.0/22", 
+      "publicAz2" = "10.100.84.0/22"
   }
   EOF
 }
@@ -56,8 +56,8 @@ variable "private_subnets" {
   #default = "["10.100.88.0/22", "10.100.92.0/22"]"
   value = <<EOF
   {
-      "privateAz1" : "10.100.88.0/22", 
-      "privateAz2" : "10.100.92.0/22"
+      "privateAz1" = "10.100.88.0/22", 
+      "privateAz2" = "10.100.92.0/22"
   }
   EOF
 }
