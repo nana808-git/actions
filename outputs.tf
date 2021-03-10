@@ -3,6 +3,11 @@ output "vpc_id" {
   description = "vpc id."
 }
 
+output "vpc_network" {
+  value       = var.network
+  description = "vpc id."
+}
+
 output "vpc_public_subnet_ids" {
   value       = var.public_subnets
   description = "List of IDs of VPC public subnets."
@@ -66,7 +71,7 @@ output "alb_dns_name" {
 output "availability_zones" { value = "${var.availability_zones}" }
 output "certificate_arn" { value = "${var.certificate_arn}" }
 output "region" { value = "${var.region}" }
-output "network" { value = "${var.network}" }
+#output "network" { value = "${var.network}" }
 output "ami_id" { value = "${var.ami_id}" }
 #output "vpc_id" { value = "${var.vpc_id}" }
 output "app" { value = "${var.app}" }
