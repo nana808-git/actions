@@ -21,15 +21,15 @@ variable "vpc_id" {
   description = "vpc for provisioning resources"
 }
 
-#variable "public_subnets" {
-#  type        = list(string)
-#  description = "public subnet array (length>=2)"
-#}
+variable "public_subnets" {
+  type        = list(string)
+  description = "public subnet array (length>=2)"
+}
 
-#variable "private_subnets" {
-#  type        = list(string)
-#  description = "public subnet array (length>=2)"
-#}
+variable "private_subnets" {
+  type        = list(string)
+  description = "public subnet array (length>=2)"
+}
 
 variable "alb_port" {
   type        = string
@@ -174,21 +174,21 @@ variable "network" {
   }
 }
 
-variable "public_subnets" {
-  type = "map"
-  default = {
-    publicAz1  = ""
-    publicAz2  = ""
-  }
-}
+#variable "public_subnets" {
+#  type = "map"
+#  default = {
+#    publicAz1  = ""
+#    publicAz2  = ""
+#  }
+#}
 
-variable "private_subnets" {
-  type = "map"
-  default = {
-    privateAz1 = ""
-    privateAz2 = ""
-  }
-}
+#variable "private_subnets" {
+#  type = "map"
+#  default = {
+#    privateAz1 = ""
+#    privateAz2 = ""
+#  }
+#}
 
 variable "app" {
   type = "map"
