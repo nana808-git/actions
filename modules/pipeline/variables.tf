@@ -81,11 +81,6 @@ variable "availability_zones" {
   ]
 }
 
-variable "region" {
-  type = "string"
-  default = ""
-}
-
 variable "network" {
   type = "map"
   default = {
