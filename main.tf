@@ -45,6 +45,7 @@ module "ecs" {
   domain_name           = var.domain_name
 
   #availability_zones = var.public_subnets
+  availability_zones = var.availability_zones
 }
 
 
