@@ -16,8 +16,8 @@ module "pipeline" {
   build_options                  = var.build_options
   build_args                     = var.build_args
 
-  #subnet_ids                     = var.public_subnets
-  subnet_ids                     = var.network
+  subnet_ids                     = var.public_subnets
+  #subnet_ids                     = var.network
 }
 
 module "ecs" {
@@ -44,8 +44,7 @@ module "ecs" {
   ssl_certificate_arn   = var.ssl_certificate_arn
   domain_name           = var.domain_name
 
-  #availability_zones = var.public_subnets
-  availability_zones = var.network
+  availability_zones = var.public_subnets
 }
 
 

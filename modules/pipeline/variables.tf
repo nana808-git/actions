@@ -92,18 +92,18 @@ variable "network" {
   }
 }
 
-variable "public_subnets" {
-  type = "map"
-  default = {
-    publicAz1  = ""
-    publicAz2  = ""
-  }
-}
+#variable "public_subnets" {
+#  type = "map"
+#  default = {
+#    publicAz1  = ""
+#    publicAz2  = ""
+#  }
+#}
 
-variable "private_subnets" {
-  type = "map"
-  default = {
-    privateAz1 = ""
-    privateAz2 = ""
-  }
-}
+#variable "private_subnets" {
+#  type = "map"
+#  default = {
+#    privateAz1 = ""
+#    privateAz2 = ""
+#  }
+#}

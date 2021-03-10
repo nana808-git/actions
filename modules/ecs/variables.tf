@@ -18,10 +18,10 @@ variable "vpc_id" {
   description = "The VPC id"
 }
 
-#variable "availability_zones" {
-#  type        = list(string)
-#  description = "The azs to use"
-#}
+variable "availability_zones" {
+  type        = list(string)
+  description = "The azs to use"
+}
 
 //variable "public_subnets" {
 //  description = "Public Subnet array"
@@ -114,22 +114,6 @@ variable "network" {
     cidr       = ""
     publicAz1  = ""
     publicAz2  = ""
-    privateAz1 = ""
-    privateAz2 = ""
-  }
-}
-
-variable "public_subnets" {
-  type = "map"
-  default = {
-    publicAz1  = ""
-    publicAz2  = ""
-  }
-}
-
-variable "private_subnets" {
-  type = "map"
-  default = {
     privateAz1 = ""
     privateAz2 = ""
   }
