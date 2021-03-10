@@ -6,7 +6,7 @@ locals {
 
   environment = "dev"
 
-  azs = ["us-east-1c", "us-east-1b"]
+  azs = ["us-east-1a", "us-east-1b"]
 }
 
 data "aws_acm_certificate" "ssl-cert" {
