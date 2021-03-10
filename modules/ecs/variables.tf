@@ -18,10 +18,10 @@ variable "vpc_id" {
   description = "The VPC id"
 }
 
-variable "availability_zones" {
-  type        = list(string)
-  description = "The azs to use"
-}
+#variable "availability_zones" {
+#  type        = list(string)
+#  description = "The azs to use"
+#}
 
 //variable "public_subnets" {
 //  description = "Public Subnet array"
