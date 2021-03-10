@@ -1,0 +1,40 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Resource": [
+        "*"
+      ],
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "ecr:GetAuthorizationToken",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:PutImage",
+        "ecs:RunTask",
+        "iam:PassRole"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": "codestar-connections:PassConnection",
+      "Resource": "arn:aws:codestar-connections:us-west-1:710789462061:connection/024d34e3-7643-4ffe-ab6a-93053546f46f"
+    },        
+    {
+      "Effect":"Allow",
+      "Action": [
+        "s3:*"
+      ],
+      
+      "Resource": [
+        "${aws_s3_bucket_arn}",
+        "${aws_s3_bucket_arn}/*"
+      ]
+    }
+  ]
+}
