@@ -100,13 +100,13 @@ variable "app" {
   }
 }
 
-variable "availability_zones" {
-  type = "list"
-  default = [
-    "", 
-    "",
-  ]
-}
+#variable "availability_zones" {
+#  type = "list"
+#  default = [
+#    "", 
+#    "",
+#  ]
+#}
 
 variable "network" {
   type = "map"
