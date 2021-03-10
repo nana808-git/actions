@@ -42,12 +42,12 @@ variable "network" {
 
 variable "public_subnets" {
   type = "string"
-  default = "["10.100.80.0/22", "10.100.84.0/22"]"
+  default = ["10.100.80.0/22", "10.100.84.0/22"]
 }
 
 variable "private_subnets" {
   type = "string"
-  default = "["10.100.88.0/22", "10.100.92.0/22"]"
+  default = ["10.100.88.0/22", "10.100.92.0/22"]
 }
 
 variable "ami_id" {
