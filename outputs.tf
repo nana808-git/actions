@@ -68,6 +68,7 @@ output "certificate_arn" { value = "${var.certificate_arn}" }
 output "region" { value = "${var.region}" }
 output "network" { value = "${var.network}" }
 output "ami_id" { value = "${var.ami_id}" }
+#output "vpc_id" { value = "${var.vpc_id}" }
 output "app" { value = "${var.app}" }
 output "node_volume_size" { value = "${var.node_volume_size}" }
 output "node_instance_type" { value = "${var.node_instance_type}" }
