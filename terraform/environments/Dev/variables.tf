@@ -58,7 +58,12 @@ variable "private_subnets" {
 
 variable "ami_id" {
   type = "string"
-  default = "ami-05170f6170a3069ac"
+  default = ""
+}
+
+variable "vpc_id" {
+  type = "string"
+  default = ""
 }
 
 variable "certificate_arn" {
