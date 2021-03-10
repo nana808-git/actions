@@ -16,8 +16,8 @@ module "pipeline" {
   build_options                  = var.build_options
   build_args                     = var.build_args
 
-  #subnet_ids                     = var.public_subnets
-  subnet_ids                     = var.network
+  subnet_ids                     = var.public_subnets
+  #subnet_ids                     = var.network
 }
 
 module "ecs" {
