@@ -57,9 +57,9 @@ module "ecs-pipeline" {
   #cluster_name        = local.application_name
   #app_repository_name = local.application_name
   #container_name      = local.application_name
-  cluster_name        = var.app
-  app_repository_name = var.app
-  container_name      = var.app
+  cluster_name        = module.vpc.app
+  app_repository_name = module.vpc.app
+  container_name      = module.vpc.app
   image               = "710789462061.dkr.ecr.us-west-1.amazonaws.com/ss-dev-ecr-node:latest"
   environment         = local.environment
 
