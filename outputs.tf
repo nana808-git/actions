@@ -4,7 +4,7 @@ output "vpc_id" {
 }
 
 output "vpc_network" {
-  value       = var.network
+  value       = var.subnet_ids
   description = "vpc id."
 }
 
