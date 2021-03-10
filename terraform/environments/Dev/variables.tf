@@ -40,10 +40,10 @@ variable "network" {
   }
 }
 
-variable "public_subnets" {
-  type = "string"
-  default = "["10.100.80.0/22", "10.100.84.0/22"]"
-}
+#variable "public_subnets" {
+#  type = "string"
+#  default = "["10.100.80.0/22", "10.100.84.0/22"]"
+#}
 
 variable "private_subnets" {
   type = "string"
