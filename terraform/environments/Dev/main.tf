@@ -1,4 +1,4 @@
-l#ocals {
+#locals {
 #  application_name       = "ss"
 #  env_name               = "dev"
 #  domain                 = "nana808test.com"
