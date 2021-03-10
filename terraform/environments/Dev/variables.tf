@@ -56,11 +56,6 @@ variable "private_subnets" {
   }
 }
 
-output "subnet_ids" {
-  value       = var.subnet_ids
-  description = "subnet id."
-}
-
 variable "ami_id" {
   type = "string"
   default = ""
