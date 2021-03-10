@@ -1,19 +1,19 @@
-#locals {
-#  application_name       = "ss"
-#  env_name               = "dev"
-#  domain                 = "nana808test.com"
-#  application_name_lower = replace(lower(local.application_name), "/[^a-z0-9]/", "")
+locals {
+  application_name       = "ss"
+  env_name               = "dev"
+  domain                 = "nana808test.com"
+  application_name_lower = replace(lower(local.application_name), "/[^a-z0-9]/", "")
 
-#  environment = "dev"
+  environment = "dev"
 
-#  azs = ["us-east-1c", "us-east-1b"]
-#}
+  azs = ["us-east-1c", "us-east-1b"]
+}
 
-#data "aws_acm_certificate" "ssl-cert" {
-#  domain      = local.domain
-#  statuses    = ["ISSUED"]
-#  most_recent = true
-#}
+data "aws_acm_certificate" "ssl-cert" {
+  domain      = local.domain
+  statuses    = ["ISSUED"]
+  most_recent = true
+}
 
 module "vpc" { 
   source = "github.com/nana808-git/vpc-DT-clone" 
@@ -54,12 +54,9 @@ module "ecs-pipeline" {
   public_subnets = var.public_subnets
   private_subnets = var.private_subnets
 
-  #cluster_name        = local.application_name
-  #app_repository_name = local.application_name
-  #container_name      = local.application_name
-  cluster_name        = module.vpc.app
-  app_repository_name = module.vpc.app
-  container_name      = module.vpc.app
+  cluster_name        = local.application_name
+  app_repository_name = local.application_name
+  container_name      = local.application_name
   image               = "710789462061.dkr.ecr.us-west-1.amazonaws.com/ss-dev-ecr-node:latest"
   environment         = local.environment
 
