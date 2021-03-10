@@ -1,19 +1,19 @@
-locals {
-  application_name       = "ss"
-  env_name               = "dev"
-  domain                 = "nana808test.com"
-  application_name_lower = replace(lower(local.application_name), "/[^a-z0-9]/", "")
+l#ocals {
+#  application_name       = "ss"
+#  env_name               = "dev"
+#  domain                 = "nana808test.com"
+#  application_name_lower = replace(lower(local.application_name), "/[^a-z0-9]/", "")
 
-  environment = "dev"
+#  environment = "dev"
 
-  azs = ["us-east-1c", "us-east-1b"]
-}
+#  azs = ["us-east-1c", "us-east-1b"]
+#}
 
-data "aws_acm_certificate" "ssl-cert" {
-  domain      = local.domain
-  statuses    = ["ISSUED"]
-  most_recent = true
-}
+#data "aws_acm_certificate" "ssl-cert" {
+#  domain      = local.domain
+#  statuses    = ["ISSUED"]
+#  most_recent = true
+#}
 
 module "vpc" { 
   source = "github.com/nana808-git/vpc-DT-clone" 
