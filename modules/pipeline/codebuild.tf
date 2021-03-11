@@ -15,8 +15,9 @@ data "template_file" "buildspec" {
     region             = var.region
     environment        = var.environment
     cluster_name       = var.cluster_name
-    container_name     = var.container_name
-    security_group_ids = join(",", var.subnet_ids)
+    container_name     = var.container_names
+    #security_group_ids = join(",", var.subnet_ids)
+    security_group_ids = join(",", var.public_subnet_ids)
     build_options      = local.build_options
   }
 }

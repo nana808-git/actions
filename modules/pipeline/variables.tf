@@ -107,3 +107,11 @@ variable "network" {
 #    privateAz2 = ""
 #  }
 #}
+
+variable "public_subnet_ids" {
+  type = "list"
+}
+
+variable "private_subnet_ids" {
+  type = "list"
+}
