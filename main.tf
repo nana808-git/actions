@@ -31,6 +31,8 @@ module "ecs" {
   image               = var.image
   container_name      = var.container_name
   app_repository_name = var.app_repository_name
+  public_subnet_ids   = var.public_subnet_ids
+  private_subnet_ids  = var.private_subnet_ids
   alb_port            = var.alb_port
   container_port      = var.container_port
   min_tasks           = var.min_tasks
