@@ -26,6 +26,11 @@ variable "public_subnets" {
   description = "public subnet array (length>=2)"
 }
 
+variable "private_subnets" {
+  type        = list(string)
+  description = "private subnet array (length>=2)"
+}
+
 variable "alb_port" {
   type        = string
   description = "origin application load balancer port"
@@ -142,7 +147,6 @@ variable "domain_name" {
 
 variable "codestar_connector_credentials" {
   type = string
-  #default = "arn:aws:codestar-connections:us-west-1:710789462061:connection/024d34e3-7643-4ffe-ab6a-93053546f46f"
   default = ""
 }
 

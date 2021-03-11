@@ -42,7 +42,7 @@ variable "subnet_ids" {
 
 variable "region" {
   description = "The region to use"
-  default     = "us-west-1"
+  default     = "us-east-1"
 }
 
 variable "container_name" {
@@ -62,5 +62,4 @@ variable "build_options" {
 
 variable "codestar_connector_credentials" {
   type = string
-  #default = "arn:aws:codestar-connections:us-west-1:710789462061:connection/024d34e3-7643-4ffe-ab6a-93053546f46f"
 }
