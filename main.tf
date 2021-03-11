@@ -1,26 +1,23 @@
-#module "pipeline" {
-#  source = "./modules/pipeline"
+module "pipeline" {
+  source = "./modules/pipeline"
 
-#  cluster_name                   = var.cluster_name
-#  environment                    = var.environment
-#  env_name                       = var.env_name
-#  image                          = var.image
-#  codestar_connector_credentials = var.codestar_connector_credentials
-#  container_name                 = var.container_name
-#  app_repository_name            = var.app_repository_name
-#  git_repository                 = var.git_repository
-#  repository_url                 = module.ecs.repository_url
-#  app_service_name               = module.ecs.service_name
-#  vpc_id                         = var.vpc_id
+  cluster_name                   = var.cluster_name
+  environment                    = var.environment
+  env_name                       = var.env_name
+  image                          = var.image
+  codestar_connector_credentials = var.codestar_connector_credentials
+  container_name                 = var.container_name
+  app_repository_name            = var.app_repository_name
+  git_repository                 = var.git_repository
+  repository_url                 = module.ecs.repository_url
+  app_service_name               = module.ecs.service_name
+  vpc_id                         = var.vpc_id
 
-#  build_options                  = var.build_options
-#  build_args                     = var.build_args
+  build_options                  = var.build_options
+  build_args                     = var.build_args
 
-  #subnet_ids                     = var.subnet_ids
-  #subnet_ids                     = var.network
-#  public_subnet_ids              = var.public_subnet_ids
-#  private_subnet_ids             = var.private_subnet_ids
-#}
+  subnet_ids                     = var.public_subnets
+}
 
 module "ecs" {
   source              = "./modules/ecs"
@@ -31,8 +28,6 @@ module "ecs" {
   image               = var.image
   container_name      = var.container_name
   app_repository_name = var.app_repository_name
-  public_subnet_ids   = var.public_subnet_ids
-  private_subnet_ids  = var.private_subnet_ids
   alb_port            = var.alb_port
   container_port      = var.container_port
   min_tasks           = var.min_tasks
@@ -48,9 +43,7 @@ module "ecs" {
   ssl_certificate_arn   = var.ssl_certificate_arn
   domain_name           = var.domain_name
 
-  #availability_zones = var.public_subnet_ids
-  availability_zones = var.availability_zones
+  availability_zones = var.public_subnets
 }
-
 
 

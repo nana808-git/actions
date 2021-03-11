@@ -42,7 +42,7 @@ variable "subnet_ids" {
 
 variable "region" {
   description = "The region to use"
-  default     = ""
+  default     = "us-west-1"
 }
 
 variable "container_name" {
@@ -62,56 +62,5 @@ variable "build_options" {
 
 variable "codestar_connector_credentials" {
   type = string
-  default = ""
-}
-
-variable "app" {
-  type = "map"
-  default = {
-    name = ""
-    env  = ""
-  }
-}
-
-variable "availability_zones" {
-  type = "list"
-  default = [
-    "", 
-    "",
-  ]
-}
-
-variable "network" {
-  type = "map"
-  default = {
-    cidr       = ""
-    publicAz1  = ""
-    publicAz2  = ""
-    privateAz1 = ""
-    privateAz2 = ""
-  }
-}
-
-#variable "public_subnets" {
-#  type = "map"
-#  default = {
-#    publicAz1  = ""
-#    publicAz2  = ""
-#  }
-#}
-
-#variable "private_subnets" {
-#  type = "map"
-#  default = {
-#    privateAz1 = ""
-#    privateAz2 = ""
-#  }
-#}
-
-variable "public_subnet_ids" {
-  type = "list"
-}
-
-variable "private_subnet_ids" {
-  type = "list"
+  #default = "arn:aws:codestar-connections:us-west-1:710789462061:connection/024d34e3-7643-4ffe-ab6a-93053546f46f"
 }

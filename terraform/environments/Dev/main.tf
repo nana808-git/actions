@@ -1,12 +1,12 @@
 locals {
   application_name       = "ss"
   env_name               = "dev"
-  domain                 = "nana808test.com"
+  domain                 = "*.isvc.tech"
   application_name_lower = replace(lower(local.application_name), "/[^a-z0-9]/", "")
 
   environment = "dev"
 
-  azs = ["us-east-1a", "us-east-1b"]
+  azs = ["us-west-1c", "us-west-1b"]
 }
 
 data "aws_acm_certificate" "ssl-cert" {
@@ -15,48 +15,29 @@ data "aws_acm_certificate" "ssl-cert" {
   most_recent = true
 }
 
-module "vpc" { 
-  source = "github.com/nana808-git/vpc-DT-clone" 
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
 
-  availability_zones = var.availability_zones
-  nat_count          = var.nat_count
-  network            = var.network
-  app                = var.app
+  name = local.application_name
+
+  azs             = local.azs
+  cidr            = "10.100.96.0/20"
+  public_subnets  = ["10.100.96.0/22", "10.100.100.0/22"]
+
+  enable_ipv6 = false
+
+  tags = {
+    Terraform   = "true"
+    Application = local.application_name
+    Environment = local.env_name
+  }
 }
-
-
-#module "vpc" {
-#  source = "terraform-aws-modules/vpc/aws"
-
-#  name = local.application_name
-
-#  azs              = local.azs
-#  cidr             = "10.100.96.0/20"
-#  public_subnets   = ["10.100.96.0/22", "10.100.100.0/22"]
-#  private_subnets  = ["10.100.104.0/22", "10.100.108.0/22"]
-
-#  enable_ipv6 = false
-
-#  tags = {
-#    Terraform   = "true"
-#    Application = local.application_name
-#    Environment = local.env_name
-#  }
-#}
 
 module "ecs-pipeline" {
   source = "../../.."
 
-  #vpc_id         = module.vpc.vpc_id
-  vpc_id         = var.vpc_id
-  #public_subnets = module.vpc.public_subnets
-  #private_subnets = module.vpc.private_subnets
-  #network          = var.network
-  #public_subnets = var.public_subnets
-  #private_subnets = var.private_subnets
-
-  public_subnet_ids = var.public_subnet_ids
-  private_subnet_ids = var.private_subnet_ids
+  vpc_id         = module.vpc.vpc_id
+  public_subnets = module.vpc.public_subnets
 
   cluster_name        = local.application_name
   app_repository_name = local.application_name
@@ -70,12 +51,12 @@ module "ecs-pipeline" {
 
   git_repository = {
     BranchName       = "main"
-    FullRepositoryId = "nana808-git/sleestack"
-    ConnectionArn    = "arn:aws:codestar-connections:us-east-1:667736119737:connection/fc834fd4-ccfc-43a9-a4cc-12133eee0c30"
+    FullRepositoryId = "naboagye-eng/sleestak"
+    ConnectionArn    = "arn:aws:codestar-connections:us-west-1:710789462061:connection/024d34e3-7643-4ffe-ab6a-93053546f46f"
   }
 
-  domain_name         = var.domain
-  ssl_certificate_arn = "arn:aws:acm:us-east-1:667736119737:certificate/8a4cdeec-e44c-42c0-b4ce-c1d2dc12f657"
+  domain_name         = local.domain
+  ssl_certificate_arn = "arn:aws:acm:us-west-1:710789462061:certificate/5841c2c4-403a-436b-bf03-91f891677fba"
 }
 
 

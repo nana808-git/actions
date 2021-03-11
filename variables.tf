@@ -21,15 +21,10 @@ variable "vpc_id" {
   description = "vpc for provisioning resources"
 }
 
-#variable "public_subnets" {
-#  type        = list(string)
-#  description = "public subnet array (length>=2)"
-#}
-
-#variable "private_subnets" {
-#  type        = list(string)
-#  description = "public subnet array (length>=2)"
-#}
+variable "public_subnets" {
+  type        = list(string)
+  description = "public subnet array (length>=2)"
+}
 
 variable "alb_port" {
   type        = string
@@ -147,122 +142,7 @@ variable "domain_name" {
 
 variable "codestar_connector_credentials" {
   type = string
+  #default = "arn:aws:codestar-connections:us-west-1:710789462061:connection/024d34e3-7643-4ffe-ab6a-93053546f46f"
   default = ""
 }
 
-variable "availability_zones" {
-  type = "list"
-  default = [
-    "", 
-    "",
-  ]
-}
-
-variable "region" {
-  type = "string"
-  default = ""
-}
-
-variable "network" {
-  type = "map"
-  default = {
-    cidr       = ""
-    publicAz1  = ""
-    publicAz2  = ""
-    privateAz1 = ""
-    privateAz2 = ""
-  }
-}
-
-variable "public_subnets" {
-  type = "map"
-  default = {
-    publicAz1  = "10.100.80.0/22"
-    publicAz2  = "10.100.84.0/22"
-  }
-}
-
-variable "private_subnets" {
-  type = "map"
-  default = {
-    privateAz1 = "10.100.88.0/22"
-    privateAz2 = "10.100.92.0/22"
-  }
-}
-
-#variable "public_subnets" {
-#  type = "map"
-#  default = {
-#    publicAz1  = ""
-#    publicAz2  = ""
-#  }
-#}
-
-#variable "private_subnets" {
-#  type = "map"
-#  default = {
-#    privateAz1 = ""
-#    privateAz2 = ""
-#  }
-#}
-
-variable "app" {
-  type = "map"
-  default = {
-    name = ""
-    env  = ""
-  }
-}
-
-variable "ami_id" {
-  type = "string"
-  default = ""
-}
-
-variable "certificate_arn" {
-  type = "string"
-  default = ""
-}
-
-variable "node_volume_size" {
-  type = "string"
-  default = ""
-}
-
-variable "node_instance_type" {
-  type = "string"
-  default = ""
-}
-
-variable "nosql_volume_size" {
-  type = "string"
-  default = ""
-}
-
-variable "nosql_instance_type" {
-  type = "string"
-  default = ""
-}
-
-variable "nat_count" {
-  type = "string"
-  default = ""
-}
-
-variable "escluster_instance_count" {
-  type = "string"
-  default = ""
-}
-
-variable "escluster_instance_type" {
-  type = "string"
-  default = ""
-}
-
-variable "public_subnet_ids" {
-  type = "list"
-}
-
-variable "private_subnet_ids" {
-  type = "list"
-}

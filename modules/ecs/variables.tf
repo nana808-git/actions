@@ -92,38 +92,4 @@ variable "domain_name" {
   default = ""
 }
 
-variable "app" {
-  type = "map"
-  default = {
-    name = ""
-    env  = ""
-  }
-}
-
-#variable "availability_zones" {
-#  type = "list"
-#  default = [
-#    "", 
-#    "",
-#  ]
-#}
-
-variable "network" {
-  type = "map"
-  default = {
-    cidr       = ""
-    publicAz1  = ""
-    publicAz2  = ""
-    privateAz1 = ""
-    privateAz2 = ""
-  }
-}
-
-variable "public_subnet_ids" {
-  type = "list"
-}
-
-variable "private_subnet_ids" {
-  type = "list"
-}
 
