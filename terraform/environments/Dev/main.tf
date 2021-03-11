@@ -1,5 +1,5 @@
 locals {
-  application_name       = "ss"
+  application_name       = "sss"
   env_name               = "dev"
   domain                 = "nana808test.com"
   application_name_lower = replace(lower(local.application_name), "/[^a-z0-9]/", "")
