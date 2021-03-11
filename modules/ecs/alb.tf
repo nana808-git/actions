@@ -75,8 +75,8 @@ resource "aws_alb_listener" "web_app_ssl" {
 data "aws_route53_zone" "selected" {
   count = local.can_domain ? 1 : 0
 
-  #name = "${var.domain_name}."
-  name = "isvc.tech."
+  name = "${var.domain_name}."
+  #name = "isvc.tech."
 }
 
 # 
