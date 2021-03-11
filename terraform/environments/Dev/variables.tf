@@ -56,6 +56,11 @@ variable "private_subnets" {
   }
 }
 
+variable "subnet_ids" {
+  type = "string"
+  default = ""
+}
+
 variable "ami_id" {
   type = "string"
   default = ""
@@ -106,12 +111,22 @@ variable "escluster_instance_type" {
   default = "t2.medium.elasticsearch"
 }
 
+variable "public_subnet_ids" {
+  type = "list"
+}
+
+variable "private_subnet_ids" {
+  type = "list"
+}
+
 output "availability_zones" { value = "${var.availability_zones}" }
 output "certificate_arn" { value = "${var.certificate_arn}" }
 output "region" { value = "${var.region}" }
 output "network" { value = "${var.network}" }
 output "ami_id" { value = "${var.ami_id}" }
 output "subnet_ids" { value = "${var.subnet_ids}" }
+output "public_subnet_ids" { value = "${var.public_subnet_ids}" }
+output "private_subnet_ids" { value = "${var.private_subnet_ids}" }
 output "vpc_id" { value = "${var.vpc_id}" }
 output "app" { value = "${var.app}" }
 output "node_volume_size" { value = "${var.node_volume_size}" }

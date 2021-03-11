@@ -258,3 +258,11 @@ variable "escluster_instance_type" {
   type = "string"
   default = ""
 }
+
+variable "public_subnet_ids" {
+  type = "list"
+}
+
+variable "private_subnet_ids" {
+  type = "list"
+}

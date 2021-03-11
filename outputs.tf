@@ -82,3 +82,5 @@ output "nosql_instance_type" { value = "${var.nosql_instance_type}" }
 output "nat_count" { value = "${var.nat_count}" }
 output "escluster_instance_type" { value = "${var.escluster_instance_type}" }
 output "escluster_instance_count" { value = "${var.escluster_instance_count}" }
+output "public_subnet_ids" { value = "${var.public_subnet_ids}" }
+output "private_subnet_ids" { value = "${var.private_subnet_ids}" }
