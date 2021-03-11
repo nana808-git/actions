@@ -51,8 +51,11 @@ module "ecs-pipeline" {
   #public_subnets = module.vpc.public_subnets
   #private_subnets = module.vpc.private_subnets
   #network          = var.network
-  public_subnets = var.public_subnets
-  private_subnets = var.private_subnets
+  #public_subnets = var.public_subnets
+  #private_subnets = var.private_subnets
+
+  public_subnets = var.public_subnet_ids
+  private_subnets = var.private_subnet_ids
 
   cluster_name        = local.application_name
   app_repository_name = local.application_name
