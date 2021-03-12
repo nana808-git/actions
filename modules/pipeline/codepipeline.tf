@@ -23,7 +23,7 @@ resource "aws_codepipeline" "pipeline" {
         #RepositoryName = "${aws_ecr_repository.this.name}"
         RepositoryName = "${var.app_repository_name}"
         ImageTag       = "latest"
-      },
+      }
       {
       name = "Source"
       category = "Source"
@@ -39,7 +39,7 @@ resource "aws_codepipeline" "pipeline" {
       }
     }
   }
-  
+
 #  stage {
 #    name = "Source"
 #    action{
