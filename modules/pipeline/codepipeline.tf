@@ -19,11 +19,23 @@ resource "aws_codepipeline" "pipeline" {
       provider = "ECR"
       version = "1"
       output_artifacts = ["source"]
-      eventName = "PutImage"
       configuration = {
         #RepositoryName = "${aws_ecr_repository.this.name}"
         RepositoryName = "${var.app_repository_name}"
         ImageTag       = "latest"
+      },
+      {
+      name = "Source"
+      category = "Source"
+      owner = "AWS"
+      provider = "CodeStarSourceConnection"
+      version = "1"
+      output_artifacts = ["source"]
+      configuration = {
+        FullRepositoryId = "${lookup(var.git_repository,"FullRepositoryId")}"
+        BranchName   = "${lookup(var.git_repository,"BranchName")}"
+        ConnectionArn = "${lookup(var.git_repository,"ConnectionArn")}"
+        OutputArtifactFormat = "CODE_ZIP"
       }
     }
   }
@@ -100,22 +112,22 @@ resource "aws_codepipeline" "pipeline" {
   }
 }
 
-#locals {
-#  webhook_secret = "super-secret"
-#}
+locals {
+  webhook_secret = "super-secret"
+}
 
-#resource "aws_codepipeline_webhook" "pipeline" {
-#  name            = "test-webhook-github-pipeline"
-#  authentication  = "GITHUB_HMAC"
-#  target_action   = "Source"
-#  target_pipeline = aws_codepipeline.pipeline.name
+resource "aws_codepipeline_webhook" "pipeline" {
+  name            = "test-webhook-github-pipeline"
+  authentication  = "GITHUB_HMAC"
+  target_action   = "Source"
+  target_pipeline = aws_codepipeline.pipeline.name
 
-#  authentication_configuration {
-#    secret_token = local.webhook_secret
-#  }
+  authentication_configuration {
+    secret_token = local.webhook_secret
+  }
 
-#  filter {
-#    json_path    = "$.ref"
-#    match_equals = "refs/heads/{Branch}"
-#  }
-#}
+  filter {
+    json_path    = "$.ref"
+    match_equals = "refs/heads/{Branch}"
+  }
+}
