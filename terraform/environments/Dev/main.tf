@@ -44,7 +44,7 @@ module "ecs-pipeline" {
   cluster_name        = local.application_name
   app_repository_name = local.application_name
   container_name      = local.application_name
-  image               = "${module.ecs.repository_url}:latest"
+  image               = "${repository_url}:latest"
   environment         = local.environment
 
   alb_port         = "80"
