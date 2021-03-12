@@ -52,11 +52,11 @@ module "ecs-pipeline" {
   container_port   = "3000"
   helth_check_path = "/"
 
-  git_repository = {
-    BranchName       = "main"
-    FullRepositoryId = "nana808-git/sleestack"
-    ConnectionArn    = "arn:aws:codestar-connections:us-east-1:667736119737:connection/fc834fd4-ccfc-43a9-a4cc-12133eee0c30"
-  }
+  #git_repository = {
+  #  BranchName       = "main"
+  #  FullRepositoryId = "nana808-git/sleestack"
+  #  ConnectionArn    = "arn:aws:codestar-connections:us-east-1:667736119737:connection/fc834fd4-ccfc-43a9-a4cc-12133eee0c30"
+  #}
 
   domain_name         = local.domain
   ssl_certificate_arn = "arn:aws:acm:us-east-1:667736119737:certificate/8a4cdeec-e44c-42c0-b4ce-c1d2dc12f657"

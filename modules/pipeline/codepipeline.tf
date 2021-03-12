@@ -45,23 +45,23 @@ resource "aws_codepipeline" "pipeline" {
 #    }
 #  }
 
-#  stage {
-#    name = "Build"
+  stage {
+    name = "Build"
 
-#    action {
-#      name             = "Build"
-#      category         = "Build"
-#      owner            = "AWS"
-#      provider         = "CodeBuild"
-#      version          = "1"
-#      input_artifacts  = ["source"]
-#      output_artifacts = ["BuildOutput"]
-#
-#      configuration = {
-#        ProjectName = "${var.cluster_name}-${var.environment}-codebuild"
-#      }
-#    }
-#  }
+    action {
+      name             = "Build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["source"]
+      output_artifacts = ["BuildOutput"]
+
+      configuration = {
+        ProjectName = "${var.cluster_name}-${var.environment}-codebuild"
+      }
+    }
+  }
 
   stage {
     name = "Staging"

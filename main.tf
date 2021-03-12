@@ -10,6 +10,7 @@ module "pipeline" {
   app_repository_name            = var.app_repository_name
   git_repository                 = var.git_repository
   repository_url                 = module.ecs.repository_url
+  repository_url                 = module.ecs.repository_name
   app_service_name               = module.ecs.service_name
   vpc_id                         = var.vpc_id
 
@@ -28,6 +29,7 @@ module "ecs" {
   image               = var.image
   region              = var.region
   repository_url      = module.ecs.repository_url
+  repository_url      = module.ecs.repository_name
   container_name      = var.container_name
   app_repository_name = var.app_repository_name
   alb_port            = var.alb_port
