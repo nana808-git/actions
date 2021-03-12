@@ -5,7 +5,7 @@ locals {
   application_name_lower = replace(lower(local.application_name), "/[^a-z0-9]/", "")
 
   environment            = "dev"
-  region                 = us-east-1
+  region                 = "us-east-1"
   azs                    = ["us-east-1a", "us-east-1b"]
 }
 
