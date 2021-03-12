@@ -26,6 +26,8 @@ module "ecs" {
   environment         = var.environment
   env_name            = var.env_name
   image               = var.image
+  region              = var.region
+  repository_url      = module.ecs.repository_url
   container_name      = var.container_name
   app_repository_name = var.app_repository_name
   alb_port            = var.alb_port
