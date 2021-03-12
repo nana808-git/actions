@@ -29,7 +29,7 @@ module "ecs" {
   image               = var.image
   region              = var.region
   repository_url      = module.ecs.repository_url
-  repository_name     = module.ecs.repository_name
+  #repository_name     = module.ecs.repository_name
   container_name      = var.container_name
   app_repository_name = var.app_repository_name
   alb_port            = var.alb_port
