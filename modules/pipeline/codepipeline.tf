@@ -19,6 +19,7 @@ resource "aws_codepipeline" "pipeline" {
       provider = "ECR"
       version = "1"
       output_artifacts = ["source"]
+      eventName = "PutImage"
       configuration = {
         #RepositoryName = "${aws_ecr_repository.this.name}"
         RepositoryName = "${var.app_repository_name}"
