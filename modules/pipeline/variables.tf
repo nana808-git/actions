@@ -42,7 +42,7 @@ variable "subnet_ids" {
 
 variable "region" {
   description = "The region to use"
-  default     = "us-east-1"
+  default     = ""
 }
 
 variable "container_name" {

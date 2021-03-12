@@ -41,10 +41,11 @@ module "ecs-pipeline" {
   public_subnets = module.vpc.public_subnets
   private_subnets = module.vpc.private_subnets
 
+  region              = us-east-1
+
   cluster_name        = local.application_name
   app_repository_name = local.application_name
   container_name      = local.application_name
-  #image               = "${repository_url}:latest"
   environment         = local.environment
 
   alb_port         = "80"

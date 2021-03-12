@@ -8,6 +8,7 @@ variable "container_name" {
 
 variable "region" {
   description = "The region"
+  default     = ""
 }
 
 variable "repository_url" {
