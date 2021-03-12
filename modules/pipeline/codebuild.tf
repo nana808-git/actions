@@ -21,11 +21,11 @@ data "template_file" "buildspec" {
   }
 }
 
-#resource "aws_codebuild_source_credential" "source-credentials" {
-#  auth_type   = "PERSONAL_ACCESS_TOKEN"
-#  server_type = "GITHUB"
-#  token       = "{{resolve:secretsmanager:GITHUB_ACCESS:SecretString:GITHUB_ACCESS_TOKEN}}"
-#}
+resource "aws_codebuild_source_credential" "source-credentials" {
+  auth_type   = "PERSONAL_ACCESS_TOKEN"
+  server_type = "GITHUB"
+  token       = "{{resolve:secretsmanager:GITHUB_ACCESS:SecretString:GITHUB_ACCESS_TOKEN}}"
+}
 
 
 resource "aws_codebuild_project" "app_build" {
