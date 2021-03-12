@@ -13,6 +13,10 @@ output "vpc_private_subnet_ids" {
   description = "List of IDs of VPC private subnets."
 }
 
+output "repository_name" {
+  value = module.ecs.repository_name
+}
+
 output "ecs_repository_url" {
   value       = module.ecs.repository_url
   description = "URL of ECR with build artifacts."
