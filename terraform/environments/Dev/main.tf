@@ -4,9 +4,9 @@ locals {
   domain                 = "nana808test.com"
   application_name_lower = replace(lower(local.application_name), "/[^a-z0-9]/", "")
 
-  environment = "dev"
-
-  azs = ["us-east-1a", "us-east-1b"]
+  environment            = "dev"
+  region                 = us-east-1
+  azs                    = ["us-east-1a", "us-east-1b"]
 }
 
 data "aws_acm_certificate" "ssl-cert" {
@@ -41,7 +41,7 @@ module "ecs-pipeline" {
   public_subnets = module.vpc.public_subnets
   private_subnets = module.vpc.private_subnets
 
-  region              = us-east-1
+  region              = local.region
 
   cluster_name        = local.application_name
   app_repository_name = local.application_name
