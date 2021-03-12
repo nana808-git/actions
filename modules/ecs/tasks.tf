@@ -6,6 +6,7 @@ data "template_file" "api_task" {
     cluster_name        = var.cluster_name
     container_name      = "${var.cluster_name}-${var.environment}-node-api"
     environment         = var.environment
+    region              = var.region
     container_port      = var.container_port
     log_group           = aws_cloudwatch_log_group.web-app.name
     desired_task_cpu    = var.desired_task_cpu

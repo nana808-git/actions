@@ -29,6 +29,7 @@ module "ecs" {
   container_name      = var.container_name
   app_repository_name = var.app_repository_name
   alb_port            = var.alb_port
+  region              = var.region
   container_port      = var.container_port
   min_tasks           = var.min_tasks
   max_tasks           = var.max_tasks
