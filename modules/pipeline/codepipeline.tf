@@ -24,7 +24,8 @@ resource "aws_codepipeline" "pipeline" {
         RepositoryName = "${var.app_repository_name}"
         ImageTag       = "latest"
       }
-      {
+    },
+    {
       name = "Source"
       category = "Source"
       owner = "AWS"
