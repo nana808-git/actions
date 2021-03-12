@@ -2,7 +2,7 @@ data "template_file" "api_task" {
   template = file("${path.module}/task-definitions/api-task.json")
 
   vars = {
-    image               = var.image
+    image               = "${var.repository_url}:latest"
     cluster_name        = var.cluster_name
     container_name      = "${var.cluster_name}-${var.environment}-node-api"
     environment         = var.environment
