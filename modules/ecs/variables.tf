@@ -6,6 +6,14 @@ variable "container_name" {
   description = "The container name"
 }
 
+variable "region" {
+  description = "The region"
+}
+
+variable "repository_url" {
+  description = "The ecr URI"
+}
+
 variable "image" {
   description = "The container image"
 }
