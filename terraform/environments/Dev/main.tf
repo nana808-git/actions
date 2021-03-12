@@ -23,7 +23,7 @@ module "vpc" {
   azs             = local.azs
   cidr            = "10.100.96.0/20"
   public_subnets  = ["10.100.96.0/22", "10.100.100.0/22"]
-  private_subnets  = ["10.104.96.0/22", "10.100.108.0/22"]
+  private_subnets  = ["10.100.104.0/22", "10.100.108.0/22"]
 
   enable_ipv6 = false
 
@@ -44,7 +44,7 @@ module "ecs-pipeline" {
   cluster_name        = local.application_name
   app_repository_name = local.application_name
   container_name      = local.application_name
-  image               = ""
+  image               = "module.ecs.repository_url:latest"
   environment         = local.environment
 
   alb_port         = "80"
