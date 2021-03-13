@@ -13,7 +13,7 @@
         "latest"
       ],
       "repository-name": [
-        "${cluster_name}-${environment}-ecr-node"
+        "${ecr_repository_name}"
       ]
     }
   }
