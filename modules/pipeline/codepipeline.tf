@@ -25,7 +25,7 @@ resource "aws_codepipeline" "pipeline" {
         ImageTag       = "latest"
       }
     }
-
+   }
 #  stage {
 #    name = "Source"
 #    action{
@@ -97,6 +97,26 @@ resource "aws_codepipeline" "pipeline" {
     }
   }
 }
+
+#locals {
+#  webhook_secret = "super-secret"
+#}
+
+#resource "aws_codepipeline_webhook" "pipeline" {
+#  name            = "test-webhook-github-pipeline"
+#  authentication  = "GITHUB_HMAC"
+#  target_action   = "Source"
+#  target_pipeline = aws_codepipeline.pipeline.name
+
+#  authentication_configuration {
+#    secret_token = local.webhook_secret
+#  }
+
+#  filter {
+#    json_path    = "$.ref"
+#    match_equals = "refs/heads/{Branch}"
+#  }
+#}
 
 
 
