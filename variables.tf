@@ -53,10 +53,6 @@ variable "app_repository_name" {
   default     = ""
 }
 
-variable "repository_name" {
-  description = "Full name of ECR Repository"
-}
-
 variable "container_name" {
   type        = string
   description = "container app name"

@@ -36,10 +36,6 @@ variable "app_repository_name" {
   description = "Name of ECR Repository"
 }
 
-variable "repository_name" {
-  description = "Full name of ECR Repository"
-}
-
 variable "environment" {
   description = "which environment"
 }
