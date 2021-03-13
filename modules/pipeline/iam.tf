@@ -53,3 +53,64 @@ resource "aws_iam_role_policy" "codebuild_policy" {
   role   = aws_iam_role.codebuild_role.id
   policy = data.template_file.codebuild_policy.rendered
 }
+
+data "template_file" "codepipeline_events" {
+  template = file("${path.module}/templates/policies/codepipeline-source-event.json")
+  vars = {
+    codepipeline_names = jsonencode(aws_codepipeline.pipeline[*].name)
+  }
+}
+
+data "template_file" "codepipeline_events_sns" {
+  template = file("${path.module}/templates/policies/sns-cloudwatch-events-policy.json")
+  vars = {
+    sns_arn = aws_sns_topic.codepipeline_events.arn
+  }
+}
+
+resource "aws_cloudwatch_event_rule" "codepipeline_events" {
+  name        = "${var.app_repository_name}-${var.environment}-pipeline-events"
+  description = "Amazon CloudWatch Events rule to automatically post SNS notifications when CodePipeline state changes."
+  event_pattern = data.template_file.codepipeline_events.rendered
+}
+
+resource "aws_sns_topic" "codepipeline_events" {
+  name         = "${var.app_repository_name}-${var.environment}-codepipeline-events"
+  display_name = "${var.app_repository_name}-${var.environment}-codepipeline-events"
+}
+
+resource "aws_sns_topic_policy" "codepipeline_events" {
+  arn = aws_sns_topic.codepipeline_events.arn
+  policy = data.template_file.codepipeline_events_sns.rendered
+}
+
+resource "aws_cloudwatch_event_target" "codepipeline_events" {
+  rule      = aws_cloudwatch_event_rule.codepipeline_events[count.index].name
+  target_id = "${var.app_repository_name}-${var.environment}-codepipeline"
+  arn       = aws_sns_topic.codepipeline_events.arn
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

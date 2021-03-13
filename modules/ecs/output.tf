@@ -38,3 +38,27 @@ output "alb_dns_name" {
   value = aws_alb.app_alb.dns_name
 }
 
+output "ecs_cluster_arn" {
+  description = "ARN of the ECS Cluster"
+  value       = aws_ecs_cluster.cluster.arn
+}
+
+output "ecr_repository_arns" {
+  description = "List of ARNs of ECR repositories"
+  value       = aws_ecr_repository.web-app.*.arn
+}
+
+output "ecr_repository_urls" {
+  description = "List of URLs of ECR repositories"
+  value       = aws_ecr_repository.web-app.*.repository_url
+}
+
+output "cloudwatch_log_group_names" {
+  description = "List of Names of Cloudwatch Log Groups"
+  value       = aws_cloudwatch_log_group.this.*.name
+}
+
+output "cloudwatch_log_group_retention_days" {
+  description = "List of Retention in Days configuration of Cloudwatch Log Groups"
+  value       = aws_cloudwatch_log_group.this.*.retention_in_days
+}
