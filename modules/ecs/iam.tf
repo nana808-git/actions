@@ -55,10 +55,10 @@ data "aws_iam_policy_document" "ecs_service_role" {
 data "template_file" "metric_dashboard" {
   template = file("${path.module}/policies/basic-dashboard.json")
   vars = {
-    region         = var.region != "" ? var.region : data.aws_region.current.name
-    alb_arn_suffix = aws_lb.app_alb.arn_suffix
-    cluster_name   = aws_ecs_cluster.web-app.name
-    service_name   = aws_ecs_service.web-api.name
+    region         = var.region 
+    alb_arn_suffix = "${var.cluster_name}-${var.environment}-alb-node"
+    cluster_name   = "${var.cluster_name}-${var.environment}-ecs-node"
+    service_name   = "${var.cluster_name}-${var.environment}-node-api"
   }
 }
 
@@ -67,6 +67,13 @@ resource "aws_cloudwatch_dashboard" "this" {
   dashboard_body = data.template_file.metric_dashboard.rendered
 }
 
+
+data "template_file" "ecr_event" {
+  template = file("${path.module}/templates/policies/ecr-source-event.json")
+  vars = {
+    ecr_repository_name = aws_ecr_repository.web-app.name
+  }
+}
 
 
 
