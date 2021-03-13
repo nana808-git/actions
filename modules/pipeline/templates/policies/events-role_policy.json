@@ -7,7 +7,7 @@
                 "codepipeline:StartPipelineExecution"
             ],
             "Resource": [
-              "${codepipeline_arn}"
+              "*"
             ]
         }
     ]
