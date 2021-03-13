@@ -17,6 +17,24 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
   policy = data.template_file.codepipeline_policy.rendered
 }
 
+resource "aws_iam_role" "events_role" {
+  name               = "${var.app_repository_name}-${var.environment}-events-role"
+  assume_role_policy = file("${path.module}/templates/policies/events_role.json")
+}
+
+data "template_file" "events_policy" {
+  template = file("${path.module}/templates/policies/events-role_policy.json")
+  vars = {
+    codepipeline_arn = aws_codepipeline.pipeline.arn
+  }
+}
+
+resource "aws_iam_role_policy" "events" {
+  name   = "${var.app_repository_name}-${var.environment}-events-role-policy"
+  role   = aws_iam_role.events_role.id
+  policy = data.template_file.events_policy.rendered
+}
+
 resource "aws_iam_role" "codebuild_role" {
   name               = "${var.app_repository_name}-${var.environment}-codebuild-role"
   assume_role_policy = file("${path.module}/templates/policies/codebuild_role.json")

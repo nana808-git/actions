@@ -9,13 +9,4 @@
       "Action": "sts:AssumeRole"
     }
   ]
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "events.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
 }
