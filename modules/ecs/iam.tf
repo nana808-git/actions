@@ -67,19 +67,7 @@ resource "aws_cloudwatch_dashboard" "this" {
   dashboard_body = data.template_file.metric_dashboard.rendered
 }
 
-data "template_file" "ecr_event" {
-  template = file("${path.module}/policies/ecr-source-event.json")
-  vars = {
-    ecr_repository_name = aws_ecr_repository.web-app.name
-  }
-}
 
-resource "aws_cloudwatch_event_rule" "events" {
-  name        = "${var.app_repository_name}-${var.environment}-ecr-event"
-  description = "Amazon CloudWatch Events rule to automatically start your pipeline when a change occurs in the Amazon ECR image tag."
-  event_pattern = data.template_file.ecr_event.rendered
-  depends_on = [aws_codepipeline.pipeline]
-}
 
 
 
