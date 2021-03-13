@@ -8,7 +8,7 @@ module "pipeline" {
   codestar_connector_credentials = var.codestar_connector_credentials
   container_name                 = var.container_name
   app_repository_name            = var.app_repository_name
-  repository_name                = module.ecs.repository_name
+  repository_name                = var.repository_name
   git_repository                 = var.git_repository
   repository_url                 = module.ecs.repository_url
   app_service_name               = module.ecs.service_name
@@ -31,7 +31,7 @@ module "ecs" {
   repository_url      = module.ecs.repository_url
   container_name      = var.container_name
   app_repository_name = var.app_repository_name
-  repository_name     = module.ecs.repository_name
+  repository_name     = var.repository_name
   alb_port            = var.alb_port
   container_port      = var.container_port
   min_tasks           = var.min_tasks
