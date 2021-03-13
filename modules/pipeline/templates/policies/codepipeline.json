@@ -23,6 +23,13 @@
     {
       "Effect": "Allow",
       "Action": [
+        "codepipeline:StartPipelineExecution"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
         "codestar-connections:UseConnection",
         "codestar-connections:GetConnection"
       ],
@@ -101,7 +108,7 @@
     {
       "Effect": "Allow",
       "Action": "codestar-connections:PassConnection",
-      "Resource": "arn:aws:codestar-connections:us-west-1:710789462061:connection/024d34e3-7643-4ffe-ab6a-93053546f46f"
+      "Resource": "*"
     },
     {
       "Effect": "Allow",
