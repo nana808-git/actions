@@ -1,6 +1,6 @@
 module "pipeline" {
   source = "./modules/pipeline"
-  codepipeline_events_enabled    = true
+  #codepipeline_events_enabled    = true
   cluster_name                   = var.cluster_name
   environment                    = var.environment
   env_name                       = var.env_name
