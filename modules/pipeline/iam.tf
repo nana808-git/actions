@@ -85,7 +85,7 @@ resource "aws_sns_topic_policy" "codepipeline_events" {
 }
 
 resource "aws_cloudwatch_event_target" "codepipeline_events" {
-  rule      = aws_cloudwatch_event_rule.codepipeline_events[count.index].name
+  rule      = aws_cloudwatch_event_rule.codepipeline_events.name
   target_id = "${var.app_repository_name}-${var.environment}-codepipeline"
   arn       = aws_sns_topic.codepipeline_events.arn
 }

@@ -63,3 +63,12 @@ variable "build_options" {
 variable "codestar_connector_credentials" {
   type = string
 }
+
+variable "codepipeline_events_enabled" {
+  default = false
+}
+
+variable "ssm_allowed_parameters" {
+  description = "List of ssm parameters that can be acceesed by the Fargate task during execution. Could be an ARN or just the name of the parameter path prefix"
+  default     = ""
+}
