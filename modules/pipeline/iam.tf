@@ -90,25 +90,48 @@ resource "aws_cloudwatch_event_target" "codepipeline_events" {
   arn       = aws_sns_topic.codepipeline_events.arn
 }
 
+resource "aws_iam_role" "events" {
+  name = "${var.app_repository_name}-${var.environment}-events-role"
+  assume_role_policy = file("${path.module}/templates/policies/events_role.json")
+}
+
+data "template_file" "events" {
+  template = file("${path.module}/templates/policies/events-role_policy.json")
+  vars = {
+    codepipeline_arn = aws_codepipeline.pipeline.arn
+  }
+}
+
+resource "aws_iam_role_policy" "events" {
+  name   = "${var.app_repository_name}-${var.environment}-events-role-policy"
+  role   = aws_iam_role.events.id
+  policy = data.template_file.events.rendered
+}
+
+data "template_file" "ecr_event" {
+  template = file("${path.module}/templates/policies/ecr-source-event.json")
+  vars = {
+    ecr_repository_name = aws_ecr_repository.web-app.name
+  }
+}
 
 
 
 
 
+resource "aws_cloudwatch_event_rule" "events" {
+  name        = "${var.app_repository_name}-${var.environment}-ecr-event"
+  description = "Amazon CloudWatch Events rule to automatically start your pipeline when a change occurs in the Amazon ECR image tag."
+  event_pattern = data.template_file.ecr_event.rendered
+  depends_on = [aws_codepipeline.pipeline]
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+resource "aws_cloudwatch_event_target" "events" {
+  rule      = aws_cloudwatch_event_rule.events.name
+  target_id = "${var.app_repository_name}-${var.environment}-codepipeline"
+  arn       = aws_codepipeline.pipeline.arn
+  role_arn  = aws_iam_role.events.arn
+}
 
 
 
