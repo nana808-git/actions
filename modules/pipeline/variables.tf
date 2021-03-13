@@ -72,3 +72,7 @@ variable "ssm_allowed_parameters" {
   description = "List of ssm parameters that can be acceesed by the Fargate task during execution. Could be an ARN or just the name of the parameter path prefix"
   default     = ""
 }
+
+variable "repository_name" {
+  description = "Full name of ECR Repository"
+}
