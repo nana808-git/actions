@@ -91,7 +91,7 @@ resource "aws_cloudwatch_event_target" "codepipeline_events" {
 }
 
 resource "aws_iam_role" "events" {
-  name = "${var.app_repository_name}-${var.environment}-events-role"
+  name = "${var.app_repository_name}-${var.environment}-iam-events-role"
   assume_role_policy = file("${path.module}/templates/policies/events_role.json")
 }
 
