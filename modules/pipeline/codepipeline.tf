@@ -21,7 +21,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["source"]
       configuration = {
         #RepositoryName = "${aws_ecr_repository.this.name}"
-        RepositoryName = "${var.app_repository_name}"
+        RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
         ImageTag       = "latest"
       }
     }
