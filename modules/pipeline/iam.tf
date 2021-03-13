@@ -104,9 +104,6 @@ data "template_file" "events" {
 
 data "template_file" "ecr_event" {
   template = file("${path.module}/templates/policies/ecr-source-event.json")
-  vars = {
-    ecr_repository_name = module.ecs.aws_ecr_repository.web-app.name
-  }
 }
 
 resource "aws_cloudwatch_event_rule" "events" {
