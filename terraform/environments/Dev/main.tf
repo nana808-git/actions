@@ -47,7 +47,6 @@ module "ecs-pipeline" {
   app_repository_name = local.application_name
   container_name      = local.application_name
   environment         = local.environment
-  repository_name     = module.ecs.aws_ecr_repository.web-app.name
 
   alb_port         = "80"
   container_port   = "3000"
