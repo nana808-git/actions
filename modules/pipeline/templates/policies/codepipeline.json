@@ -27,12 +27,19 @@
         "codestar-connections:GetConnection"
       ],
       "Resource": "*"
-    },  
+    },
     {
       "Effect": "Allow",
       "Action": [
         "codebuild:BatchGetBuilds",
         "codebuild:StartBuild"
+      ],
+      "Resource": "*"
+    },  
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ecr:DescribeImages"
       ],
       "Resource": "*"
     },
