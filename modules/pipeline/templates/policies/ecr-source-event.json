@@ -13,7 +13,7 @@
         "latest"
       ],
       "repository-name": [
-        "${ecr_repository_name}"
+        "${repository_name}"
       ]
     }
   }

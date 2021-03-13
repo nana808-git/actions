@@ -73,3 +73,6 @@ variable "ssm_allowed_parameters" {
   default     = ""
 }
 
+variable "repository_name" {
+  description = "Full name of ECR Repository"
+}
