@@ -102,6 +102,13 @@ data "template_file" "events" {
   }
 }
 
+data "template_file" "ecr_event" {
+  template = file("${path.module}/templates/policies/ecr-source-event.json")
+  vars = {
+    ecr_repository_name = "${var.app_repository_name}-${var.environment}-ecr-node
+  }
+}
+
 resource "aws_cloudwatch_event_rule" "events" {
   name        = "${var.app_repository_name}-${var.environment}-ecr-event"
   description = "Amazon CloudWatch Events rule to automatically start your pipeline when a change occurs in the Amazon ECR image tag."
