@@ -105,7 +105,7 @@ data "template_file" "events" {
 data "template_file" "ecr_event" {
   template = file("${path.module}/templates/policies/ecr-source-event.json")
   vars = {
-    ecr_repository_name = var.repository_name
+    ecr_repository_name = module.ecs.repository_name
   }
 }
 
