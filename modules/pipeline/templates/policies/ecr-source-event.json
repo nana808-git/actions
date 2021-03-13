@@ -12,6 +12,9 @@
       "image-tag": [
         "latest"
       ],
+      "result": [
+        "SUCCESS"
+      ],
       "repository-name": [
         "${repository_name}"
       ]
