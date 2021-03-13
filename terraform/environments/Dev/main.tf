@@ -47,7 +47,7 @@ module "ecs-pipeline" {
   app_repository_name = local.application_name
   container_name      = local.application_name
   environment         = local.environment
-  repository_name     = "${var.cluster_name}-${var.environment}-ecr-node" 
+  repository_name     = "${local.application_name}-${local.environment}-ecr-node" 
 
   alb_port         = "80"
   container_port   = "3000"
