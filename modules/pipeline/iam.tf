@@ -102,11 +102,16 @@ data "template_file" "events" {
   }
 }
 
+resource "aws_iam_role_policy" "events" {
+  name   = "${var.app_repository_name}-${var.environment}-events-role-policy"
+  role   = aws_iam_role.events.id
+  policy = data.template_file.events.rendered
+}
+
 data "template_file" "ecr_event" {
   template = file("${path.module}/templates/policies/ecr-source-event.json")
   vars = {
-    #repository_name = var.repository_name
-    repository_name = "ss-dev
+    repository_name = var.repository_name
   }
 }
 
