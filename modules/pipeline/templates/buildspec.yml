@@ -8,7 +8,7 @@ phases:
       - apt-get update && apt-get install jq -y
       #- $(aws ecr get-login --region ${region} --no-include-email)
       - REPOSITORY_URI=${repository_url}
-      - export IMAGE_TAG=latest-`echo codebuild-$CODEBUILD_BUILD_NUMBER`
+      #- export IMAGE_TAG=latest-`echo codebuild-$CODEBUILD_BUILD_NUMBER`
   build:
     commands:
       - echo Build started on `date`
@@ -22,8 +22,8 @@ phases:
       #- docker push $REPOSITORY_URI:latest
       #- docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"${cluster_name}-${environment}-node-api","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
-      #- printf '[{"name":"${cluster_name}-${environment}-node-api","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
+      #- printf '[{"name":"${cluster_name}-${environment}-node-api","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"${cluster_name}-${environment}-node-api","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
 artifacts:
   files:
     - imagedefinitions.json
