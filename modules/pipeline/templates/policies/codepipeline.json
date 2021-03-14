@@ -76,20 +76,6 @@
       }
     },
     {
-      "Action": "iam:CreateServiceLinkedRole",
-      "Effect": "Allow",
-      "Resource": [
-        "*"
-      ],
-      "Condition": {
-        "StringLike": {
-          "iam:AWSServiceName": [
-            "replication.ecr.amazonaws.com"
-          ]
-        }
-      }
-    },
-    {
       "Action": "iam:PassRole",
       "Effect": "Allow",
       "Resource": [
@@ -103,13 +89,6 @@
           ]
         }
       }
-    },
-    {
-      "Action": "ecr:*",
-      "Effect": "Allow",
-      "Resource": [
-        "*"
-      ]
     },
     {
       "Action": "iam:PassRole",

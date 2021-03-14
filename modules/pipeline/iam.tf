@@ -118,7 +118,7 @@ resource "aws_cloudwatch_event_rule" "events" {
 
 resource "aws_cloudwatch_event_target" "events" {
   rule      = aws_cloudwatch_event_rule.events.name
-  target_id = "${var.cluster_name}-${var.environment}-codepipeline"
+  target_id = "${var.cluster_name}-${var.environment}-pipeline"
   arn       = aws_codepipeline.pipeline.arn
   role_arn  = aws_iam_role.events.arn
 }
