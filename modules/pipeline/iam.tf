@@ -102,7 +102,7 @@ data "template_file" "ecr-events" {
   }
 }
 
-resource "aws_iam_role_policy" "events" {
+resource "aws_iam_role_policy" "ecr-events" {
   name   = "${var.app_repository_name}-${var.environment}-events-role-policy"
   role   = aws_iam_role.ecr-events.id
   policy = data.template_file.ecr-events.rendered
