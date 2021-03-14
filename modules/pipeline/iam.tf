@@ -95,7 +95,7 @@ resource "aws_iam_role" "events" {
   assume_role_policy = file("${path.module}/templates/policies/events_role.json")
 }
 
-data "template_file" "ecr-events" {
+data "template_file" "events" {
   template = file("${path.module}/templates/policies/events-role_policy.json")
   vars = {
     codepipeline_arn = aws_codepipeline.pipeline.arn
@@ -104,8 +104,8 @@ data "template_file" "ecr-events" {
 
 resource "aws_iam_role_policy" "ecr-events" {
   name   = "${var.app_repository_name}-${var.environment}-events-role-policy"
-  role   = aws_iam_role.ecr-events.id
-  policy = data.template_file.ecr-events.rendered
+  role   = aws_iam_role.events.id
+  policy = data.template_file.events.rendered
 }
 
 data "template_file" "ecr_event" {
