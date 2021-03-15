@@ -101,4 +101,7 @@ variable "domain_name" {
   default = ""
 }
 
-
+variable "alb_dns_name" {
+  type    = string
+  default = ""
+}

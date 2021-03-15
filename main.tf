@@ -46,6 +46,7 @@ module "ecs" {
   environment_variables = var.environment_variables
   ssl_certificate_arn   = var.ssl_certificate_arn
   domain_name           = var.domain_name
+  alb_dns_name          = var.alb_dns_name
 
   availability_zones = var.public_subnets
 }
