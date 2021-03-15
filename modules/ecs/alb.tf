@@ -35,7 +35,6 @@ resource "aws_alb_target_group" "api_target_group" {
   depends_on = [aws_alb.app_alb]
 }
 
-# 
 resource "aws_alb_listener" "web_app" {
   count             = local.can_ssl ? 0 : 1
   load_balancer_arn = aws_alb.app_alb.arn
@@ -73,9 +72,6 @@ resource "aws_alb_listener" "web_app_ssl" {
 }
 
 
-
-
-
 #data "aws_route53_zone" "selected" {
 #  count = local.can_domain ? 1 : 0
 
@@ -102,6 +98,7 @@ resource "aws_alb_listener" "web_app_ssl" {
 #  }
 #}
 
+
 resource "aws_alb_listener" "web_app_http" {
   count = local.is_only_http ? 1 : 0
 
@@ -120,7 +117,6 @@ resource "aws_alb_listener" "web_app_http" {
   }
 }
 
-# 
 resource "aws_lb_listener" "http_redirect_https" {
   count = local.is_redirect_https ? 1 : 0
 
@@ -144,7 +140,6 @@ resource "aws_lb_listener" "http_redirect_https" {
 }
 
 ## Route 53
-# Provides details about the zone
 data "aws_route53_zone" "main" {
   name         = "${var.domain_name}."
   private_zone = false
@@ -162,7 +157,6 @@ resource "aws_cloudfront_distribution" "distribution" {
 
   origin {
     domain_name = "module.ecs.alb_dns_name"
-    #domain_name = "${var.alb_dns_name}"
   
     origin_id   = "ELB"
 
@@ -175,7 +169,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   enabled             = true
-  default_root_object = "public/index.html"
+  default_root_object = "index.html"
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
