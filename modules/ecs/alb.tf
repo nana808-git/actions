@@ -175,7 +175,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   enabled             = true
-  default_root_object = "index.html"
+  default_root_object = "public/index.html"
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -250,7 +250,7 @@ resource "aws_s3_bucket" "bucket" {
   force_destroy = true
 
   website {
-    index_document = "index.html"
+    index_document = "public/index.html"
     error_document = "error.html"
   }  
 }
