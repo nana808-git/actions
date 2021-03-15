@@ -54,7 +54,7 @@ variable "app_repository_name" {
 }
 
 variable "alb_dns_name" {
-  description = "DNS name of the ELB
+  description = "DNS name of the ELB"
 }
 
 variable "repository_name" {
