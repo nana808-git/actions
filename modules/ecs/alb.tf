@@ -161,23 +161,24 @@ data "aws_route53_zone" "main" {
 resource "aws_cloudfront_distribution" "distribution" {
   origin {
     domain_name = "${aws_s3_bucket.bucket.bucket_regional_domain_name}"
-    origin_id   = "s3"
+    origin_id   = "s3${aws_s3_bucket.bucket.name}"
 
     s3_origin_config {
       origin_access_identity = "${aws_cloudfront_origin_access_identity.OAI.cloudfront_access_identity_path}"
     }
   }
-#  origin {
-#    domain_name = replace(aws_api_gateway_deployment.deployment.invoke_url, "/^https?://([^/]*).*/", "$1")
-#    origin_id   = "apigw"
 
-#    custom_origin_config {
-#      http_port              = 80
-#      https_port             = 443
-#      origin_protocol_policy = "https-only"
-#      origin_ssl_protocols   = ["TLSv1.2"]
-#    }
-#  }
+  origin {
+    domain_name = "${aws_elb.app_alb.name.elb_regional_domain_name"
+    origin_id   = "ELB-${aws_elb.app_alb.name}"
+
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2", "SSLv3"]
+    }
+  }
 
   enabled             = true
   default_root_object = "index.html"
@@ -202,7 +203,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     path_pattern     = "/api/*"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "apigw"
+    target_origin_id = "ELB"
 
     default_ttl = 0
     min_ttl     = 0
