@@ -161,7 +161,7 @@ data "aws_route53_zone" "main" {
 resource "aws_cloudfront_distribution" "distribution" {
   origin {
     domain_name = "${aws_s3_bucket.bucket.bucket_regional_domain_name}"
-    origin_id   = "s3${aws_s3_bucket.bucket.name}"
+    origin_id   = "s3"
 
     s3_origin_config {
       origin_access_identity = "${aws_cloudfront_origin_access_identity.OAI.cloudfront_access_identity_path}"
@@ -169,8 +169,8 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   origin {
-    domain_name = "${aws_elb.app_alb.name.elb_regional_domain_name}"
-    origin_id   = "ELB-${aws_elb.app_alb.name}"
+    domain_name = "${aws_elb.app_alb.elb_regional_domain_name}"
+    origin_id   = "ELB"
 
     custom_origin_config {
       http_port              = 80
