@@ -53,9 +53,9 @@ variable "app_repository_name" {
   default     = ""
 }
 
-variable "alb_dns_name" {
-  description = "DNS name of the ELB"
-}
+#variable "alb_dns_name" {
+#  description = "DNS name of the ELB"
+#}
 
 variable "repository_name" {
   description = "Full name of ECR Repository"
