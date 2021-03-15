@@ -250,15 +250,13 @@ resource "aws_route53_record" "website_cdn_redirect_record" {
 
 # s3 origin
 resource "aws_s3_bucket" "bucket" {
+  bucket = "${var.cluster_name}-${var.environment}-react-bucket"
   acl    = "public-read"
   force_destroy = true
 
   website {
     index_document = "index.html"
     error_document = "error.html"
-  }
-  tags = {
-    Name = "${var.cluster_name}-${var.environment}-bucket"
   }  
 }
 
