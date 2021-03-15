@@ -169,7 +169,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   origin {
-    #domain_name = "module.ecs.alb_dns_name"
+    domain_name = "module.ecs.alb_dns_name"
     #domain_name = "${var.alb_dns_name}"
   
     origin_id   = "ELB"
