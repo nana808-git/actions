@@ -53,6 +53,11 @@ variable "app_repository_name" {
   default     = ""
 }
 
+variable "alb_dns_name" {
+  type    = string
+  default = ""
+}
+
 variable "repository_name" {
   description = "Full name of ECR Repository"
 }
