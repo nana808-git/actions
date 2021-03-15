@@ -143,14 +143,6 @@ resource "aws_lb_listener" "http_redirect_https" {
   }
 }
 
-
-
-
-
-
-
-
-
 ## Route 53
 # Provides details about the zone
 data "aws_route53_zone" "main" {
@@ -202,7 +194,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "/api/*"
+    path_pattern     = "/api*"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "ELB"
