@@ -169,7 +169,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   origin {
-    domain_name = "${aws_elb.app_alb.elb_regional_domain_name}"
+    domain_name = "${aws_elb.app_alb.elb}.${var.region}.amazonaws.com"
     origin_id   = "ELB"
 
     custom_origin_config {
