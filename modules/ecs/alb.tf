@@ -250,7 +250,7 @@ resource "aws_s3_bucket" "bucket" {
   force_destroy = true
 
   website {
-    index_document = "public/index.html"
+    index_document = "index.html"
     error_document = "error.html"
   }  
 }
