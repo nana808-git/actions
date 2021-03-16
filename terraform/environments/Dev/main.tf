@@ -62,7 +62,6 @@ module "ecs-pipeline" {
 
   domain_name         = local.domain
   ssl_certificate_arn = "arn:aws:acm:us-east-1:667736119737:certificate/8a4cdeec-e44c-42c0-b4ce-c1d2dc12f657"
-  ssl_certificate_id  = "8a4cdeec-e44c-42c0-b4ce-c1d2dc12f657"
 }
 
 
