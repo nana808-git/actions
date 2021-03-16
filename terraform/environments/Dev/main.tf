@@ -18,7 +18,8 @@ data "aws_acm_certificate" "ssl-cert" {
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = local.application_name
+  name = "${local.application_name}-${local.environment}-vpc" 
+
 
   azs             = local.azs
   cidr            = "10.100.96.0/20"
