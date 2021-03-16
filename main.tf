@@ -45,6 +45,7 @@ module "ecs" {
   helth_check_path      = var.helth_check_path
   environment_variables = var.environment_variables
   ssl_certificate_arn   = var.ssl_certificate_arn
+  ssl_certificate_id   = var.ssl_certificate_id
   domain_name           = var.domain_name
 
   availability_zones = var.public_subnets

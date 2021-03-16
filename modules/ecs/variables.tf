@@ -96,6 +96,12 @@ variable "ssl_certificate_arn" {
   default     = ""
 }
 
+variable "ssl_certificate_id" {
+  type        = string
+  description = "ssl certification id"
+  default     = ""
+}
+
 variable "domain_name" {
   type    = string
   default = ""
