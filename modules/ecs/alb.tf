@@ -219,7 +219,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     iam_certificate_id             = "var.ssl_certificate_id"
     cloudfront_default_certificate = var.ssl_certificate_arn == null && var.ssl_certificate_id == null ? true : false
     ssl_support_method             = var.ssl_certificate_arn == null && var.ssl_certificate_id == null ? null : "sni-only"
-    #minimum_protocol_version       = var.ssl_certificate_arn == null && var.ssl_certificate_id == null ? "TLSv1" : var.minimum_protocol_version
+    minimum_protocol_version       = var.ssl_certificate_arn == null && var.ssl_certificate_id == null ? "TLSv1" : "TLSv1"
   }
 }
 
