@@ -215,7 +215,8 @@ resource "aws_cloudfront_distribution" "distribution" {
 
   viewer_certificate {
     #cloudfront_default_certificate = true
-    acm_certificate_arn            = "var.ssl_certificate_arn"
+    #acm_certificate_arn            = "var.ssl_certificate_arn"
+    acm_certificate_arn            = "arn:aws:acm:us-east-1:667736119737:certificate/8a4cdeec-e44c-42c0-b4ce-c1d2dc12f657"
     #iam_certificate_id             = "var.ssl_certificate_id"
     #cloudfront_default_certificate = var.ssl_certificate_arn == null && var.ssl_certificate_id == null ? true : false
     ssl_support_method             = "sni-only"
