@@ -188,7 +188,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "/api/*"
+    path_pattern     = "/api/"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "ELB"
@@ -214,9 +214,10 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn            = "${var.ssl_certificate_arn}"
-    ssl_support_method             = "sni-only"
-    minimum_protocol_version       = "TLSv1.1_2016"
+    cloudfront_default_certificate = true
+    #acm_certificate_arn            = "${var.ssl_certificate_arn}"
+    #ssl_support_method             = "sni-only"
+    #minimum_protocol_version       = "TLSv1.1_2016"
   }
 }
 
