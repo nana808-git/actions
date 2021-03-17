@@ -128,15 +128,15 @@ resource "aws_lb_listener" "http_redirect_https" {
     create_before_destroy = true
   }
 
-#  default_action {
-#    type = "redirect"
+  default_action {
+    type = "forward"
 
-#    redirect {
-#      port        = "443"
-#      protocol    = "HTTPS"
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
 #      status_code = "HTTP_301"
-#    }
-#  }
+    }
+  }
 }
 
 ## Route 53
