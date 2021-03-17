@@ -129,23 +129,15 @@ resource "aws_lb_listener" "http_redirect_https" {
   }
 
   default_action {
-    target_group_arn = aws_alb_target_group.api_target_group.arn
-    type             = "forward"
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
   }
 }
-
-
-
-#  default_action {
-#    type = "redirect"
-
-#    redirect {
-#      port        = "443"
-#      protocol    = "HTTPS"
-#      status_code = "HTTP_301"
-#    }
-#  }
-#}
 
 ## Route 53
 data "aws_route53_zone" "main" {
@@ -171,7 +163,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     custom_origin_config {
       http_port              = 80
       https_port             = 443
-      origin_protocol_policy = "https-only"
+      origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2", "SSLv3"]
     }
   }
@@ -191,7 +183,7 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
 
-#    viewer_protocol_policy = "redirect-to-https"
+    #viewer_protocol_policy = "redirect-to-https"
     viewer_protocol_policy = "allow-all"
   }
 
@@ -212,7 +204,7 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
 
-#    viewer_protocol_policy = "redirect-to-https"
+    #viewer_protocol_policy = "redirect-to-https"
     viewer_protocol_policy = "allow-all"
   }
   restrictions {
