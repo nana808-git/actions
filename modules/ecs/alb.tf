@@ -52,24 +52,24 @@ resource "aws_alb_listener" "web_app" {
   }
 }
 
-resource "aws_alb_listener" "web_app_ssl" {
-  count             = local.can_ssl ? 1 : 0
-  load_balancer_arn = aws_alb.app_alb.arn
-  port              = "443"
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2015-05"
+#resource "aws_alb_listener" "web_app_ssl" {
+#  count             = local.can_ssl ? 1 : 0
+#  load_balancer_arn = aws_alb.app_alb.arn
+#  port              = "443"
+#  protocol          = "HTTPS"
+#  ssl_policy        = "ELBSecurityPolicy-2015-05"
 
-  certificate_arn = var.ssl_certificate_arn
+#  certificate_arn = var.ssl_certificate_arn
 
-  lifecycle {
-    create_before_destroy = true
-  }
+#  lifecycle {
+#    create_before_destroy = true
+#  }
 
-  default_action {
-    target_group_arn = aws_alb_target_group.api_target_group.arn
-    type             = "forward"
-  }
-}
+#  default_action {
+#    target_group_arn = aws_alb_target_group.api_target_group.arn
+#    type             = "forward"
+#  }
+#}
 
 
 #data "aws_route53_zone" "selected" {
@@ -117,27 +117,27 @@ resource "aws_alb_listener" "web_app_http" {
   }
 }
 
-resource "aws_lb_listener" "http_redirect_https" {
-  count = local.is_redirect_https ? 1 : 0
+#resource "aws_lb_listener" "http_redirect_https" {
+#  count = local.is_redirect_https ? 1 : 0
 
-  load_balancer_arn = aws_alb.app_alb.arn
-  port              = "80"
-  protocol          = "HTTP"
+#  load_balancer_arn = aws_alb.app_alb.arn
+#  port              = "80"
+#  protocol          = "HTTP"
 
-  lifecycle {
-    create_before_destroy = true
-  }
+#  lifecycle {
+#    create_before_destroy = true
+#  }
 
-  default_action {
-    type = "redirect"
+#  default_action {
+#    type = "redirect"
 
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
-    }
-  }
-}
+#    redirect {
+#      port        = "443"
+#      protocol    = "HTTPS"
+#      status_code = "HTTP_301"
+#    }
+#  }
+#}
 
 ## Route 53
 data "aws_route53_zone" "main" {
@@ -162,9 +162,9 @@ resource "aws_cloudfront_distribution" "distribution" {
 
     custom_origin_config {
       http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "https-only"
-      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2", "SSLv3"]
+#      https_port             = 443
+      origin_protocol_policy = "http-only"
+#      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2", "SSLv3"]
     }
   }
 
@@ -183,8 +183,8 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
 
-    viewer_protocol_policy = "redirect-to-https"
-    #viewer_protocol_policy = "allow-all"
+#    viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "allow-all"
   }
 
   ordered_cache_behavior {
@@ -204,8 +204,8 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
 
-    viewer_protocol_policy = "redirect-to-https"
-    #viewer_protocol_policy = "allow-all"
+#    viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "allow-all"
   }
   restrictions {
     geo_restriction {
