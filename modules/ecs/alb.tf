@@ -129,15 +129,23 @@ resource "aws_lb_listener" "http_redirect_https" {
   }
 
   default_action {
-    type = "forward"
+    target_group_arn = aws_alb_target_group.api_target_group.arn
+    type             = "forward"
+  }
+}
+
+
+
+#  default_action {
+#    type = "redirect"
 
 #    redirect {
 #      port        = "443"
 #      protocol    = "HTTPS"
 #      status_code = "HTTP_301"
 #    }
-  }
-}
+#  }
+#}
 
 ## Route 53
 data "aws_route53_zone" "main" {
