@@ -188,9 +188,9 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "/api/*"
+    path_pattern     = "/api"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD", "POST", "PUT"]
     target_origin_id = "ELB"
 
     default_ttl = 0
