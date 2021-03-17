@@ -131,11 +131,11 @@ resource "aws_lb_listener" "http_redirect_https" {
   default_action {
     type = "forward"
 
-    forward {
-      port        = "80"
-      protocol    = "HTTP"
+#    redirect {
+#      port        = "443"
+#      protocol    = "HTTPS"
 #      status_code = "HTTP_301"
-    }
+#    }
   }
 }
 
