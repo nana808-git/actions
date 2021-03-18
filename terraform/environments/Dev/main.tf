@@ -6,7 +6,7 @@ locals {
 
   environment            = "dev"
   region                 = "us-east-1"
-  azs                    = ["us-east-1a", "us-east-1b"]
+  #azs                    = ["us-east-1a", "us-east-1b"]
 }
 
 data "aws_acm_certificate" "ssl-cert" {
@@ -23,6 +23,6 @@ module "vpc" {
   private_subnets = ["10.100.104.0/22", "10.100.108.0/22"]
   cluster_name    = local.application_name
   environment     = local.environment
-  azs             = local.azs
+  azs             = ["us-east-1a", "us-east-1b"]
 }
 
