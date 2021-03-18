@@ -18,6 +18,7 @@ data "aws_acm_certificate" "ssl-cert" {
 module "vpc" {
   source = "../../../modules/vpc"
 
+  vpc_id          = var.vpc_id
   azs             = local.azs
   cidr            = "10.100.96.0/20"
   public_subnets  = ["10.100.96.0/22", "10.100.100.0/22"]
