@@ -1,11 +1,11 @@
 resource "aws_db_subnet_group" "db-subnet-grp" {
-  name        = "${var.cluster_name}-${var.environment}-db-sgrp"
+  name        = "${var.app["name"]}-${var.app["env"]}-db-sgrp"
   description = "Database Subnet Group"
   subnet_ids  = aws_subnet.private.*.id
 }
 
 resource "aws_db_instance" "db" {
-  identifier        = "${var.cluster_name}-${var.environment}-db-instance"
+  identifier        = "${var.app["name"]}-${var.app["env"]}-db-instance"
   allocated_storage = var.db_allocated_storage
   engine            = var.db_engine
   engine_version    = var.db_version
@@ -23,6 +23,6 @@ resource "aws_db_instance" "db" {
   skip_final_snapshot    = true
 
   tags = {
-    Name = "${var.cluster_name}-${var.environment}-db"
+    Name = "${var.app["name"]}-${var.app["env"]}-db"
   }
 }

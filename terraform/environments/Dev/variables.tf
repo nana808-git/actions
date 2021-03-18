@@ -30,15 +30,10 @@ variable "network" {
   }
 }
 
-#variable "ami_id" {
-#  type = string
-#  default = "ami-047a51fa27710816e"
-#}
-
-#variable "certificate_arn" {
- # type = string
-  #default = "arn:aws:iam::710789462061:server-certificate/cloudfront/production/StarIsvcTech"
-#}
+variable "certificate_arn" {
+  type = string
+  default = "arn:aws:acm:us-east-1:667736119737:certificate/8a4cdeec-e44c-42c0-b4ce-c1d2dc12f657"
+}
 
 variable "node_volume_size" {
   type = string

@@ -1,5 +1,5 @@
 output "availability_zones" { value = "var.availability_zones" }
-#output "certificate_arn" { value = "var.certificate_arn" }
+output "certificate_arn" { value = "var.certificate_arn" }
 output "region" { value = "var.region" }
 output "network" { value = "var.network" }
 output "ami_id" { value = "var.ami_id" }
