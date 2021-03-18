@@ -39,9 +39,7 @@ variable "image" {
   description = "The container image"
 }
 
-variable "env_name" {
-  description = "which environment"
-}
+
 
 variable "vpc_id" {
   description = "The VPC id"

@@ -26,10 +26,10 @@ module "ecs-pipeline" {
 
   region              = local.region
 
-  cluster_name        = ${var.app["name"]}
-  app_repository_name = ${var.app["name"]}
-  container_name      = ${var.app["name"]}
-  environment         = ${var.app["env"]}
+  cluster_name        = "${var.app["name"]}"
+  app_repository_name = "${var.app["name"]}"
+  container_name      = "${var.app["name"]}"
+  environment         = "${var.app["env"]}"
   repository_name     = "${var.app["name"]}-${var.app["env"]}-ecr-node" 
 
   alb_port         = "80"

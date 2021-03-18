@@ -22,9 +22,6 @@ variable "cluster_name" {
   description = "The cluster_name"
 }
 
-variable "env_name" {
-  description = "which environment"
-}
 
 variable "image" {
   description = "The container image"

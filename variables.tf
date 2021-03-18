@@ -18,11 +18,6 @@ variable "network" {
   default = {}
 }
 
-variable "env_name" {
-  type        = string
-  description = "which environment"
-  default     = ""
-}
 
 variable "cluster_name" {
   type        = string

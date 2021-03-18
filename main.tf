@@ -3,7 +3,7 @@ module "pipeline" {
   #codepipeline_events_enabled    = true
   cluster_name                   = var.cluster_name
   environment                    = var.environment
-  env_name                       = var.env_name
+  #env_name                       = var.env_name
   image                          = var.image
   codestar_connector_credentials = var.codestar_connector_credentials
   container_name                 = var.container_name
@@ -43,7 +43,7 @@ module "ecs" {
   vpc_id              = var.vpc_id
   cluster_name        = var.cluster_name
   environment         = var.environment
-  env_name            = var.env_name
+  #env_name            = var.env_name
   image               = var.image
   region              = var.region
   repository_url      = module.ecs.repository_url
