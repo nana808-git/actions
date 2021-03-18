@@ -40,27 +40,6 @@ variable "network" {
   #default = "arn:aws:iam::710789462061:server-certificate/cloudfront/production/StarIsvcTech"
 #}
 
-variable "vpc_id" {
-  type = string
-}
-
-variable "public_subnet_ids" {
-  type = "list"
-}
-
-variable "private_subnet_ids" {
-  type = "list"
-}
-
-
-variable "public_subnets" {
-  type = "list"
-}
-
-variable "private_subnets" {
-  type = "list"
-}
-
 variable "node_volume_size" {
   type = string
   default = "10"
