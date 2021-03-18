@@ -35,9 +35,11 @@ module "vpc" {
 module "ecs-pipeline" {
   source = "../../.."
 
-  vpc_id         = module.vpc.vpc_id
-  public_subnets = module.vpc.public_subnets
+  vpc_id          = module.vpc.vpc_id
+  public_subnets  = module.vpc.public_subnets
   private_subnets = module.vpc.private_subnets
+  cidr            = module.vpc.cidr
+  azs             = module.vpc.azs
 
   region              = local.region
 
