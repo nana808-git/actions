@@ -30,3 +30,8 @@ variable "cidr" {
   type        = string
   description = "vpc cidr block"
 }
+
+variable "azs" {
+  type        = string
+  description = "availability zones"
+}
