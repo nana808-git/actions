@@ -26,10 +26,6 @@ variable "container_name" {
   description = "The container name"
 }
 
-variable "region" {
-  description = "The region"
-  default     = ""
-}
 
 variable "repository_url" {
   description = "The ecr URI"
@@ -45,10 +41,6 @@ variable "vpc_id" {
   description = "The VPC id"
 }
 
-variable "availability_zones" {
-  type        = list(string)
-  description = "The azs to use"
-}
 
 variable "app_repository_name" {
   description = "Name of ECR Repository"

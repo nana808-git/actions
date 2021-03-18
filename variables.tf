@@ -31,11 +31,6 @@ variable "image" {
   default     = ""
 }
 
-variable "region" {
-  description = "The region"
-  type        = string
-  default     = ""
-}
 
 variable "vpc_id" {
   type        = string
