@@ -4,7 +4,8 @@
         {
             "Effect": "Allow",
             "Action": [
-                "ssm:GetParameters"
+                "ssm:GetParameters",
+                "secretsmanager:GetSecretValue"
             ],
             "Resource": ["*"]
         }
