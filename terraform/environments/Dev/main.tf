@@ -22,14 +22,6 @@ module "vpc" {
   cidr            = "10.100.96.0/20"
   public_subnets  = ["10.100.96.0/22", "10.100.100.0/22"]
   private_subnets  = ["10.100.104.0/22", "10.100.108.0/22"]
-
-  enable_ipv6 = false
-
-  tags = {
-    Terraform   = "true"
-    Application = local.application_name
-    Environment = local.env_name
-  }
 }
 
 module "ecs-pipeline" {
