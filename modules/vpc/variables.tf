@@ -32,6 +32,6 @@ variable "cidr" {
 }
 
 variable "azs" {
-  type        = string
+  type        = list(string)
   description = "availability zones"
 }
