@@ -1,3 +1,23 @@
+variable "app" {
+  type = map
+  default = {}
+}
+
+variable "availability_zones" {
+  type = list
+  default = []
+}
+
+variable "region" {
+  type = string
+  default = ""
+}
+
+variable "network" {
+  type = map
+  default = {}
+}
+
 variable "db_instance_type" {
   description = "RDS instance type"
   default     = ""

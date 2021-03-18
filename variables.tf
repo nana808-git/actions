@@ -1,3 +1,23 @@
+variable "app" {
+  type = map
+  default = {}
+}
+
+variable "availability_zones" {
+  type = list
+  default = []
+}
+
+variable "region" {
+  type = string
+  default = ""
+}
+
+variable "network" {
+  type = map
+  default = {}
+}
+
 variable "env_name" {
   type        = string
   description = "which environment"
