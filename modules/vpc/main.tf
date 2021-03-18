@@ -11,7 +11,7 @@ resource "aws_vpc" "main" {
 
 resource "aws_subnet" "private" {
   cidr_block        = var.private_subnets
-  availability_zone = var.azs
+  #availability_zone = var.azs
   vpc_id            = aws_vpc.main.id
   tags = {
     Name = "${var.cluster_name}-${var.environment}-sn-private"
@@ -20,7 +20,7 @@ resource "aws_subnet" "private" {
 
 resource "aws_subnet" "public" {
   cidr_block              = var.public_subnets
-  availability_zone       = var.azs
+  #availability_zone       = var.azs
   vpc_id                  = aws_vpc.main.id
   map_public_ip_on_launch = true
   tags = {
@@ -39,10 +39,6 @@ resource "aws_route" "public-route" {
   route_table_id         = aws_vpc.main.main_route_table_id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw.id
-  
-  tags = {
-    Name = "${var.cluster_name}-${var.environment}-rt-public"
-  } 
 }
 
 resource "aws_eip" "eip" {

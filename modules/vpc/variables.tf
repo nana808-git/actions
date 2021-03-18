@@ -31,7 +31,3 @@ variable "cidr" {
   description = "vpc cidr block"
 }
 
-variable "azs" {
-  type        = list(string)
-  description = "availability zones"
-}
