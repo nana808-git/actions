@@ -60,19 +60,9 @@ variable "region" {
   default     = ""
 }
 
-variable "private_subnets" {
-  type        = list(string)
-  description = "private subnet array (length>=2)"
-}
-
 variable "vpc_id" {
   type        = string
   description = "vpc for provisioning resources"
-}
-
-variable "public_subnets" {
-  type        = list(string)
-  description = "public subnet array (length>=2)"
 }
 
 variable "environment" {
@@ -81,12 +71,7 @@ variable "environment" {
   default     = ""
 }
 
-variable "cidr" {
-  type        = string
-  description = "vpc cidr block"
-}
-
-variable "azs" {
-  type        = string
-  description = "availability zones"
+variable "subnet_ids" {
+  type        = list(string)
+  description = "Subnet ids"
 }
