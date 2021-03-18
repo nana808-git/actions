@@ -16,10 +16,7 @@ data "aws_acm_certificate" "ssl-cert" {
 }
 
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
-
-  name = "${local.application_name}-${local.environment}-vpc" 
-
+  source = "../../../modules/vpc"
 
   azs             = local.azs
   cidr            = "10.100.96.0/20"
@@ -53,6 +50,16 @@ module "ecs-pipeline" {
   alb_port         = "80"
   container_port   = "3000"
   helth_check_path = "/"
+
+  db_instance_type     = "db.r4.2xlarge
+  db_user              = "root"
+  db_initialize        = "yes"
+  db_port              = "3306"
+  db_engine            = "mariadb"
+  db_version           = "10.4.13"
+  db_profile           = "mariadb"
+  db_allocated_storage = "5"
+  db_name              = "${local.application_name}-${local.environment}-db"
 
   git_repository = {
     BranchName       = "main"

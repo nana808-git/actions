@@ -1,0 +1,42 @@
+variable "region" {
+  description = "The region"
+  type        = string
+  default     = ""
+}
+
+variable "vpc_id" {
+  type        = string
+  description = "vpc for provisioning resources"
+}
+
+variable "public_subnets" {
+  type        = list(string)
+  description = "public subnet array (length>=2)"
+}
+
+variable "private_subnets" {
+  type        = list(string)
+  description = "private subnet array (length>=2)"
+}
+
+variable "cluster_name" {
+  type        = string
+  description = "ecs cluster name"
+  default     = ""
+}
+
+variable "environment" {
+  type        = string
+  description = "which environment"
+  default     = ""
+}
+
+variable "cidr" {
+  type        = string
+  description = "vpc cidr block"
+}
+
+variable "azs" {
+  type        = string
+  description = "availability zones"
+}
