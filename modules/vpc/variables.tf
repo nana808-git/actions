@@ -5,12 +5,12 @@ variable "region" {
 }
 
 variable "public_subnets" {
-  type        = string
+  type        = list(string)
   description = "public subnet array (length>=2)"
 }
 
 variable "private_subnets" {
-  type        = string
+  type        = list(string)
   description = "private subnet array (length>=2)"
 }
 
