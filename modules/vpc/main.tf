@@ -10,8 +10,7 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "private" {
-  #cidr_block        = var.private_subnets
-  cidr_block        = ["10.100.104.0/22", "10.100.108.0/22"]
+  cidr_block        = var.private_subnets
   #availability_zone = var.azs
   vpc_id            = aws_vpc.main.id
   tags = {
@@ -20,8 +19,7 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_subnet" "public" {
-  #cidr_block              = var.public_subnets
-  cidr_block              = ["10.100.96.0/22", "10.100.100.0/22"]
+  cidr_block              = var.public_subnets
   #availability_zone       = var.azs
   vpc_id                  = aws_vpc.main.id
   map_public_ip_on_launch = true
