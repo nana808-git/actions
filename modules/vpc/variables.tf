@@ -10,7 +10,7 @@ variable "public_subnets" {
 }
 
 variable "private_subnets" {
-  type        = list(string)
+  type        = string
   description = "private subnet array (length>=2)"
 }
 
