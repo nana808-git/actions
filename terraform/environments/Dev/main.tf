@@ -51,7 +51,7 @@ module "ecs-pipeline" {
   container_port   = "3000"
   helth_check_path = "/"
 
-  db_instance_type     = "db.r4.2xlarge
+  db_instance_type     = "db.r4.2xlarge"
   db_user              = "root"
   db_initialize        = "yes"
   db_port              = "3306"
