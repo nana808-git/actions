@@ -1,8 +1,7 @@
 resource "aws_db_subnet_group" "db-subnet-grp" {
   name        = "${var.app["name"]}-${var.app["env"]}-db-sgrp"
   description = "Database Subnet Group"
-  #subnet_ids  = aws_subnet.private.*.id
-  subnet_ids  = var.private_subnets
+  subnet_ids  = aws_subnet.private.*.id
 }
 
 resource "aws_db_instance" "db" {
