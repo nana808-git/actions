@@ -1,7 +1,7 @@
 
 
 data "aws_acm_certificate" "ssl-cert" {
-  domain      = local.domain
+  domain      = var.domain
   statuses    = ["ISSUED"]
   most_recent = true
 }
@@ -18,13 +18,13 @@ module "vpc" {
 module "ecs-pipeline" {
   source = "../../.."
 
-  vpc_id          = module.vpc.vpc_id
-  public_subnets  = module.vpc.public_subnets
-  private_subnets = module.vpc.private_subnets
-  cidr            = module.vpc.cidr
-  azs             = module.vpc.azs
+  vpc_id          = var.vpc_id
+  public_subnets  = var.public_subnets
+  private_subnets = aws_subnet.private.*.id
+  cidr            = "${var.network["cidr"]}"
+  azs             = var.availability_zones
 
-  region              = local.region
+  region              = var.region
 
   cluster_name        = "${var.app["name"]}"
   app_repository_name = "${var.app["name"]}"
@@ -53,8 +53,8 @@ module "ecs-pipeline" {
     ConnectionArn    = "arn:aws:codestar-connections:us-east-1:667736119737:connection/fc834fd4-ccfc-43a9-a4cc-12133eee0c30"
   }
 
-  domain_name         = local.domain
-  #ssl_certificate_arn = "arn:aws:acm:us-east-1:667736119737:certificate/8a4cdeec-e44c-42c0-b4ce-c1d2dc12f657"
+  domain_name         = var.domain
+  ssl_certificate_arn = var.certificate_arn
 }
 
 
