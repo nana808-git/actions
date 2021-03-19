@@ -19,8 +19,8 @@ module "ecs-pipeline" {
   source = "../../.."
 
   vpc_id          = var.vpc_id
-  public_subnets  = var.public_subnets
-  private_subnets = var.private_subnets
+  public_subnets  = "${var.network["publicAz1", "publicAz2"]}"
+  private_subnets = "${var.network["privateAz1", "privateAz2"]}"
   cidr            = "${var.network["cidr"]}"
   azs             = var.availability_zones
 
