@@ -1,7 +1,7 @@
 resource "aws_db_subnet_group" "db-subnet-grp" {
   name        = "${var.cluster_name}-${var.environment}-db-sgrp"
   description = "Database Subnet Group"
-  subnet_ids  = module.vpc.aws_subnet.private[*].id
+  subnet_ids  = var.private_subnets
 }
 
 resource "aws_db_instance" "db" {
