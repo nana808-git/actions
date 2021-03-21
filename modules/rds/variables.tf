@@ -90,7 +90,14 @@ variable "cidr" {
   description = "vpc cidr block"
 }
 
-variable "subnet_ids" {
+
+
+variable "public_subnets" {
   type        = list(string)
-  description = "vpc subnet cidr block"
+  description = "public subnet array (length>=2)"
+}
+
+variable "private_subnets" {
+  type        = list(string)
+  description = "private subnet array (length>=2)"
 }
