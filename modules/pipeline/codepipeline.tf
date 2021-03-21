@@ -1,9 +1,9 @@
 resource "aws_codepipeline" "pipeline" {
-  name     = "${var.app["name"]}-${var.app["env"]}-pipeline"
+  name     = "${var.cluster_name}-${var.environment}-pipeline"
   role_arn = "${aws_iam_role.codepipeline_role.arn}"
 
   tags = {
-    Name        = "${var.app["name"]}-${var.app["env"]}-pipeline"  
+    Name        = "${var.cluster_name}-${var.environment}-pipeline"  
   }
   artifact_store {
     location = "${aws_s3_bucket.source.bucket}"
@@ -21,7 +21,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["source"]
       configuration = {
         #RepositoryName = "${aws_ecr_repository.this.name}"
-        RepositoryName = "${var.app["name"]}-${var.app["env"]}-ecr-node"
+        RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
         ImageTag       = "latest"
       }
     }
@@ -57,7 +57,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["imagedefinitions"]
 
       configuration = {
-        ProjectName = "${var.app["name"]}-${var.app["env"]}-codebuild"
+        ProjectName = "${var.cluster_name}-${var.environment}-codebuild"
       }
     }
   }
@@ -90,8 +90,8 @@ resource "aws_codepipeline" "pipeline" {
       version         = "1"
 
       configuration = {
-        ClusterName = "${var.app["name"]}-${var.app["env"]}-ecs-node"
-        ServiceName = "${var.app["name"]}-${var.app["env"]}-node-api"
+        ClusterName = "${var.cluster_name}-${var.environment}-ecs-node"
+        ServiceName = "${var.cluster_name}-${var.environment}-node-api"
         FileName    = "imagedefinitions.json"
       }
     }

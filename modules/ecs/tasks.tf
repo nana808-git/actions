@@ -4,7 +4,7 @@ data "template_file" "api_task" {
   vars = {
     image               = "${var.repository_url}:latest"
     cluster_name        = var.cluster_name
-    container_name      = "${var.app["name"]}-${var.app["env"]}-node-api"
+    container_name      = "${var.cluster_name}-${var.environment}-node-api"
     environment         = var.environment
     region              = var.region
     container_port      = var.container_port
@@ -24,7 +24,7 @@ data "template_file" "api_task" {
 }
 
 resource "aws_ecs_task_definition" "web-api" {
-  family                   = "${var.app["name"]}-${var.app["env"]}-node-api"
+  family                   = "${var.cluster_name}-${var.environment}-node-api"
   container_definitions    = data.template_file.api_task.rendered
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"

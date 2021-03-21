@@ -1,6 +1,6 @@
 [
     {
-      "name": "${var.app["name"]}-${var.app["env"]}-node-api",
+      "name": "${cluster_name}-${environment}-node-api",
       "image": "${image}",
       "portMappings": [
         {
@@ -17,7 +17,7 @@
         "options": {
           "awslogs-group": "${log_group}",
           "awslogs-region": "${region}",
-          "awslogs-stream-prefix": "${var.app["name"]}-${var.app["env"]}-node-api"
+          "awslogs-stream-prefix": "${cluster_name}-${environment}-node-api"
         }
       },
       "environment": [${environment_variables_str}]

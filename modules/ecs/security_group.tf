@@ -1,6 +1,6 @@
 # App Security Group
 resource "aws_security_group" "app_sg" {
-  name        = "${var.app["name"]}-${var.app["env"]}-node-sg"
+  name        = "${var.cluster_name}-${var.environment}-node-sg"
   description = "Default security group to allow inbound/outbound from the VPC"
   vpc_id      = var.vpc_id
 
@@ -20,13 +20,13 @@ resource "aws_security_group" "app_sg" {
 
   tags = {
     Environment = var.cluster_name
-    Name = "${var.app["name"]}-${var.app["env"]}-node-sg"
+    Name = "${var.cluster_name}-${var.environment}-node-sg"
   }
 }
 
 # ALB Security Group
 resource "aws_security_group" "alb_sg" {
-  name        = "${var.app["name"]}-${var.app["env"]}-alb-sg"
+  name        = "${var.cluster_name}-${var.environment}-alb-sg"
   description = "ALB Security Group"
   vpc_id      = var.vpc_id
 
@@ -81,14 +81,14 @@ resource "aws_security_group" "alb_sg" {
   }
 
   tags = {
-    Name = "${var.app["name"]}-${var.app["env"]}-alb-sg"
+    Name = "${var.cluster_name}-${var.environment}-alb-sg"
   }
 }
 
 # ECS Cluster Security Group
 resource "aws_security_group" "ecs_sg" {
   vpc_id      = var.vpc_id
-  name        = "${var.app["name"]}-${var.app["env"]}-ecs-svc-sg"
+  name        = "${var.cluster_name}-${var.environment}-ecs-svc-sg"
   description = "Allow egress from container"
 
   egress {
@@ -114,7 +114,7 @@ resource "aws_security_group" "ecs_sg" {
   #}
 
   tags = {
-    Name        = "${var.app["name"]}-${var.app["env"]}-ecs-svc-sg"
+    Name        = "${var.cluster_name}-${var.environment}-ecs-svc-sg"
     Environment = var.cluster_name
   }
 }

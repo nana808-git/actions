@@ -31,20 +31,14 @@ variable "image" {
   default     = ""
 }
 
-
 variable "vpc_id" {
   type        = string
   description = "vpc for provisioning resources"
 }
 
 variable "cidr" {
-  type        = string
-  description = "vpc cidr block"
-}
-
-variable "azs" {
   type        = list(string)
-  description = "availability zones"
+  description = "vpc cidr block"
 }
 
 variable "public_subnets" {
@@ -56,6 +50,12 @@ variable "private_subnets" {
   type        = list(string)
   description = "private subnet array (length>=2)"
 }
+
+variable "azs" {
+  type        = list(string)
+  description = "availability zones"
+}
+
 
 variable "alb_port" {
   type        = string

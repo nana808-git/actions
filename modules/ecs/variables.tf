@@ -115,3 +115,8 @@ variable "alb_dns_name" {
   type    = string
   default = ""
 }
+
+variable "subnet_ids" {
+  type    = string
+  default = "module.vpc.aws_subnet.public.*.id"
+}

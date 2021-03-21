@@ -53,7 +53,6 @@ variable "db_allocated_storage" {
   default     = ""
 }
 
-
 variable "db_password" {
   description = "RDS DB password"
 }
@@ -86,7 +85,12 @@ variable "environment" {
   default     = ""
 }
 
+variable "cidr" {
+  type        = list(string)
+  description = "vpc cidr block"
+}
+
 variable "subnet_ids" {
   type        = list(string)
-  description = "Subnet ids"
+  description = "vpc subnet cidr block"
 }

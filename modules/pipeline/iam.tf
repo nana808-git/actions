@@ -1,5 +1,5 @@
 resource "aws_iam_role" "codepipeline_role" {
-  name               = "${var.app["name"]}-${var.app["env"]}-codepipeline-role"
+  name               = "${var.app_repository_name}-${var.environment}-codepipeline-role"
   assume_role_policy = file("${path.module}/templates/policies/codepipeline_role.json")
 }
 
@@ -18,7 +18,7 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
 }
 
 resource "aws_iam_role" "events_role" {
-  name               = "${var.app["name"]}-${var.app["env"]}-events-role"
+  name               = "${var.app_repository_name}-${var.environment}-events-role"
   assume_role_policy = file("${path.module}/templates/policies/events_role.json")
 }
 
@@ -30,13 +30,13 @@ data "template_file" "events_policy" {
 }
 
 resource "aws_iam_role_policy" "events" {
-  name   = "${var.app["name"]}-${var.app["env"]}-events-role-policy"
+  name   = "${var.app_repository_name}-${var.environment}-events-role-policy"
   role   = aws_iam_role.events_role.id
   policy = data.template_file.events_policy.rendered
 }
 
 resource "aws_iam_role" "codebuild_role" {
-  name               = "${var.app["name"]}-${var.app["env"]}-codebuild-role"
+  name               = "${var.app_repository_name}-${var.environment}-codebuild-role"
   assume_role_policy = file("${path.module}/templates/policies/codebuild_role.json")
 }
 
@@ -69,14 +69,14 @@ data "template_file" "codepipeline_events_sns" {
 }
 
 resource "aws_cloudwatch_event_rule" "codepipeline_events" {
-  name        = "${var.app["name"]}-${var.app["env"]}-pipeline-events"
+  name        = "${var.app_repository_name}-${var.environment}-pipeline-events"
   description = "Amazon CloudWatch Events rule to automatically post SNS notifications when CodePipeline state changes."
   event_pattern = data.template_file.codepipeline_events.rendered
 }
 
 resource "aws_sns_topic" "codepipeline_events" {
-  name         = "${var.app["name"]}-${var.app["env"]}-codepipeline-events"
-  display_name = "${var.app["name"]}-${var.app["env"]}-codepipeline-events"
+  name         = "${var.app_repository_name}-${var.environment}-codepipeline-events"
+  display_name = "${var.app_repository_name}-${var.environment}-codepipeline-events"
 }
 
 resource "aws_sns_topic_policy" "codepipeline_events" {
@@ -91,7 +91,7 @@ resource "aws_cloudwatch_event_target" "codepipeline_events" {
 }
 
 resource "aws_iam_role" "events" {
-  name = "${var.app["name"]}-${var.app["env"]}-iam-events-role"
+  name = "${var.app_repository_name}-${var.environment}-iam-events-role"
   assume_role_policy = file("${path.module}/templates/policies/events_role.json")
 }
 
@@ -103,7 +103,7 @@ data "template_file" "events" {
 }
 
 resource "aws_iam_role_policy" "ecr-events" {
-  name   = "${var.app["name"]}-${var.app["env"]}-events-role-policy"
+  name   = "${var.app_repository_name}-${var.environment}-events-role-policy"
   role   = aws_iam_role.events.id
   policy = data.template_file.events.rendered
 }
@@ -116,7 +116,7 @@ data "template_file" "ecr_event" {
 }
 
 resource "aws_cloudwatch_event_rule" "events" {
-  name        = "${var.app["name"]}-${var.app["env"]}-ecr-event"
+  name        = "${var.cluster_name}-${var.environment}-ecr-event"
   description = "Amazon CloudWatch Events rule to automatically start your pipeline when a change occurs in the Amazon ECR image tag."
   event_pattern = data.template_file.ecr_event.rendered
   depends_on = [aws_codepipeline.pipeline]
@@ -124,7 +124,7 @@ resource "aws_cloudwatch_event_rule" "events" {
 
 resource "aws_cloudwatch_event_target" "events" {
   rule      = aws_cloudwatch_event_rule.events.name
-  target_id = "${var.app["name"]}-${var.app["env"]}-pipeline"
+  target_id = "${var.cluster_name}-${var.environment}-pipeline"
   arn       = aws_codepipeline.pipeline.arn
   role_arn  = aws_iam_role.events.arn
 }

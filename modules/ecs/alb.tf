@@ -6,18 +6,18 @@ locals {
 }
 
 resource "aws_alb" "app_alb" {
-  name            = "${var.app["name"]}-${var.app["env"]}-alb-node"
+  name            = "${var.cluster_name}-${var.environment}-alb-node"
   subnets         = var.availability_zones
   security_groups = [aws_security_group.alb_sg.id, aws_security_group.app_sg.id]
 
   tags = {
-    Name        = "${var.app["name"]}-${var.app["env"]}-alb-node"
+    Name        = "${var.cluster_name}-${var.environment}-alb-node"
     Environment = var.cluster_name
   }
 }
 
 resource "aws_alb_target_group" "api_target_group" {
-  name        = "${var.app["name"]}-${var.app["env"]}-tg-api"
+  name        = "${var.cluster_name}-${var.environment}-tg-api"
   port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
@@ -227,7 +227,7 @@ output "domain" {
 # Creates the DNS record to point on the CloudFront distribution ID that handles the redirection website
 resource "aws_route53_record" "website_cdn_redirect_record" {
   zone_id = data.aws_route53_zone.main.zone_id
-  name    = "${var.app["name"]}-${var.app["env"]}.${var.domain_name}."
+  name    = "${var.cluster_name}-${var.environment}.${var.domain_name}."
   type    = "A"
 
   alias {
@@ -241,7 +241,7 @@ resource "aws_route53_record" "website_cdn_redirect_record" {
 
 # s3 origin
 resource "aws_s3_bucket" "bucket" {
-  bucket = "${var.app["name"]}-${var.app["env"]}-react-bucket"
+  bucket = "${var.cluster_name}-${var.environment}-react-bucket"
   acl    = "public-read"
   force_destroy = true
 

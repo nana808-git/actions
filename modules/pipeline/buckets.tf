@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "source" {
-  bucket        = "${var.app["name"]}-${var.app["env"]}-codepipeline-output"
+  bucket        = "${var.cluster_name}-${var.environment}-codepipeline-artifacts"
   acl           = "private"
   force_destroy = true
 }

@@ -7,7 +7,7 @@ locals {
 }
 
 resource "aws_ecs_service" "web-api" {
-  name            = "${var.app["name"]}-${var.app["env"]}-node-api"
+  name            = "${var.cluster_name}-${var.environment}-node-api"
   task_definition = aws_ecs_task_definition.web-api.arn
   cluster         = aws_ecs_cluster.cluster.id
   launch_type     = "FARGATE"
@@ -26,7 +26,7 @@ resource "aws_ecs_service" "web-api" {
 
   load_balancer {
     target_group_arn = aws_alb_target_group.api_target_group.arn
-    container_name   = "${var.app["name"]}-${var.app["env"]}-node-api"
+    container_name   = "${var.cluster_name}-${var.environment}-node-api"
     container_port   = var.container_port
   }
 

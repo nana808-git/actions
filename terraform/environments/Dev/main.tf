@@ -13,16 +13,23 @@ module "vpc" {
   nat_count          = var.nat_count
   network            = var.network
   app                = var.app
+  
 }
 
 module "ecs-pipeline" {
   source = "../../.."
 
-  vpc_id          = var.vpc_id
-  public_subnets  = "${var.network["publicAz1", "publicAz2"]}"
-  private_subnets = "${var.network["privateAz1", "privateAz2"]}"
-  cidr            = "${var.network["cidr"]}"
+  vpc_id          = "module.vpc.aws_vpc.vpc.id"
+  #public_subnets  = "${var.network["publicAz1, publicAz1"]}"
+  #private_subnets = "${var.network["privateAz1, privateAz1"]}"
+  public_subnets   = ["module.vpc.aws_subnet.public[0].cidr_block", "module.vpc.aws_subnet.public[1].cidr_block"]
+  private_subnets  = ["module.vpc.aws_subnet.private[0].cidr_block", "module.vpc.aws_subnet.private[1].cidr_block"]
+  #public_subnet_ids = [aws_subnet.public.*.id]
+  #private_subnet_ids = [module.vpc.aws_subnet.private.*.id]
+  #cidr            = "${var.network["cidr"]}"
+  cidr             = ["module.vpc.aws_vpc.vpc.cidr_block"]
   azs             = var.availability_zones
+  #subnet_ids      = flatten([module.vpc.public_subnets, module.vpc.private_subnets])
 
   region              = var.region
 
