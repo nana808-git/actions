@@ -52,7 +52,7 @@ module "ecs-pipeline" {
   db_version           = "10.4.13"
   db_profile           = "mariadb"
   db_allocated_storage = "5"
-  db_name              = "${var.app["name"]}-${var.app["env"]}-db"
+  db_name              = "sleestack"
 
   git_repository = {
     BranchName       = "main"
