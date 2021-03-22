@@ -1,7 +1,21 @@
+data "aws_subnet" "subnet1" {
+  id = "module.vpc.aws_subnet.private[0].id"
+}
+
+data "aws_subnet" "subnet2" {
+  id = "module.vpc.aws_subnet.private[1].id"
+}
+
+resource "aws_db_subnet_group" "default" {
+  name        = "cse-cr"
+  description = "Private subnets for RDS instance"
+  subnet_ids  = [data.aws_subnet.subnet1.id, data.aws_subnet.subnet2.id]
+}
+
 resource "aws_db_subnet_group" "db-subnet-grp" {
   name        = "${var.cluster_name}-${var.environment}-db-sgrp"
   description = "Database Subnet Group"
-  subnet_ids  = var.subnet_ids
+  subnet_ids  = [data.aws_subnet.subnet1.id, data.aws_subnet.subnet2.id]
 }
 
 resource "aws_db_instance" "db" {
