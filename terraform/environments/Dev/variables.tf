@@ -30,6 +30,13 @@ variable "network" {
   }
 }
 
+variable "vpc_id" {
+  type        = string
+  description = "vpc for provisioning resources"
+}
+
+
+
 
 
 variable "certificate_arn" {
