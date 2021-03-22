@@ -1,3 +1,27 @@
+output "vpc_id" {
+  value = "var.vpc_id"
+}
+
+output "vpc_cidr" {
+  value = "var.vpc.cidr_block"
+}
+
+output "public_subnets" {
+  value = "var.public[*].cidr_block"
+}
+
+output "private_subnets" {
+  value = "var.private[*].cidr_block"
+}
+
+output "public_subnet_ids" {
+  value = "module.vpc.aws_subnet.public[*].id"
+}
+
+output "private_subnet_ids" {
+  value = "module.vpc.aws_subnet.private[*].id"
+}
+
 output "repository_name" {
   value = module.ecs.repository_name
 }
@@ -52,9 +76,3 @@ output "alb_dns_name" {
   description = "DNS address linked to ALB. (automatically)"
 }
 
-output "vpc_id" { value = "module.vpc.aws_vpc.vpc.id" }
-output "cidr_block" { value = "module.vpc.aws_vpc.vpc.cidr_block" }
-output "public_subnet_ids" { value = "module.vpc.aws_subnet.public[*].id" }
-output "private_subnet_ids" { value = "module.vpc.aws_subnet.private[*].id" }
-output "public_subnets" { value = "module.vpc.aws_subnet.public[*].cidr_block" }
-output "private_subnets" { value = "module.vpc.aws_subnet.private[*].cidr_block" }
