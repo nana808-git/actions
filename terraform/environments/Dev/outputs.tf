@@ -21,26 +21,26 @@
 
 
 
-#output "vpc_id" {
-#  value = "var.vpc_id"
-#}
+output "vpc_id" {
+  value = "module.vpc.aws_vpc.vpc.id"
+}
 
-#output "vpc_cidr" {
-#  value = "module.vpc.aws_vpc.vpc.cidr_block"
-#}
+output "vpc_cidr" {
+  value = "module.vpc.aws_vpc.vpc.cidr_block"
+}
 
-#output "public_subnets" {
-#  value = "module.vpc.aws_subnet.public[*].cidr_block"
-#}
+output "public_subnets" {
+  value = "module.vpc.aws_subnet.public[*].cidr_block"
+}
 
-#output "private_subnets" {
-#  value = "module.vpc.aws_subnet.private[*].cidr_block"
-#}
+output "private_subnets" {
+  value = "module.vpc.aws_subnet.private[*].cidr_block"
+}
 
-#output "public_subnet_ids" {
-#  value = "module.vpc.aws_subnet.public[*].id"
-#}
+output "public_subnet_ids" {
+  value = "module.vpc.aws_subnet.public[*].id"
+}
 
-#output "private_subnet_ids" {
-#  value = "module.vpc.aws_subnet.private[*].id"
-#}
+output "private_subnet_ids" {
+  value = "module.vpc.aws_subnet.private[*].id"
+}
