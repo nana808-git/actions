@@ -1,7 +1,7 @@
 resource "aws_db_subnet_group" "db-subnet-grp" {
   name        = "${var.cluster_name}-${var.environment}-db-sgrp"
   description = "Database Subnet Group"
-  subnet_ids  = var.subnet_ids
+  subnet_ids  = ["subnet-0042af9d4fab239e9", "subnet-05ce47c128e2fe4f0"]
 }
 
 resource "aws_db_instance" "db" {
