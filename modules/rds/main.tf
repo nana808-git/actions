@@ -1,9 +1,9 @@
 data "aws_subnet" "subnet1" {
-  id = module.vpc.private_subnet_ids
+  id = module.ecs.private_subnet_ids
 }
 
 data "aws_subnet" "subnet2" {
-  id = "module.vpc.private[1]"
+  id = "module.ecs.private[1]"
 }
 
 resource "aws_db_subnet_group" "default" {
