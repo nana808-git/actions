@@ -27,7 +27,7 @@ module "ecs-pipeline" {
   #public_subnet_ids = [aws_subnet.public.*.id]
   #private_subnet_ids = [module.vpc.aws_subnet.private.*.id]
   #cidr            = "${var.network["cidr"]}"
-  cidr             = ["module.vpc.aws_vpc.vpc.cidr_block"]
+  cidr             = "module.vpc.aws_vpc.vpc.cidr_block"
   azs             = var.availability_zones
   #subnet_ids      = flatten([module.vpc.public_subnets, module.vpc.private_subnets])
 
