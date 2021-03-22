@@ -1,5 +1,5 @@
 data "aws_subnet" "subnet1" {
-  id = module.ecs.private_subnet_ids
+  id = module.ecs.private[0]
 }
 
 data "aws_subnet" "subnet2" {
