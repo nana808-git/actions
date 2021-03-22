@@ -1,5 +1,5 @@
 output "vpc_id" {
-  value = "module.vpc.aws_vpc.vpc.id"
+  value = "var.vpc_id"
 }
 
 output "vpc_cidr" {
