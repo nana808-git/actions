@@ -20,8 +20,8 @@ module "ecs-pipeline" {
   source = "../../.."
 
   vpc_id          = module.vpc.id
-  public_subnets  = ["module.vpc.aws_subnet.public[*].cidr_block"]
-  private_subnets = ["module.vpc.aws_subnet.private[*].id"]
+  public_subnets  = ["module.vpc.public[*].cidr_block"]
+  private_subnets = ["module.vpc.private[*].id"]
   #public_subnets   = ["module.vpc.aws_subnet.public[0].cidr_block", "module.vpc.aws_subnet.public[1].cidr_block"]
   #private_subnets  = ["module.vpc.aws_subnet.private[0].cidr_block", "module.vpc.aws_subnet.private[1].cidr_block"]
   #public_subnet_ids = [aws_subnet.public.*.id]
