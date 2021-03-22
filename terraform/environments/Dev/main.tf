@@ -45,7 +45,7 @@ module "ecs-pipeline" {
 
   db_instance_type     = "db.r4.2xlarge"
   db_user              = "root"
-  db_password          = "admin"
+  db_password          = "sleestack"
   db_initialize        = "yes"
   db_port              = "3306"
   db_engine            = "mariadb"
