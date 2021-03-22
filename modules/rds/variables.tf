@@ -86,7 +86,7 @@ variable "environment" {
 }
 
 variable "cidr" {
-  type        = string
+  type        = list(string)
   description = "vpc cidr block"
 }
 
