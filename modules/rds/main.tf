@@ -1,5 +1,5 @@
 data "aws_subnet" "subnet1" {
-  id = "module.vpc.private_subnet_ids"
+  id = module.vpc.private_subnet_ids
 }
 
 data "aws_subnet" "subnet2" {
