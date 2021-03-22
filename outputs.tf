@@ -1,17 +1,17 @@
 output "vpc_id" {
-  value = "var.vpc_id"
+  value = "module.vpc.aws_vpc.vpc.id"
 }
 
 output "vpc_cidr" {
-  value = "var.vpc.cidr_block"
+  value = "module.vpc.aws_vpc.vpc.cidr_block"
 }
 
 output "public_subnets" {
-  value = "var.public[*].cidr_block"
+  value = "module.vpc.aws_subnet.public[*].cidr_block"
 }
 
 output "private_subnets" {
-  value = "var.private[*].cidr_block"
+  value = "module.vpc.aws_subnet.private[*].cidr_block"
 }
 
 output "public_subnet_ids" {
