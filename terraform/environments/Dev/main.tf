@@ -19,7 +19,7 @@ module "vpc" {
 module "ecs-pipeline" {
   source = "../../.."
 
-  vpc_id          = "module.vpc.aws_vpc.vpc.id"
+  vpc_id          = "module.vpc.vpc_id"
   #public_subnets  = "${var.network["publicAz1, publicAz1"]}"
   #private_subnets = "${var.network["privateAz1, privateAz1"]}"
   public_subnets   = ["module.vpc.aws_subnet.public[0].cidr_block", "module.vpc.aws_subnet.public[1].cidr_block"]
