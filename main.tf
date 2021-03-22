@@ -38,8 +38,8 @@ module "rds" {
   environment                    = var.environment
   vpc_id                         = var.vpc_id
   cidr                           = var.cidr
-  subnet_ids                     = var.public_subnets
-  availability_zones             = var.azs
+  subnet_ids                     = var.private_subnets
+  availability_zone              = var.private_subnets
 }
 
 module "ecs" {
