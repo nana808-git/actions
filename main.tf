@@ -44,7 +44,7 @@ module "rds" {
 
 module "ecs" {
   source              = "./modules/ecs"
-  vpc_id              = module.vpc.aws_vpc.vpc.id
+  vpc_id              = var.vpc_id
   cluster_name        = var.cluster_name
   environment         = var.environment
   #env_name            = var.env_name
