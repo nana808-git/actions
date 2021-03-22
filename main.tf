@@ -38,7 +38,7 @@ module "rds" {
   environment                    = var.environment
   vpc_id                         = var.vpc_id
   cidr                           = var.cidr
-  #subnet_ids                     = var.private_subnets
+  subnet_ids                     = var.private_subnets
   #availability_zone              = var.region
 }
 
@@ -69,7 +69,7 @@ module "ecs" {
   ssl_certificate_arn   = var.ssl_certificate_arn
   domain_name           = var.domain_name
 
-  #availability_zones    = var.public_subnets
+  availability_zones    = var.public_subnets
   #availability_zones = "module.vpc.aws_subnet.public*.id"
   #availability_zones = "aws_subnet.public.cidr_block"
 }

@@ -7,8 +7,7 @@ locals {
 
 resource "aws_alb" "app_alb" {
   name            = "${var.cluster_name}-${var.environment}-alb-node"
-  #subnets         = var.availability_zones
-  subnets         = ["subnet-0db9434846a05d32c", "subnet-0f3e4ea68b5ac54f3"]
+  subnets         = var.availability_zones
   security_groups = [aws_security_group.alb_sg.id, aws_security_group.app_sg.id]
 
   tags = {
