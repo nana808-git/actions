@@ -22,7 +22,7 @@
 
 
 output "vpc_id" {
-  value = "var.vpc_id"
+  value = "module.vpc.aws_vpc.vpc.id"
 }
 
 output "vpc_cidr" {
