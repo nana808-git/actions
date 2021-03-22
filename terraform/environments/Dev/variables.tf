@@ -1,7 +1,7 @@
 variable "app" {
   type = map
   default = {
-    name = "tt"
+    name = "ss"
     env  = "dev"
   }
 }
