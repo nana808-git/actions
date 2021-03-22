@@ -39,7 +39,7 @@ module "rds" {
   vpc_id                         = var.vpc_id
   cidr                           = var.cidr
   subnet_ids                     = var.private_subnets
-  availability_zone              = var.region
+  #availability_zone              = var.region
 }
 
 module "ecs" {
