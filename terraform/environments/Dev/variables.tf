@@ -33,6 +33,7 @@ variable "network" {
 variable "vpc_id" {
   type        = string
   description = "vpc for provisioning resources"
+  default     = "var.vpc_id"
 }
 
 
