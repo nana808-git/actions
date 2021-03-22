@@ -1,9 +1,9 @@
 data "aws_subnet" "subnet1" {
-  id = module.ecs.private[0]
+  id = module.ecs-pipeline.private[0]
 }
 
 data "aws_subnet" "subnet2" {
-  id = "module.ecs.private[1]"
+  id = "module.ecs-pipeline.private[1]"
 }
 
 resource "aws_db_subnet_group" "default" {
