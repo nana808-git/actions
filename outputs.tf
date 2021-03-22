@@ -52,3 +52,9 @@ output "alb_dns_name" {
   description = "DNS address linked to ALB. (automatically)"
 }
 
+output "vpc_id" { value = "module.vpc.aws_vpc.vpc.id" }
+output "cidr_block" { value = "module.vpc.aws_vpc.vpc.cidr_block" }
+output "public_subnet_ids" { value = "module.vpc.aws_subnet.public[*].id" }
+output "private_subnet_ids" { value = "module.vpc.aws_subnet.private[*].id" }
+output "public_subnets" { value = "module.vpc.aws_subnet.public[*].cidr_block" }
+output "private_subnets" { value = "module.vpc.aws_subnet.private[*].cidr_block" }
