@@ -1,4 +1,13 @@
+data "aws_secretsmanager_secret_version" "creds" {
+  # write your secret name here
+  secret_id = "dev/sleestack/mariadb"
+}
 
+locals {
+  your_secret = jsondecode(
+    data.aws_secretsmanager_secret_version.creds.secret_string
+  )
+}
 
 data "aws_acm_certificate" "ssl-cert" {
   domain      = var.domain
@@ -40,8 +49,8 @@ module "ecs-pipeline" {
   helth_check_path = "/"
 
   db_instance_type     = "db.r4.2xlarge"
-  db_user              = "localUser"
-  db_password          = "localPass"
+  db_user              = "local.your_secret.username"
+  db_password          = "local.your_secret.password"
   db_initialize        = "yes"
   db_port              = "3306"
   db_engine            = "mariadb"
