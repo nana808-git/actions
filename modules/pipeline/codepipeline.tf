@@ -12,7 +12,7 @@ resource "aws_codepipeline" "pipeline" {
 
   stage {
     name = "Source"
-    action = [
+    action = {
       {
         name = "Image"
         category = "Source"
