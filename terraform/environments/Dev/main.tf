@@ -28,13 +28,10 @@ module "ecs-pipeline" {
   source = "../../.."
 
   vpc_id          = module.vpc.id
-  #public_subnets  = ["subnet-0db9434846a05d32c", "subnet-0f3e4ea68b5ac54f3"]
-  #private_subnets = ["subnet-0042af9d4fab239e9", "subnet-05ce47c128e2fe4f0"]
   public_subnets   = module.vpc.public_subnet_ids
   private_subnets  = module.vpc.private_subnet_ids
   cidr            = ["${var.network["cidr"]}"]
   azs             = var.availability_zones
-
   region              = var.region
 
   cluster_name        = "${var.app["name"]}"
