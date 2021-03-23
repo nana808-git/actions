@@ -10,10 +10,10 @@ resource "aws_codepipeline" "pipeline" {
     type     = "S3"
   }
 
-  stage {}
-    [
-      name = "Source"
-      action{
+  stage {
+    name = "Source"
+    action[
+      {
         name = "Image"
         category = "Source"
         owner = "AWS"
