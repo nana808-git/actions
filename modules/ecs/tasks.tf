@@ -12,17 +12,19 @@ data "template_file" "api_task" {
   template = file("${path.module}/task-definitions/api-task.json")
 
   vars = {
-    image               = "${var.repository_url}:latest"
-    cluster_name        = var.cluster_name
-    container_name      = "${var.cluster_name}-${var.environment}-node-api"
-    environment         = var.environment
-    region              = var.region
-    username            = local.ss-dev-db-creds.username
-    container_port      = var.container_port
-    log_group           = aws_cloudwatch_log_group.web-app.name
-    desired_task_cpu    = var.desired_task_cpu
-    desired_task_memory = var.desired_task_memory
-    # environment_variables_str = "${replace(join(",",formatlist("{\"name\":%q,\"value\":%q}",keys(var.environment_variables),values(var.environment_variables))), "rds_endpoint", var.db_host_endpoint)}"
+    image                     = "${var.repository_url}:latest"
+    cluster_name              = var.cluster_name
+    container_name            = "${var.cluster_name}-${var.environment}-node-api"
+    environment               = var.environment
+    region                    = var.region
+    JUNGLESCOUT_USERNAME      = local.ss-dev-db-creds.JUNGLESCOUT_USERNAME
+    JUNGLESCOUT_PASSWORD      = local.ss-dev-db-creds.JUNGLESCOUT_PASSWORD
+    SQL_DB_USER               = local.ss-dev-db-creds.SQL_DB_USER 
+    SQL_DB_PASSWORD           = local.ss-dev-db-creds.SQL_DB_PASSWORD
+    container_port            = var.container_port
+    log_group                 = aws_cloudwatch_log_group.web-app.name
+    desired_task_cpu          = var.desired_task_cpu
+    desired_task_memory       = var.desired_task_memory
     environment_variables_str = join(
       ",",
       formatlist(

@@ -23,8 +23,20 @@
       "environment": [
         ${environment_variables_str},
         {
-          "name": "username",
-          "value": "${username}"
+          "name": "JUNGLESCOUT_USERNAME",
+          "value": "${JUNGLESCOUT_USERNAME}"
+        },
+        {
+          "name": "JUNGLESCOUT_PASSWORD",
+          "value": "${JUNGLESCOUT_PASSWORD}"
+        },
+        {
+          "name": "SQL_DB_USER",
+          "value": "${SQL_DB_USER}"
+        },
+        {
+          "name": "SQL_DB_PASSWORD",
+          "value": "${SQL_DB_PASSWORD}"
         }
       ]
     }
