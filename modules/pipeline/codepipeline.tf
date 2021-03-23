@@ -10,8 +10,8 @@ resource "aws_codepipeline" "pipeline" {
     type     = "S3"
   }
 
-  stage [
-    {
+  stage {}
+    [
       name = "Source"
       action{
         name = "Image"
@@ -43,9 +43,9 @@ resource "aws_codepipeline" "pipeline" {
           OutputArtifactFormat = "CODE_ZIP"
         }
       }
-    }
-  ]
-  
+    ]
+  }
+
   stage {
     name = "Build"
     action {
