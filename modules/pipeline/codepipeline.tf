@@ -13,7 +13,7 @@ resource "aws_codepipeline" "pipeline" {
   stage {
     name = "Source"
     action {
-      {
+      [
       name = "Image"
       category = "Source"
       owner = "AWS"
@@ -25,8 +25,8 @@ resource "aws_codepipeline" "pipeline" {
         RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
         ImageTag       = "latest"
       }
-    },
-    {
+    ],
+    [
       name = "GitHub"
       category = "Source"
       owner = "AWS"
@@ -40,7 +40,7 @@ resource "aws_codepipeline" "pipeline" {
         ConnectionArn = "${lookup(var.git_repository,"ConnectionArn")}"
         OutputArtifactFormat = "CODE_ZIP"
       }
-    }
+    ]
   }
 
   stage {
