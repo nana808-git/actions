@@ -22,10 +22,6 @@ variable "cluster_name" {
   description = "The cluster_name"
 }
 
-variable "container_name" {
-  description = "The container name"
-}
-
 variable "vpc_id" {
   type        = string
   description = "The VPC id"
