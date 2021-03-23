@@ -26,15 +26,6 @@ variable "container_name" {
   description = "The container name"
 }
 
-
-variable "repository_url" {
-  description = "The ecr URI"
-}
-
-variable "image" {
-  description = "The container image"
-}
-
 variable "vpc_id" {
   type        = string
   description = "The VPC id"
@@ -42,10 +33,6 @@ variable "vpc_id" {
 
 variable "app_repository_name" {
   description = "Name of ECR Repository"
-}
-
-variable "repository_name" {
-  description = "Full name of ECR Repository"
 }
 
 variable "environment" {

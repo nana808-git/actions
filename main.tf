@@ -60,6 +60,7 @@ module "cdn" {
   vpc_id              = var.vpc_id
   cluster_name        = var.cluster_name
   environment         = var.environment
+  app_repository_name = var.app_repository_name
   alb_port            = var.alb_port
   container_port      = var.container_port
   helth_check_path      = var.helth_check_path
