@@ -27,7 +27,6 @@ module "ecs" {
   vpc_id              = var.vpc_id
   cluster_name        = var.cluster_name
   environment         = var.environment
-  #env_name            = var.env_name
   image               = var.image
   region              = var.region
   repository_url      = module.ecs.repository_url
@@ -73,9 +72,7 @@ module "rds" {
   source = "./modules/rds"
   db_instance_type               = var.db_instance_type
   db_name                        = var.db_name
-  db_user                        = var.db_user
   db_port                        = var.db_port
-  db_password                    = var.db_password
   db_profile                     = var.db_profile
   db_initialize                  = var.db_initialize
   db_engine                      = var.db_engine
