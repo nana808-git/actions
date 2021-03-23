@@ -23,7 +23,7 @@ resource "aws_codepipeline" "pipeline" {
       configuration = {
         RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
         ImageTag       = "latest"
-      },
+      }
       {
       name = "GitHub"
       category = "Source"
