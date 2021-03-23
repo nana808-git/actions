@@ -13,13 +13,12 @@ resource "aws_codepipeline" "pipeline" {
   stage {
     name = "Source"
     action {
-      {
-        name = "Image"
-        category = "Source"
-        owner = "AWS"
-        provider = "ECR"
-        version = "1"
-        run_order = "1"
+      name = "Image"
+      category = "Source"
+      owner = "AWS"
+      provider = "ECR"
+      version = "1"
+      run_order = "1"
       output_artifacts = ["source"]
       configuration = {
         RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
