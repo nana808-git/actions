@@ -25,10 +25,9 @@ resource "aws_codepipeline" "pipeline" {
         ImageTag       = "latest"
       }
     }
-    {
     name = "Source"
     action{
-      name = "Source"
+      name = "Github"
       category = "Source"
       owner = "AWS"
       provider = "CodeStarSourceConnection"
