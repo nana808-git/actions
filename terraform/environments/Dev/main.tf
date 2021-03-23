@@ -3,7 +3,7 @@ data "aws_secretsmanager_secret_version" "creds" {
 }
 
 locals {
-  your_secret = jsondecode(
+  ss-dev-db-creds = jsondecode(
     data.aws_secretsmanager_secret_version.creds.secret_string
   )
 }
