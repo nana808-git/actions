@@ -142,28 +142,18 @@ variable "desired_task_memory" {
   default     = "512"
 }
 
-data "aws_secretsmanager_secret_version" "creds" {
-  secret_id = "ss-dev-db-creds"
-}
-
-locals {
-  ss-dev-db-creds = jsondecode(
-    data.aws_secretsmanager_secret_version.creds.secret_string
-  )
-}
-
 variable "environment_variables" {
   type        = map(string)
   description = "ecs task environment variables"
 
   default = {
-    JUNGLESCOUT_USERNAME = "var.image",
+    JUNGLESCOUT_USERNAME = "${var.image}",
     JUNGLESCOUT_PASSWORD = "zzz",
     SQL_SERVER = "sql.sleestak.internal",
     SQL_DB_NAME = "sleestak",
     SQL_PORT = "3306",
-    SQL_DB_USER = local.ss-dev-db-creds.username,
-    SQL_DB_PASSWORD = local.ss-dev-db-creds.password
+    SQL_DB_USER = "localUser",
+    SQL_DB_PASSWORD = "localPass"
   }
 }
 
