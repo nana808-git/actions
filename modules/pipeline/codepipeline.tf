@@ -43,38 +43,6 @@ resource "aws_codepipeline" "pipeline" {
     ]
   }
 
-
-
-      Stages:
-      - Name: Source
-        Actions:   
-      - Name: Qa
-        Actions:
-        - Name: Deploy
-          RunOrder: 1
-          ActionTypeId:
-            Category: Build
-            Owner: AWS
-            Provider: CodeBuild
-            Version: '1'
-          Configuration:
-            ProjectName: !Ref CodeBuildProjectDeployQa
-          InputArtifacts:
-          - Name: BuildOutput
-        - Name: Approval
-          RunOrder: 2
-          ActionTypeId:
-            Category: Approval
-            Owner: AWS
-            Provider: Manual
-            Version: '1'
-          Configuration:
-            CustomData: Approve or Reject this change after running tests       
-
-
-
-
-
   stage {
     name = "Build"
     action {
