@@ -56,6 +56,7 @@ module "ecs" {
 
 module "cdn" {
 
+  source = "./modules/cdn"
   vpc_id              = var.vpc_id
   cluster_name        = var.cluster_name
   environment         = var.environment
