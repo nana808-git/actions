@@ -23,9 +23,10 @@
       "environment": [
         ${environment_variables_str},
         {
-          "name": "SQL_DB_USER",
-          "value": "localUser"
+          "name": "username",
+          "value": "$username"
         }
       ]
     }
   ]
+

@@ -1,3 +1,13 @@
+data "aws_secretsmanager_secret_version" "creds" {
+  secret_id = "ss-dev-db-creds"
+}
+
+locals {
+  ss-dev-db-creds = jsondecode(
+    data.aws_secretsmanager_secret_version.creds.secret_string
+  )
+}
+
 data "template_file" "api_task" {
   template = file("${path.module}/task-definitions/api-task.json")
 
@@ -7,6 +17,7 @@ data "template_file" "api_task" {
     container_name      = "${var.cluster_name}-${var.environment}-node-api"
     environment         = var.environment
     region              = var.region
+    username            = local.ss-dev-db-creds.username
     container_port      = var.container_port
     log_group           = aws_cloudwatch_log_group.web-app.name
     desired_task_cpu    = var.desired_task_cpu
