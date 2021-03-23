@@ -147,12 +147,12 @@ variable "environment_variables" {
   description = "ecs task environment variables"
 
   default = {
-    JUNGLESCOUT_USERNAME = "${var.image}",
+    JUNGLESCOUT_USERNAME = "xxx",
     JUNGLESCOUT_PASSWORD = "zzz",
     SQL_SERVER = "sql.sleestak.internal",
     SQL_DB_NAME = "sleestak",
     SQL_PORT = "3306",
-    SQL_DB_USER = "localUser",
+#    SQL_DB_USER = "localUser",
     SQL_DB_PASSWORD = "localPass"
   }
 }

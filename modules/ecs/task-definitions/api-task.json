@@ -20,6 +20,12 @@
           "awslogs-stream-prefix": "${cluster_name}-${environment}-node-api"
         }
       },
-      "environment": [${environment_variables_str}]
+      "environment": [
+        ${environment_variables_str},
+        {
+          "name": "SQL_DB_USER",
+          "value": "localUser"
+        }
+      ]
     }
   ]
