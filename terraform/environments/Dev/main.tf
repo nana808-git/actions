@@ -1,5 +1,3 @@
-
-
 data "aws_acm_certificate" "ssl-cert" {
   domain      = var.domain
   statuses    = ["ISSUED"]
