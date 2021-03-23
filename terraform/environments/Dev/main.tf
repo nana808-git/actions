@@ -21,7 +21,6 @@ module "vpc" {
   nat_count          = var.nat_count
   network            = var.network
   app                = var.app
-  
 }
 
 module "ecs-pipeline" {
