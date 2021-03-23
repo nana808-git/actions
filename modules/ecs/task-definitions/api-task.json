@@ -24,7 +24,7 @@
         ${environment_variables_str},
         {
           "name": "username",
-          "value": "$username"
+          "value": "${username}"
         }
       ]
     }
