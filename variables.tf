@@ -162,8 +162,8 @@ variable "environment_variables" {
     SQL_SERVER = "sql.sleestak.internal",
     SQL_DB_NAME = "sleestak",
     SQL_PORT = "3306",
-    SQL_DB_USER = "local.ss-dev-db-creds.username",
-    SQL_DB_PASSWORD = "local.ss-dev-db-creds.password"
+    SQL_DB_USER = local.ss-dev-db-creds.username,
+    SQL_DB_PASSWORD = local.ss-dev-db-creds.password
   }
 }
 
