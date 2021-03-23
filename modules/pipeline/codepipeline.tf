@@ -13,36 +13,36 @@ resource "aws_codepipeline" "pipeline" {
   stage {
     name = "Source"
     action{
-      name = "Source"
+      name = "Image"
       category = "Source"
       owner = "AWS"
       provider = "ECR"
       version = "1"
+      run_order = "0"
       output_artifacts = ["source"]
       configuration = {
-        #RepositoryName = "${aws_ecr_repository.this.name}"
         RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
         ImageTag       = "latest"
       }
+    },
+    {
+    name = "Source"
+    action{
+      name = "Source"
+      category = "Source"
+      owner = "AWS"
+      provider = "CodeStarSourceConnection"
+      version = "1"
+      run_order = "1"
+      output_artifacts = ["source"]
+      configuration = {
+        FullRepositoryId = "${lookup(var.git_repository,"FullRepositoryId")}"
+        BranchName   = "${lookup(var.git_repository,"BranchName")}"
+        ConnectionArn = "${lookup(var.git_repository,"ConnectionArn")}"
+        OutputArtifactFormat = "CODE_ZIP"
+      }
     }
-   }
-#  stage {
-#    name = "Source"
-#    action{
-#      name = "Source"
-#      category = "Source"
-#      owner = "AWS"
-#      provider = "CodeStarSourceConnection"
-#      version = "1"
-#      output_artifacts = ["source"]
-#      configuration = {
-#        FullRepositoryId = "${lookup(var.git_repository,"FullRepositoryId")}"
-#        BranchName   = "${lookup(var.git_repository,"BranchName")}"
-#        ConnectionArn = "${lookup(var.git_repository,"ConnectionArn")}"
-#        OutputArtifactFormat = "CODE_ZIP"
-#      }
-#    }
-#  }
+  }
 
   stage {
     name = "Build"

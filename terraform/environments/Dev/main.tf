@@ -40,15 +40,15 @@ module "ecs-pipeline" {
   helth_check_path = "/"
 
   db_instance_type     = "db.r4.2xlarge"
-  db_user              = "root"
-  db_password          = "sleestack"
+  db_user              = "localUser"
+  db_password          = "localPass"
   db_initialize        = "yes"
   db_port              = "3306"
   db_engine            = "mariadb"
   db_version           = "10.4.13"
   db_profile           = "mariadb"
   db_allocated_storage = "5"
-  db_name              = "sleestack"
+  db_name              = "sleestak"
 
   git_repository = {
     BranchName       = "main"
