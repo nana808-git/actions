@@ -19,7 +19,7 @@ resource "aws_codepipeline" "pipeline" {
       provider = "ECR"
       version = "1"
       run_order = "1"
-      output_artifacts = ["source"]
+      output_artifacts = ["Image"]
       configuration = {
         RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
         ImageTag       = "latest"
