@@ -12,8 +12,8 @@ resource "aws_codepipeline" "pipeline" {
 
   stage {
     name = "Source"
-    "action" = [
-      {
+    action {
+      [
         name = "Image"
         category = "Source"
         owner = "AWS"
@@ -40,8 +40,8 @@ resource "aws_codepipeline" "pipeline" {
           ConnectionArn = "${lookup(var.git_repository,"ConnectionArn")}"
           OutputArtifactFormat = "CODE_ZIP"
         }
-      }
-    ]
+      ]
+    }
   }
 
   stage {
