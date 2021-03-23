@@ -10,37 +10,42 @@ resource "aws_codepipeline" "pipeline" {
     type     = "S3"
   }
 
-  stage {
-    name = "Source"
-    action{
-      name = "Image"
-      category = "Source"
-      owner = "AWS"
-      provider = "ECR"
-      version = "1"
-      run_order = "0"
-      output_artifacts = ["source"]
-      configuration = {
-        RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
-        ImageTag       = "latest"
-      }
+  stage [
+    {
+      name = "Source"
+      action{
+        name = "Image"
+        category = "Source"
+        owner = "AWS"
+        provider = "ECR"
+        version = "1"
+        run_order = "0"
+        output_artifacts = ["source"]
+        configuration = {
+          RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
+          ImageTag       = "latest"
+        }
+      },
       {
-      name = "GitHub"
-      category = "Source"
-      owner = "AWS"
-      provider = "CodeStarSourceConnection"
-      version = "1"
-      run_order = "1"
-      output_artifacts = ["source"]
-      configuration = {
-        FullRepositoryId = "${lookup(var.git_repository,"FullRepositoryId")}"
-        BranchName   = "${lookup(var.git_repository,"BranchName")}"
-        ConnectionArn = "${lookup(var.git_repository,"ConnectionArn")}"
-        OutputArtifactFormat = "CODE_ZIP"
+      name = "Source"
+      action{
+        name = "GitHub"
+        category = "Source"
+        owner = "AWS"
+        provider = "CodeStarSourceConnection"
+        version = "1"
+        run_order = "1"
+        output_artifacts = ["source"]
+        configuration = {
+          FullRepositoryId = "${lookup(var.git_repository,"FullRepositoryId")}"
+          BranchName   = "${lookup(var.git_repository,"BranchName")}"
+          ConnectionArn = "${lookup(var.git_repository,"ConnectionArn")}"
+          OutputArtifactFormat = "CODE_ZIP"
+        }
       }
     }
-  }
-
+  ]
+  
   stage {
     name = "Build"
     action {
