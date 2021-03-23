@@ -25,7 +25,6 @@ resource "aws_codepipeline" "pipeline" {
         ImageTag       = "latest"
       }
     },
-    {
       name = "GitHub"
       category = "Source"
       owner = "AWS"
