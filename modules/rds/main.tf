@@ -4,6 +4,16 @@ resource "aws_db_subnet_group" "db-subnet-grp" {
   subnet_ids  = var.subnet_ids
 }
 
+data "aws_secretsmanager_secret_version" "creds" {
+  secret_id = "ss-dev-db-creds"
+}
+
+locals {
+  ss-dev-db-creds = jsondecode(
+    data.aws_secretsmanager_secret_version.creds.secret_string
+  )
+}
+
 resource "aws_db_instance" "db" {
   identifier        = "${var.cluster_name}-${var.environment}-db-instance"
   allocated_storage = var.db_allocated_storage
@@ -12,8 +22,8 @@ resource "aws_db_instance" "db" {
   port              = var.db_port
   instance_class    = var.db_instance_type
   name              = var.db_name
-  username          = var.db_user
-  password          = var.db_password
+  username          = local.ss-dev-db-creds.username
+  password          = local.ss-dev-db-creds.password
   #availability_zone      = var.region
   vpc_security_group_ids = [aws_security_group.db-sg.id]
   multi_az               = false

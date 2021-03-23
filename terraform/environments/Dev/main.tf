@@ -1,12 +1,4 @@
-data "aws_secretsmanager_secret_version" "creds" {
-  secret_id = "ss-dev-db-creds"
-}
 
-locals {
-  ss-dev-db-creds = jsondecode(
-    data.aws_secretsmanager_secret_version.creds.secret_string
-  )
-}
 
 data "aws_acm_certificate" "ssl-cert" {
   domain      = var.domain
