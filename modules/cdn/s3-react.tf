@@ -2,7 +2,7 @@
 
 # s3 origin
 resource "aws_s3_bucket" "bucket" {
-  bucket = "${var.cluster_name}-${var.environment}-react-bucket"
+  bucket = "${var.cluster_name}-${var.environment}-reactapp-bucket"
   acl    = "public-read"
   force_destroy = true
 
