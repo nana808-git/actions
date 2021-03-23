@@ -30,10 +30,6 @@ variable "network" {
   }
 }
 
-
-
-
-
 variable "certificate_arn" {
   type = string
   default = "arn:aws:acm:us-east-1:667736119737:certificate/8a4cdeec-e44c-42c0-b4ce-c1d2dc12f657"

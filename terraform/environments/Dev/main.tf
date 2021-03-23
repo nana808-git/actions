@@ -36,8 +36,6 @@ module "ecs-pipeline" {
   helth_check_path = "/"
 
   db_instance_type     = "db.r4.2xlarge"
-  db_user              = "local.ss-dev-db-creds.db_user"
-  db_password          = "local.ss-dev-db-creds.db_password"
   db_initialize        = "yes"
   db_port              = "3306"
   db_engine            = "mariadb"

@@ -38,10 +38,6 @@ variable "db_version" {
   default     = ""
 }
 
-variable "db_user" {
-  description = "RDS DB username"
-  default     = ""
-}
 
 variable "db_engine" {
   description = "RDS DB engine"
@@ -51,10 +47,6 @@ variable "db_engine" {
 variable "db_allocated_storage" {
   description = "RDS DB allocated_storage"
   default     = ""
-}
-
-variable "db_password" {
-  description = "RDS DB password"
 }
 
 variable "db_profile" {

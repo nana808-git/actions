@@ -147,7 +147,7 @@ variable "environment_variables" {
   description = "ecs task environment variables"
 
   default = {
-    JUNGLESCOUT_USERNAME = "xxx",
+    JUNGLESCOUT_USERNAME = "var.image",
     JUNGLESCOUT_PASSWORD = "zzz",
     SQL_SERVER = "sql.sleestak.internal",
     SQL_DB_NAME = "sleestak",
@@ -194,15 +194,6 @@ variable "db_instance_type" {
 variable "db_name" {
   description = "RDS DB name"
   default     = ""
-}
-
-variable "db_user" {
-  description = "RDS DB username"
-  default     = ""
-}
-
-variable "db_password" {
-  description = "RDS DB password"
 }
 
 variable "db_profile" {
