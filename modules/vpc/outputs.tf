@@ -3,11 +3,11 @@ output "id" {
 }
 
 output "public_subnet_ids" {
-  value = ["${aws_subnet.public.*.id}"] 
+  value = ["${aws_subnet.public.[0].id}", "${aws_subnet.public.[1].id}"] 
 }
 
 output "private_subnet_ids" {
-  value = ["${aws_subnet.private.*.id}"] 
+  value = ["${aws_subnet.private.[0].id}", "${aws_subnet.private.[1].id}"] 
 }
 
 output "default_security_group_id" {
@@ -25,11 +25,4 @@ output "public_route_table" {
 output "zone_id" {
   value = "${aws_route53_zone.main.zone_id}"
 }
-
-output "public_subnets" {
-  value = ["${aws_subnet.public.*.cidr_block}"]
-}
-
-output "private_subnets" {
-  value = ["${aws_subnet.private.*.cidr_block}"]
-}  
+ 
