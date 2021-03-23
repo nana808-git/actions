@@ -23,11 +23,9 @@ resource "aws_codepipeline" "pipeline" {
       configuration = {
         RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
         ImageTag       = "latest"
-      }
-    }
-    name = "Source"
-    action{
-      name = "Github"
+      },
+      {
+      name = "GitHub"
       category = "Source"
       owner = "AWS"
       provider = "CodeStarSourceConnection"
