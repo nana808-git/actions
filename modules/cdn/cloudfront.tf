@@ -105,31 +105,5 @@ resource "aws_cloudfront_origin_access_identity" "OAI" {
 
 
 
-function App() {
-  const [state, setState] = useState<Status>('loading');
-
-  useEffect(() => {
-    fetch('/api/')
-      .then(async (res) => {
-        const body = await res.text();
-        setTimeout(() => setState({ state: body }), 2000);
-      });
-    return function() { return; };
-  });
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {(state as Loaded) && <p>{(state as Loaded).state}</p> }
-        <div className="slee-container">
-          <img src={slee} className="slee" alt="logo" />
-        </div>
-      </header>
-    </div>
-  );
-}
-
-
 
 
