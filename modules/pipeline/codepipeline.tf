@@ -40,7 +40,7 @@ resource "aws_codepipeline" "pipeline" {
         ConnectionArn = "${lookup(var.git_repository,"ConnectionArn")}"
         OutputArtifactFormat = "CODE_ZIP"
       }
-    ]
+    }
   }
 
   stage {
