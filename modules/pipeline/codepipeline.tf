@@ -24,7 +24,7 @@ resource "aws_codepipeline" "pipeline" {
         RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
         ImageTag       = "latest"
       }
-    },
+    }
     {
     name = "Source"
     action{
