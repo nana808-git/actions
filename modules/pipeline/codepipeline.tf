@@ -11,29 +11,27 @@ resource "aws_codepipeline" "pipeline" {
   }
 
   stage {
-    name = "Image"
-    action{
+    name = "Source"
+    action {
       name = "Image"
       category = "Source"
       owner = "AWS"
       provider = "ECR"
       version = "1"
+      run_order = 1
       output_artifacts = ["source"]
       configuration = {
         RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
         ImageTag       = "latest"
       }
-    }
-  }
-
-  stage {
-    name = "Github"
-    action{
-      name = "Source"
+    }'
+    {
+      name = "GitHub"
       category = "Source"
       owner = "AWS"
       provider = "CodeStarSourceConnection"
       version = "1"
+      run_order = 1
       output_artifacts = ["source"]
       configuration = {
         FullRepositoryId = "${lookup(var.git_repository,"FullRepositoryId")}"
@@ -44,6 +42,38 @@ resource "aws_codepipeline" "pipeline" {
     }
   }
 
+
+
+      Stages:
+      - Name: Source
+        Actions:   
+      - Name: Qa
+        Actions:
+        - Name: Deploy
+          RunOrder: 1
+          ActionTypeId:
+            Category: Build
+            Owner: AWS
+            Provider: CodeBuild
+            Version: '1'
+          Configuration:
+            ProjectName: !Ref CodeBuildProjectDeployQa
+          InputArtifacts:
+          - Name: BuildOutput
+        - Name: Approval
+          RunOrder: 2
+          ActionTypeId:
+            Category: Approval
+            Owner: AWS
+            Provider: Manual
+            Version: '1'
+          Configuration:
+            CustomData: Approve or Reject this change after running tests       
+
+
+
+
+
   stage {
     name = "Build"
     action {
@@ -53,7 +83,6 @@ resource "aws_codepipeline" "pipeline" {
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["source"]
-      #output_artifacts = ["BuildOutput"]
       output_artifacts = ["imagedefinitions"]
 
       configuration = {
