@@ -33,13 +33,13 @@ module "ecs-pipeline" {
   container_port   = "3000"
   helth_check_path = "/"
 
-  db_instance_type     = "db.t2.micro"
+  db_instance_type     = "db.m5.large"
   db_initialize        = "yes"
   db_port              = "3306"
   db_engine            = "mariadb"
   db_version           = "10.4.13"
   db_profile           = "mariadb"
-  db_allocated_storage = "1"
+  db_allocated_storage = "5"
   db_name              = "sleestak"
 
   git_repository = {
