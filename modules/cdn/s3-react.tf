@@ -1,6 +1,3 @@
-# -------------- Origin resources --------------
-
-# s3 origin
 resource "aws_s3_bucket" "bucket" {
   bucket = "${var.cluster_name}-${var.environment}-reactapp-bucket"
   acl    = "public-read"

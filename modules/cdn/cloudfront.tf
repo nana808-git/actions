@@ -22,7 +22,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     custom_origin_config {
       http_port              = 80
       https_port             = 443
-      origin_protocol_policy = "https-only"
+      origin_protocol_policy = "http-only"
       origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2", "SSLv3"]
     }
   }
@@ -79,10 +79,6 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 }
 
-output "domain" {
-  value = "${aws_cloudfront_distribution.distribution.domain_name}"
-}
-
 # Creates the DNS record to point on the CloudFront distribution ID that handles the redirection website
 resource "aws_route53_record" "website_cdn_redirect_record" {
   zone_id = data.aws_route53_zone.main.zone_id
@@ -95,7 +91,6 @@ resource "aws_route53_record" "website_cdn_redirect_record" {
     evaluate_target_health = false
   }
 }
-
 
 resource "aws_cloudfront_origin_access_identity" "OAI" {
 }
