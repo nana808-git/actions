@@ -1,7 +1,7 @@
 variable "app" {
   type = map
   default = {
-    name = "ss"
+    name = "vv"
     env  = "dev"
   }
 }
@@ -22,11 +22,11 @@ variable "region" {
 variable "network" {
   type = map
   default = {
-    cidr       = "10.10.96.0/20"
-    publicAz1  = "10.10.96.0/22"
-    publicAz2  = "10.10.100.0/22"
-    privateAz1 = "10.10.104.0/22"
-    privateAz2 = "10.10.108.0/22"
+    cidr       = "10.100.96.0/20"
+    publicAz1  = "10.100.96.0/22"
+    publicAz2  = "10.100.100.0/22"
+    privateAz1 = "10.100.104.0/22"
+    privateAz2 = "10.100.108.0/22"
   }
 }
 
