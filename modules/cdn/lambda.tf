@@ -73,7 +73,7 @@ EOF
 # api gw
 
 resource "aws_api_gateway_rest_api" "rest_api" {
-  name = "${random_id.id.hex}-rest-api"
+  name = "${var.cluster_name}-${var.environment}-rest-api"
 }
 
 resource "aws_api_gateway_resource" "proxy" {
