@@ -22,7 +22,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     custom_origin_config {
       http_port              = 80
       https_port             = 443
-      origin_protocol_policy = "http-only"
+      origin_protocol_policy = "https-only"
       origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2", "SSLv3"]
     }
   }
@@ -42,8 +42,8 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
 
-    #viewer_protocol_policy = "redirect-to-https"
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
+    #viewer_protocol_policy = "allow-all"
   }
 
   ordered_cache_behavior {
@@ -63,8 +63,8 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
 
-    #viewer_protocol_policy = "redirect-to-https"
-    viewer_protocol_policy = "allow-all"
+    viewer_protocol_policy = "redirect-to-https"
+    #viewer_protocol_policy = "allow-all"
   }
   restrictions {
     geo_restriction {
@@ -79,7 +79,6 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 }
 
-# Creates the DNS record to point on the CloudFront distribution ID that handles the redirection website
 resource "aws_route53_record" "website_cdn_redirect_record" {
   zone_id = data.aws_route53_zone.main.zone_id
   name    = "${var.cluster_name}-${var.environment}.${var.domain_name}."
