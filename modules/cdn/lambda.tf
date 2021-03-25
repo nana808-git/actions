@@ -8,13 +8,11 @@ module.exports.handler = async (event, context, callback) => {
 	statusCode: 200,
 	body: {
       div: {
-        @id: root
+        id: root
         }  
       } 
     }
   };
-	callback(null, response);
-};
 EOF
     filename = "main.js"
   }
