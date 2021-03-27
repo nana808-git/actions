@@ -14,7 +14,7 @@ phases:
     commands:
       - echo Build started on `date`
       - cd server
-      - ls
+      - npm install && npm run migrate:latest
       - cd ..
   post_build:
     commands:
