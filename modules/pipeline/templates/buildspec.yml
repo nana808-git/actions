@@ -29,11 +29,4 @@ artifacts:
     - imagedefinitions.json
   discard-paths: yes
 
-  phases:
-  install:
-    runtime-versions:
-      nodejs: 10  
-    commands:
-      - echo Installing Mocha...
-      - npm install -g mocha
-  pre_build:
+ 
