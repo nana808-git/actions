@@ -6,7 +6,6 @@ phases:
       nodejs: 10  
     commands:
       - echo Installing Dependencies
-      - npm install -g mocha
   pre_build:
     commands:
       - apt-get update 
