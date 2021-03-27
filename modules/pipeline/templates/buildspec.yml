@@ -5,8 +5,7 @@ phases:
     runtime-versions:
       nodejs: 14
     commands:
-      - echo Installing nodejs
-      - 
+      - echo Installed Nodejs .....
   pre_build:
     commands:
       #- echo Installing Dependencies
