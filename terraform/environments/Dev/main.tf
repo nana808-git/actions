@@ -1,5 +1,5 @@
 data "aws_acm_certificate" "ssl-cert" {
-  domain      = var.domain
+  domain      = var.ssl_cert
   statuses    = ["ISSUED"]
   most_recent = true
 }
@@ -17,11 +17,11 @@ module "ecs-pipeline" {
   source = "../../.."
 
   vpc_id          = module.vpc.id
-  public_subnets   = module.vpc.public_subnet_ids
-  private_subnets  = module.vpc.private_subnet_ids
+  public_subnets  = module.vpc.public_subnet_ids
+  private_subnets = module.vpc.private_subnet_ids
   cidr            = ["${var.network["cidr"]}"]
   azs             = var.availability_zones
-  region              = var.region
+  region          = var.region
 
   cluster_name        = "${var.app["name"]}"
   app_repository_name = "${var.app["name"]}"
@@ -44,7 +44,7 @@ module "ecs-pipeline" {
 
   git_repository = {
     BranchName       = "main"
-    FullRepositoryId = "nana808-git/sleestack"
+    FullRepositoryId = "nana808-git/sleestackk"
     ConnectionArn    = "arn:aws:codestar-connections:us-east-1:667736119737:connection/fc834fd4-ccfc-43a9-a4cc-12133eee0c30"
   }
 

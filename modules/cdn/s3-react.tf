@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket = "${var.cluster_name}-${var.environment}-reactapp-bucket"
+  bucket = "${var.cluster_name}-${var.environment}-react-app-bucket"
   acl    = "public-read"
   force_destroy = true
 

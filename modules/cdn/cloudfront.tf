@@ -15,7 +15,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   origin {
-    domain_name = "module.ecs.alb_dns_name"
+    domain_name = "${var.alb_dns_name}"
   
     origin_id   = "ELB"
 
@@ -25,8 +25,6 @@ resource "aws_cloudfront_distribution" "distribution" {
       origin_protocol_policy = "match-viewer"
       origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2", "SSLv3"]
     }
-
-    
   }
 
   enabled             = true
@@ -34,7 +32,7 @@ resource "aws_cloudfront_distribution" "distribution" {
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = "s3"
 
     forwarded_values {
@@ -44,14 +42,14 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
 
-    viewer_protocol_policy = "redirect-to-https"
-    #viewer_protocol_policy = "allow-all"
+    #viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "allow-all"
   }
 
   ordered_cache_behavior {
     path_pattern     = "/api/*"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
-    cached_methods   = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = "ELB"
 
     default_ttl = 0
@@ -65,8 +63,8 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
 
-    viewer_protocol_policy = "redirect-to-https"
-    #viewer_protocol_policy = "allow-all"
+    #viewer_protocol_policy = "redirect-to-https"
+    viewer_protocol_policy = "allow-all"
   }
   restrictions {
     geo_restriction {
@@ -75,12 +73,14 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   viewer_certificate {
-    acm_certificate_arn            = "${var.ssl_certificate_arn}"
-    ssl_support_method             = "sni-only"
-    minimum_protocol_version       = "TLSv1.1_2016"
+    cloudfront_default_certificate = true
+    #acm_certificate_arn            = "${var.ssl_certificate_arn}"
+    #ssl_support_method             = "sni-only"
+    #minimum_protocol_version       = "TLSv1.1_2016"
   }
 }
 
+# Creates the DNS record to point on the CloudFront distribution ID that handles the redirection website
 resource "aws_route53_record" "website_cdn_redirect_record" {
   zone_id = data.aws_route53_zone.main.zone_id
   name    = "${var.cluster_name}-${var.environment}.${var.domain_name}."
@@ -95,6 +95,7 @@ resource "aws_route53_record" "website_cdn_redirect_record" {
 
 resource "aws_cloudfront_origin_access_identity" "OAI" {
 }
+
 
 
 

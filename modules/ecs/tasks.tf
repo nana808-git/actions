@@ -17,6 +17,7 @@ data "template_file" "api_task" {
     container_name            = "${var.cluster_name}-${var.environment}-node-api"
     environment               = var.environment
     region                    = var.region
+    SQL_SERVER                = "${var.db_endpoint}"
     JUNGLESCOUT_USERNAME      = local.ss-dev-db-creds.JUNGLESCOUT_USERNAME
     JUNGLESCOUT_PASSWORD      = local.ss-dev-db-creds.JUNGLESCOUT_PASSWORD
     SQL_DB_USER               = local.ss-dev-db-creds.SQL_DB_USER 

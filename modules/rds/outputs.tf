@@ -9,3 +9,7 @@ output "db_port" {
 output "db_url" {
   value = "jdbc:mysql://${aws_db_instance.db.address}/${var.db_name}"
 }
+
+output "db_endpoint" {
+  value = "${aws_db_instance.db.endpoint}"
+}

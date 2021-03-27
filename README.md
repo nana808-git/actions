@@ -30,7 +30,7 @@
  * module ECS-PIPELINE - spins up modules RDS, CDN, ECS, PIPELINE
 
 ### Issues
-1. Cloudfront as proxy not conecting. Alternate solution ,ay be proposed.
+1. Cloudfront as proxy not conecting. Alternate solution may be proposed.
 2. 
 3. 
 4. 

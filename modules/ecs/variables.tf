@@ -31,10 +31,13 @@ variable "repository_url" {
   description = "The ecr URI"
 }
 
+variable "db_endpoint" {
+  description = "RDS Host name"
+}
+
 variable "image" {
   description = "The container image"
 }
-
 
 
 variable "vpc_id" {

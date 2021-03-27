@@ -71,34 +71,6 @@ resource "aws_alb_listener" "web_app_ssl" {
   }
 }
 
-
-#data "aws_route53_zone" "selected" {
-#  count = local.can_domain ? 1 : 0
-
-#  name = "${var.domain_name}."
-#  #name = "isvc.tech."
-#}
-
-# 
-#resource "aws_route53_record" "alb_alias" {
-#  count = local.can_domain ? 1 : 0
-
-#  name    = var.domain_name
-#  zone_id = data.aws_route53_zone.selected[0].zone_id
-#  type    = "A"
-
-#  lifecycle {
-#    create_before_destroy = true
-#  }
-
-#  alias {
-#    name                   = aws_alb.app_alb.dns_name
-#    zone_id                = aws_alb.app_alb.zone_id
-#    evaluate_target_health = true
-#  }
-#}
-
-
 resource "aws_alb_listener" "web_app_http" {
   count = local.is_only_http ? 1 : 0
 
@@ -129,12 +101,7 @@ resource "aws_lb_listener" "http_redirect_https" {
   }
 
   default_action {
-    type = "redirect"
-
-    redirect {
-      port        = "443"
-      protocol    = "HTTPS"
-      status_code = "HTTP_301"
-    }
+    target_group_arn = aws_alb_target_group.api_target_group.arn
+    type = "forward"
   }
 }

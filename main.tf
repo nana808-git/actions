@@ -30,6 +30,8 @@ module "ecs" {
   image               = var.image
   region              = var.region
   repository_url      = module.ecs.repository_url
+  #db_endpoint         = module.rds.db_endpoint
+  db_endpoint         = "ss-dev-db-instance.cwmypylwscux.us-west-1.rds.amazonaws.com"
   container_name      = var.container_name
   app_repository_name = var.app_repository_name
   repository_name     = var.repository_name
@@ -59,6 +61,7 @@ module "cdn" {
   vpc_id              = var.vpc_id
   cluster_name        = var.cluster_name
   environment         = var.environment
+  alb_dns_name        = module.ecs.alb_dns_name
   app_repository_name = var.app_repository_name
   alb_port            = var.alb_port
   container_port      = var.container_port

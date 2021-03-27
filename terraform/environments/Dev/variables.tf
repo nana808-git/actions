@@ -40,6 +40,11 @@ variable "domain" {
   default = "nana808test.com"
 }
 
+variable "ssl_cert" {
+  type = string
+  default = "nana808test.com"
+}
+
 variable "node_volume_size" {
   type = string
   default = "10"
