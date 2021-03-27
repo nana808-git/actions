@@ -1,14 +1,12 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      nodejs: 14  
-    commands:
-      - echo Installing Dependencies
   pre_build:
     commands:
+      - echo Installing Dependencies
       - apt-get update 
+      - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+      - sudo apt install nodejs
       - REPOSITORY_URI=${repository_url}
   build:
     commands:
