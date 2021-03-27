@@ -18,7 +18,6 @@ variable "network" {
   default = {}
 }
 
-
 variable "cluster_name" {
   type        = string
   description = "ecs cluster name"
@@ -55,7 +54,6 @@ variable "azs" {
   type        = list(string)
   description = "availability zones"
 }
-
 
 variable "alb_port" {
   type        = string

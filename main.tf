@@ -1,6 +1,5 @@
 module "pipeline" {
   source = "./modules/pipeline"
-  #codepipeline_events_enabled    = true
   cluster_name                   = var.cluster_name
   environment                    = var.environment
   #env_name                       = var.env_name
@@ -16,9 +15,6 @@ module "pipeline" {
 
   build_options                  = var.build_options
   build_args                     = var.build_args
-
-  #subnet_ids                     = "module.vpc.aws_subnet.public*.id"
-  #subnet_ids                     = "module.vpc.${var.network["publicAz1, publicAz1"]}"
   subnet_ids                     = var.public_subnets
 }
 
@@ -30,8 +26,7 @@ module "ecs" {
   image               = var.image
   region              = var.region
   repository_url      = module.ecs.repository_url
-  #db_endpoint         = module.rds.db_endpoint
-  db_endpoint         = "ss-dev-db-instance.cwmypylwscux.us-west-1.rds.amazonaws.com"
+  db_endpoint         = module.rds.db_endpoint
   container_name      = var.container_name
   app_repository_name = var.app_repository_name
   repository_name     = var.repository_name
@@ -86,5 +81,4 @@ module "rds" {
   vpc_id                         = var.vpc_id
   cidr                           = var.cidr
   subnet_ids                     = var.private_subnets
-  #availability_zone              = var.region
 }
