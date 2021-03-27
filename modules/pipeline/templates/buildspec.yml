@@ -4,9 +4,8 @@ phases:
   pre_build:
     commands:
       - echo Installing Dependencies
-      - apt-get update 
       - curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-      - sudo apt install nodejs
+      - sudo apt install nodejs -y
       - REPOSITORY_URI=${repository_url}
   build:
     commands:
