@@ -64,7 +64,7 @@ resource "aws_codebuild_project" "app_build" {
 
     environment_variable {
       name  = "JUNGLESCOUT_USERNAME"
-      value = "var.JUNGLESCOUT_USERNAME"
+      value = "local.ss-dev-db-creds.JUNGLESCOUT_USERNAME"
     }
     environment_variable {
       name  = "JUNGLESCOUT_PASSWORD"
@@ -76,7 +76,7 @@ resource "aws_codebuild_project" "app_build" {
     }
     environment_variable {
       name  = "SQL_SERVER"
-      value = "var.SQL_SERVER"
+      value = "${var.db_endpoint}"
     }
     environment_variable {
       name  = "SQL_DB_PASSWORD"
