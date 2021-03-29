@@ -19,7 +19,6 @@ data "template_file" "buildspec" {
     security_group_ids        = join(",", var.subnet_ids)
     build_options             = local.build_options
     SQL_SERVER                = "${var.db_endpoint}"
-    SQL_SERVER                = "${var.SQL_SERVER}"
     JUNGLESCOUT_USERNAME      = "${var.JUNGLESCOUT_USERNAME}"
     JUNGLESCOUT_PASSWORD      = "${var.JUNGLESCOUT_PASSWORD}"
     SQL_DB_USER               = "${var.SQL_DB_USER}"
