@@ -12,10 +12,10 @@ phases:
       #- curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
       #- sudo apt install nodejs -y
       - REPOSITORY_URI=${repository_url}
-      - SQL_SERVER=${var.db_endpoint}
-      - JUNGLESCOUT_USERNAME=${var.JUNGLESCOUT_USERNAME}
-      - SQL_DB_USER=${var.SQL_DB_USER}
-      - SQL_DB_PASSWORD=${var.SQL_DB_PASSWORD}
+      - SQL_SERVER=${db_endpoint}
+      - JUNGLESCOUT_USERNAME=${JUNGLESCOUT_USERNAME}
+      - SQL_DB_USER=${SQL_DB_USER}
+      - SQL_DB_PASSWORD=${SQL_DB_PASSWORD}
       - SQL_DB_NAME=sleestak
       - SQL_PORT=3306
   build:
