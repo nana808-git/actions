@@ -93,6 +93,10 @@ variable "ssm_allowed_parameters" {
   default     = ""
 }
 
+variable "db_endpoint" {
+  description = "RDS Host name"
+}
+
 variable "repository_name" {
   description = "Full name of ECR Repository"
 }
