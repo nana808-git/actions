@@ -45,7 +45,6 @@ variable "vpc_id" {
   description = "The VPC id"
 }
 
-
 variable "app_repository_name" {
   description = "Name of ECR Repository"
 }

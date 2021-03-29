@@ -11,7 +11,9 @@ module "pipeline" {
   git_repository                 = var.git_repository
   repository_url                 = module.ecs.repository_url
   app_service_name               = module.ecs.service_name
+  environment_variables          = var.environment_variables
   vpc_id                         = var.vpc_id
+  db_endpoint         = module.rds.db_endpoint
 
   build_options                  = var.build_options
   build_args                     = var.build_args
@@ -46,8 +48,6 @@ module "ecs" {
   domain_name           = var.domain_name
 
   availability_zones    = var.public_subnets
-  #availability_zones = "module.vpc.aws_subnet.public*.id"
-  #availability_zones = "aws_subnet.public.cidr_block"
 }
 
 module "cdn" {

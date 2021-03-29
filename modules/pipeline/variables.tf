@@ -22,7 +22,6 @@ variable "cluster_name" {
   description = "The cluster_name"
 }
 
-
 variable "image" {
   description = "The container image"
 }
@@ -57,9 +56,17 @@ variable "subnet_ids" {
   description = "Subnet ids"
 }
 
+variable "environment_variables" {
+  type        = map(string)
+  description = "ecs task environment variables"
+}
 
 variable "container_name" {
   description = "Container name"
+}
+
+variable "db_endpoint" {
+  description = "RDS Host name"
 }
 
 variable "build_args" {
