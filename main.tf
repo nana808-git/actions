@@ -1,3 +1,13 @@
+data "aws_secretsmanager_secret_version" "creds" {
+  secret_id = "ss-dev-db-creds"
+}
+
+locals {
+  ss-dev-db-creds = jsondecode(
+    data.aws_secretsmanager_secret_version.creds.secret_string
+  )
+}
+
 module "pipeline" {
   source = "./modules/pipeline"
   cluster_name                   = var.cluster_name
@@ -13,11 +23,16 @@ module "pipeline" {
   app_service_name               = module.ecs.service_name
   environment_variables          = var.environment_variables
   vpc_id                         = var.vpc_id
-  db_endpoint         = module.rds.db_endpoint
+  db_endpoint                    = module.rds.db_endpoint
 
   build_options                  = var.build_options
   build_args                     = var.build_args
   subnet_ids                     = var.public_subnets
+
+  JUNGLESCOUT_USERNAME           = local.ss-dev-db-creds.JUNGLESCOUT_USERNAME
+  JUNGLESCOUT_PASSWORD           = local.ss-dev-db-creds.JUNGLESCOUT_PASSWORD
+  SQL_DB_USER                    = local.ss-dev-db-creds.SQL_DB_USER
+  SQL_DB_PASSWORD                = local.ss-dev-db-creds.SQL_DB_PASSWORD
 }
 
 module "ecs" {

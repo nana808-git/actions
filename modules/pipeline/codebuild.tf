@@ -7,16 +7,6 @@ locals {
   build_options = format("%s %s", var.build_options, local.needsBuildArgs ? local.buildArgsCommandStr : "")
 }
 
-data "aws_secretsmanager_secret_version" "creds" {
-  secret_id = "ss-dev-db-creds"
-}
-
-locals {
-  ss-dev-db-creds = jsondecode(
-    data.aws_secretsmanager_secret_version.creds.secret_string
-  )
-}
-
 data "template_file" "buildspec" {
   template = file("${path.module}/templates/buildspec.yml")
 
@@ -29,10 +19,10 @@ data "template_file" "buildspec" {
     security_group_ids        = join(",", var.subnet_ids)
     build_options             = local.build_options
     SQL_SERVER                = "${var.db_endpoint}"
-    JUNGLESCOUT_USERNAME      = local.ss-dev-db-creds.JUNGLESCOUT_USERNAME
-    JUNGLESCOUT_PASSWORD      = local.ss-dev-db-creds.JUNGLESCOUT_PASSWORD
-    SQL_DB_USER               = local.ss-dev-db-creds.SQL_DB_USER 
-    SQL_DB_PASSWORD           = local.ss-dev-db-creds.SQL_DB_PASSWORD
+    JUNGLESCOUT_USERNAME      = "${var.JUNGLESCOUT_USERNAME}"
+    JUNGLESCOUT_PASSWORD      = "${var.JUNGLESCOUT_PASSWORD}"
+    SQL_DB_USER               = "${var.SQL_DB_USER}"
+    SQL_DB_PASSWORD           = "${var.SQL_DB_PASSWORD}"
   }
 }
 
@@ -64,15 +54,15 @@ resource "aws_codebuild_project" "app_build" {
 
     environment_variable {
       name  = "JUNGLESCOUT_USERNAME"
-      value = "local.ss-dev-db-creds.JUNGLESCOUT_USERNAME"
+      value = "${var.JUNGLESCOUT_USERNAME}"
     }
     environment_variable {
       name  = "JUNGLESCOUT_PASSWORD"
-      value = "var.JUNGLESCOUT_PASSWORD"
+      value = "${var.JUNGLESCOUT_PASSWORD}"
     }
     environment_variable {
       name  = "SQL_DB_USER"
-      value = "var.SQL_DB_USER"
+      value = "${var.SQL_DB_USER}"
     }
     environment_variable {
       name  = "SQL_SERVER"
@@ -80,7 +70,7 @@ resource "aws_codebuild_project" "app_build" {
     }
     environment_variable {
       name  = "SQL_DB_PASSWORD"
-      value = "var.SQL_DB_PASSWORD"
+      value = "${var.SQL_DB_PASSWORD}"
     }
     environment_variable {
       name  = "SQL_DB_NAME"

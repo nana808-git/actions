@@ -218,3 +218,24 @@ variable "db_allocated_storage" {
   description = "RDS DB allocated_storage"
   default     = ""
 }
+
+variable "JUNGLESCOUT_USERNAME" {
+  description = "RDS JS username"
+  default     = ""
+}
+
+variable "JUNGLESCOUT_PASSWORD" {
+  description = "RDS JS password"
+  default     = ""
+}
+
+variable "SQL_DB_USER" {
+  description = "RDS DB user"
+  default     = ""
+}
+
+variable "SQL_DB_PASSWORD" {
+  description = "RDS DB password"
+  default     = ""
+}
+
