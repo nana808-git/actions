@@ -82,7 +82,14 @@ resource "aws_codebuild_project" "app_build" {
       name  = "SQL_DB_PASSWORD"
       value = "${SQL_DB_PASSWORD}"
     }
-    ${environment_variables_str}
+    environment_variable {
+      name  = "SQL_DB_NAME"
+      value = "sleestak"
+    }
+    environment_variable {
+      name  = "SQL_PORT"
+      value = "3306"
+    }      
   }
 
   source {
