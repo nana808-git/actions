@@ -22,6 +22,11 @@ variable "cluster_name" {
   description = "The cluster_name"
 }
 
+variable "target_arns" {
+  type = string
+  default = ""
+}
+
 variable "vpc_id" {
   type        = string
   description = "The VPC id"
