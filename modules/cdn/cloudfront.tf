@@ -95,11 +95,3 @@ resource "aws_route53_record" "website_cdn_redirect_record" {
 
 resource "aws_cloudfront_origin_access_identity" "OAI" {
 }
-
-
-
-
-
-
-
-
