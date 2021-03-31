@@ -38,7 +38,7 @@ resource "aws_lb_target_group" "api_target_group" {
     unhealthy_threshold = 2
   }
 
-  #depends_on = [aws_lb.app_nlb]
+  depends_on = [aws_lb.app_nlb]
 }
 
 
@@ -47,7 +47,7 @@ resource "aws_lb_listener" "web_app" {
   load_balancer_arn = aws_lb.app_nlb.id
   port              = var.alb_port
   protocol          = "TCP"
-  #depends_on        = [aws_lb_target_group.api_target_group]
+  depends_on        = [aws_lb_target_group.api_target_group]
 
   default_action {
     target_group_arn = aws_lb_target_group.api_target_group.id
