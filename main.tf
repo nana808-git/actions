@@ -77,8 +77,14 @@ module "cdn" {
   container_port      = var.container_port
   helth_check_path      = var.helth_check_path
   environment_variables = var.environment_variables
-  ssl_certificate_arn   = var.ssl_certificate_arn
+  ssl_certificate_arn   = var.ssl_cert
   domain_name           = var.domain_name
+
+  origin_force_destroy     = true
+  cors_allowed_headers     = ["*"]
+  cors_allowed_methods     = ["GET", "HEAD", "PUT"]
+  cors_allowed_origins     = ["*"]
+  cors_expose_headers      = ["ETag"]  
 }
 
 module "rds" {
@@ -95,5 +101,6 @@ module "rds" {
   environment                    = var.environment
   vpc_id                         = var.vpc_id
   cidr                           = var.cidr
-  subnet_ids                     = var.private_subnets
+  #subnet_ids                     = var.private_subnets
+  subnet_ids                     = var.public_subnets
 }

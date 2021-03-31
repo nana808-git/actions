@@ -60,6 +60,11 @@ variable "ssl_certificate_arn" {
   default     = ""
 }
 
+variable "ssl_cert" {
+  type = string
+  default = ""
+}
+
 variable "domain_name" {
   type    = string
   default = ""
@@ -69,4 +74,3 @@ variable "alb_dns_name" {
   type    = string
   default = ""
 }
-

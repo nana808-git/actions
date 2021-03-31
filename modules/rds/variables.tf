@@ -65,6 +65,7 @@ variable "cluster_name" {
   default     = ""
 }
 
+
 variable "vpc_id" {
   type        = string
   description = "vpc for provisioning resources"
@@ -85,4 +86,5 @@ variable "subnet_ids" {
   type        = list(string)
   description = "vpc subnet cidr block"
 }
+
 

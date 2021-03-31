@@ -73,10 +73,10 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
-    #acm_certificate_arn            = "${var.ssl_certificate_arn}"
-    #ssl_support_method             = "sni-only"
-    #minimum_protocol_version       = "TLSv1.1_2016"
+    #cloudfront_default_certificate = true
+    acm_certificate_arn            = "${var.ssl_certificate_arn}"
+    ssl_support_method             = "sni-only"
+    minimum_protocol_version       = "TLSv1.1_2016"
   }
 }
 
@@ -95,7 +95,6 @@ resource "aws_route53_record" "website_cdn_redirect_record" {
 
 resource "aws_cloudfront_origin_access_identity" "OAI" {
 }
-
 
 
 

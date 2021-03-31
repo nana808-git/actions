@@ -87,4 +87,3 @@ resource "aws_codebuild_project" "app_build" {
     buildspec = data.template_file.buildspec.rendered
   }
 }
-

@@ -168,6 +168,12 @@ variable "ssl_certificate_arn" {
   default     = ""
 }
 
+variable "ssl_cert" {
+  type = string
+  default = ""
+}
+
+
 variable "domain_name" {
   description = "domain name. (must be created in route53)"
   type        = string

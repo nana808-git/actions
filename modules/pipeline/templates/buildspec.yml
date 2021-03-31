@@ -8,9 +8,7 @@ phases:
       - echo Installed Nodejs .....
   pre_build:
     commands:
-      #- echo Installing Dependencies
-      #- curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-      #- sudo apt install nodejs -y
+      - echo Exporting Environmental variable ....
       - REPOSITORY_URI=${repository_url}
       - SQL_SERVER=${SQL_SERVER}
       - JUNGLESCOUT_USERNAME=${JUNGLESCOUT_USERNAME}
