@@ -124,3 +124,13 @@ variable "subnet_ids" {
   type    = string
   default = "module.vpc.aws_subnet.public.*.id"
 }
+
+# How often to check the liveliness of the container
+variable "health_check_interval" {
+  default = "30"
+}
+
+# The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from draining to unused
+variable "deregistration_delay" {
+  default = "30"
+}

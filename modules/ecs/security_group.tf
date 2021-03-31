@@ -1,22 +1,9 @@
 # App Security Group
-resource "aws_security_group" "app_sg" {
+
+resource "aws_security_group" "nlb_sg" {
   name        = "${var.cluster_name}-${var.environment}-node-sg"
-  description = "Default security group to allow inbound/outbound from the VPC"
+  description = "Limit connections from internal resources while allowing ${var.app}-${var.environment}-task to connect to all external resources"
   vpc_id      = var.vpc_id
-
-  ingress {
-    from_port = "0"
-    to_port   = "0"
-    protocol  = "-1"
-    self      = true
-  }
-
-  egress {
-    from_port = "0"
-    to_port   = "0"
-    protocol  = "-1"
-    self      = "true"
-  }
 
   tags = {
     Environment = var.cluster_name
@@ -24,98 +11,48 @@ resource "aws_security_group" "app_sg" {
   }
 }
 
-# ALB Security Group
-resource "aws_security_group" "alb_sg" {
-  name        = "${var.cluster_name}-${var.environment}-alb-sg"
-  description = "ALB Security Group"
-  vpc_id      = var.vpc_id
+# Rules for the TASK (Targets the LB's IPs)
+resource "aws_security_group_rule" "nlb_sg_ingress_rule" {
+  description = "Only allow connections from the NLB on port ${var.container_port}"
+  type        = "ingress"
+  from_port   = var.container_port
+  to_port     = var.container_port
+  protocol    = "tcp"
+  cidr_blocks = formatlist(
+    "%s/32",
+    flatten(data.aws_network_interface.nlb.*.private_ips),
+  )
 
-  #ingress {
-  #  #from_port   = var.alb_port
-  #  from_port     = var.container_port
-  #  to_port     = var.container_port
-  #  protocol    = "tcp"
-  #  cidr_blocks = ["0.0.0.0/0"]
-  #}
+  security_group_id = aws_security_group.nlb_sg.id
+}
 
-  ingress {
-    from_port   = "80"
-    to_port     = "80"
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+resource "aws_security_group_rule" "nlb_sg_egress_rule" {
+  description = "Allows task to establish connections to all resources"
+  type        = "egress"
+  from_port   = "0"
+  to_port     = "0"
+  protocol    = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.nlb_sg.id
+}
+
+# lookup the ENIs associated with the NLB
+data "aws_network_interface" "nlb" {
+  count = length(local.target_subnets)
+
+  filter {
+    name   = "description"
+    values = ["ELB ${aws_lb.app_nlb.arn_suffix}"]
   }
 
-  ingress {
-    from_port   = "443"
-    to_port     = "443" #"${var.container_port}"
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port = "0"
-    to_port   = "0"
-    protocol  = "-1"
-    self      = true
-  }
-
-  #  from_port   = "0"
-  #  to_port     = "0"
-  #  protocol    = "-1"
-  #  cidr_blocks = ["10.100.96.0/20"]
-  #  security_groups = ["sg-0810255e173ddc79a"]
-  #}
-
-  ingress {
-    from_port   = "22"
-    to_port     = "22" 
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "${var.cluster_name}-${var.environment}-alb-sg"
+  filter {
+    name   = "subnet-id"
+    values = [element(local.target_subnets, count.index)]
   }
 }
 
-# ECS Cluster Security Group
-resource "aws_security_group" "ecs_sg" {
-  vpc_id      = var.vpc_id
-  name        = "${var.cluster_name}-${var.environment}-ecs-svc-sg"
-  description = "Allow egress from container"
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = "80"
-    #to_port     = var.container_port
-    to_port     = "80"
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  #ingress {
-  #  from_port   = 8
-  #  to_port     = 0
-  #  protocol    = "icmp"
-  #  cidr_blocks = ["0.0.0.0/0"]
-  #}
-
-  tags = {
-    Name        = "${var.cluster_name}-${var.environment}-ecs-svc-sg"
-    Environment = var.cluster_name
-  }
+locals {
+  #namespace      = "${var.app}-${var.environment}"
+  target_subnets = split(",", var.private_subnets)
 }
-

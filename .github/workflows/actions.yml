@@ -37,10 +37,10 @@ jobs:
       run: terraform -chdir=terraform/environments/Dev plan 
       continue-on-error: true
 
-    - name: Terraform Apply 
-      run: terraform -chdir=terraform/environments/Dev apply -auto-approve
+    #- name: Terraform Apply 
+    #  run: terraform -chdir=terraform/environments/Dev apply -auto-approve
 
-    - name: Terraform Destroy 
-      run: terraform -chdir=terraform/environments/Dev destroy -auto-approve
+    #- name: Terraform Destroy 
+    #  run: terraform -chdir=terraform/environments/Dev destroy -auto-approve
 
       
