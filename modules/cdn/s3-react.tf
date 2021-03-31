@@ -7,9 +7,7 @@ resource "aws_s3_bucket" "bucket" {
     index_document = "index.html"
     error_document = "error.html"
   }  
-
 }
-
 
 resource "aws_s3_bucket_policy" "OAI_policy" {
   bucket = "${aws_s3_bucket.bucket.id}"
