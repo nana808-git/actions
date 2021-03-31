@@ -1,7 +1,7 @@
 resource "aws_api_gateway_vpc_link" "main" {
   name        = "${var.cluster_name}-${var.environment}-vpc-link"
   description = "allows public API Gateway to talk to private NLB"
-  target_arns = [aws_lb.app_nlb.arn]
+  target_arns = var.target_arns
 }
 
 resource "aws_api_gateway_rest_api" "main" {
@@ -77,7 +77,3 @@ resource "aws_api_gateway_base_path_mapping" "main" {
   domain_name = aws_api_gateway_domain_name.main.domain_name
 }
 
-//The API Gateway endpoint
-output "api_gateway_endpoint" {
-  value = "https://${aws_api_gateway_domain_name.main.domain_name}"
-}
