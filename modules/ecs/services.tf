@@ -1,11 +1,3 @@
-locals {
-  security_group_ids = [
-    aws_security_group.app_sg.id,
-    aws_security_group.alb_sg.id,
-    aws_security_group.ecs_sg.id,
-  ]
-}
-
 resource "aws_ecs_service" "web-api" {
   name            = "${var.cluster_name}-${var.environment}-node-api"
   task_definition = aws_ecs_task_definition.web-api.arn

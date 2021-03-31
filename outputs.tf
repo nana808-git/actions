@@ -31,20 +31,7 @@ output "ecs_repository_url" {
   description = "URL of ECR with build artifacts."
 }
 
-output "app_sg_id" {
-  value       = module.ecs.app_sg_id
-  description = "ID of application security group. (ALB and ECS adapted)"
-}
 
-output "alb_sg_id" {
-  value       = module.ecs.alb_sg_id
-  description = "ID of ALB security group."
-}
-
-output "ecs_sg_id" {
-  value       = module.ecs.ecs_sg_id
-  description = "ID of ECS security group."
-}
 
 output "cloudwatch_log_group_arn" {
   value       = module.ecs.cloudwatch_log_group_arn
@@ -71,8 +58,8 @@ output "enable_ssl" {
   description = "Bool value of ssl is valid or not."
 }
 
-output "alb_dns_name" {
-  value       = module.ecs.alb_dns_name
+output "lb_dns_name" {
+  value       = module.ecs.nlb_dns_name
   description = "DNS address linked to ALB. (automatically)"
 }
 
