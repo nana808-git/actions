@@ -175,7 +175,6 @@ variable "ssl_cert" {
 
 variable "target_arns" {
   type = list(string)
-  default = ""
 }
 
 variable "domain_name" {

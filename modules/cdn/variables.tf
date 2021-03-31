@@ -24,7 +24,6 @@ variable "cluster_name" {
 
 variable "target_arns" {
   type = list(string)
-  default = ""
 }
 
 variable "vpc_id" {
