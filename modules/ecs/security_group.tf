@@ -2,7 +2,7 @@
 
 resource "aws_security_group" "nlb_sg" {
   name        = "${var.cluster_name}-${var.environment}-node-sg"
-  description = "Limit connections from internal resources while allowing ${var.app}-${var.environment}-task to connect to all external resources"
+  description = "Limit connections from internal resources while allowing to connect to all external resources"
   vpc_id      = var.vpc_id
 
   tags = {
