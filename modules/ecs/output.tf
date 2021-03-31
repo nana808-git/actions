@@ -35,7 +35,11 @@ output "enable_ssl" {
 }
 
 output "lb_arn" {
-  value = aws_lb.app_nlb.arn
+  value = [aws_lb.app_nlb.arn]
+}
+
+output "lb_dns_name" {
+  value = aws_lb.app_nlb.dns_name
 }
 
 output "ecs_cluster_arn" {

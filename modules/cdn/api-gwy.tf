@@ -36,7 +36,7 @@ resource "aws_api_gateway_integration" "main" {
 
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  uri                     = "http://${aws_lb.app_nlb.dns_name}/{proxy}"
+  uri                     = "http://${var.lb_dns_name}/{proxy}"
   connection_type         = "VPC_LINK"
   connection_id           = aws_api_gateway_vpc_link.main.id
   timeout_milliseconds    = 29000 # 50-29000
