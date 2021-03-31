@@ -173,10 +173,6 @@ variable "ssl_cert" {
   default = ""
 }
 
-variable "target_arns" {
-  type = list(string)
-}
-
 variable "domain_name" {
   description = "domain name. (must be created in route53)"
   type        = string

@@ -22,9 +22,6 @@ variable "cluster_name" {
   description = "The cluster_name"
 }
 
-variable "target_arns" {
-  type = list(string)
-}
 
 variable "vpc_id" {
   type        = string
