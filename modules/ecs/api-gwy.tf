@@ -36,7 +36,7 @@ resource "aws_api_gateway_integration" "main" {
 
   type                    = "HTTP_PROXY"
   integration_http_method = "ANY"
-  #uri                     = "http://${aws_lb.app_nlb.dns_name}/{proxy}"
+  uri                     = "http://${aws_lb.app_nlb.dns_name}/{proxy}"
   connection_type         = "VPC_LINK"
   connection_id           = aws_api_gateway_vpc_link.main.id
   timeout_milliseconds    = 29000 # 50-29000
@@ -71,3 +71,14 @@ resource "aws_api_gateway_deployment" "main" {
   stage_name  = "v1"
 }
 
+
+Error: Error creating API Gateway Integration: BadRequestException: Invalid integration URI specified
+
+  on ../../../modules/ecs/api-gwy.tf line 32, in resource "aws_api_gateway_integration" "main":
+  32: resource "aws_api_gateway_integration" "main" {
+
+
+Error: Error creating API Gateway Integration Response: NotFoundException: Invalid Integration identifier specified
+
+  on ../../../modules/ecs/api-gwy.tf line 57, in resource "aws_api_gateway_integration_response" "main":
+  57: resource "aws_api_gateway_integration_response" "main" {
