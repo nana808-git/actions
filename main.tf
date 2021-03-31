@@ -80,11 +80,7 @@ module "cdn" {
   ssl_certificate_arn   = var.ssl_cert
   domain_name           = var.domain_name
 
-  origin_force_destroy     = true
-  cors_allowed_headers     = ["*"]
-  cors_allowed_methods     = ["GET", "HEAD", "PUT"]
-  cors_allowed_origins     = ["*"]
-  cors_expose_headers      = ["ETag"]  
+
 }
 
 module "rds" {
