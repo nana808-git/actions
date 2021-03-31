@@ -45,15 +45,6 @@ resource "aws_ecs_service" "web-api" {
 
 
 
-  task_definition = aws_ecs_task_definition.app.arn
-  desired_count   = var.replicas
-
-  network_configuration {
-    security_groups = [aws_security_group.nsg_task.id]
-    subnets         = split(",", var.private_subnets)
-  }
-
-
 
 
 
