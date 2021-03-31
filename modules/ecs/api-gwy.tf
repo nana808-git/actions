@@ -77,3 +77,7 @@ resource "aws_api_gateway_base_path_mapping" "main" {
   domain_name = aws_api_gateway_domain_name.main.domain_name
 }
 
+//The API Gateway endpoint
+output "api_gateway_endpoint" {
+  value = "https://${aws_api_gateway_domain_name.main.domain_name}"
+}
