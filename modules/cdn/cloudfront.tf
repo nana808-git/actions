@@ -14,6 +14,18 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
+  origin {
+    domain_name = replace(aws_api_gateway_deployment.deployment.invoke_url, "/^https?://([^/]*).*/", "$1")
+    origin_id   = "apigw"
+
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "https-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+  }
+
 #  origin {
 #    domain_name = "${var.alb_dns_name}"
   
@@ -47,10 +59,10 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "default"
+    path_pattern     = /api/*"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = "s3"
+    target_origin_id = "apigw"
 
     default_ttl = 0
     min_ttl     = 0
@@ -59,7 +71,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     forwarded_values {
       query_string = true
       cookies {
-        forward = "none"
+        forward = "all"
       }
     }
 
