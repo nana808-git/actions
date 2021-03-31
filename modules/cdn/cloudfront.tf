@@ -14,18 +14,6 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
   }
 
-  origin {
-    domain_name = replace(aws_api_gateway_deployment.deployment.invoke_url, "/^https?://([^/]*).*/", "$1")
-    origin_id   = "apigw"
-
-    custom_origin_config {
-      http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "https-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
-    }
-  }
-
 #  origin {
 #    domain_name = "${var.alb_dns_name}"
   
@@ -59,10 +47,10 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "/api/*"
+    path_pattern     = "default"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = "apigw"
+    target_origin_id = "s3"
 
     default_ttl = 0
     min_ttl     = 0
@@ -71,7 +59,7 @@ resource "aws_cloudfront_distribution" "distribution" {
     forwarded_values {
       query_string = true
       cookies {
-        forward = "all"
+        forward = "none"
       }
     }
 
@@ -89,7 +77,7 @@ resource "aws_cloudfront_distribution" "distribution" {
 #    #acm_certificate_arn            = "${var.ssl_cert}"
 #    #ssl_support_method             = "sni-only"
 #    #minimum_protocol_version       = "TLSv1.1_2016"
-  }
+#  }
 }
 
 # Creates the DNS record to point on the CloudFront distribution ID that handles the redirection website
