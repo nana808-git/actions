@@ -72,13 +72,3 @@ resource "aws_api_gateway_deployment" "main" {
 }
 
 
-Error: Error creating API Gateway Integration: BadRequestException: Invalid integration URI specified
-
-  on ../../../modules/ecs/api-gwy.tf line 32, in resource "aws_api_gateway_integration" "main":
-  32: resource "aws_api_gateway_integration" "main" {
-
-
-Error: Error creating API Gateway Integration Response: NotFoundException: Invalid Integration identifier specified
-
-  on ../../../modules/ecs/api-gwy.tf line 57, in resource "aws_api_gateway_integration_response" "main":
-  57: resource "aws_api_gateway_integration_response" "main" {
