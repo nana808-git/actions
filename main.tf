@@ -70,9 +70,9 @@ module "cdn" {
   source = "./modules/cdn"
   vpc_id              = var.vpc_id
   cluster_name        = var.cluster_name
-  target_arns         = module.ecs.lb_arn
+  #target_arns         = module.ecs.lb_arn
   environment         = var.environment
-  lb_dns_name         = module.ecs.lb_dns_name
+  #lb_dns_name         = module.ecs.lb_dns_name
   app_repository_name = var.app_repository_name
   alb_port            = var.alb_port
   container_port      = var.container_port

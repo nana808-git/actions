@@ -31,9 +31,9 @@ output "ecs_repository_url" {
   description = "URL of ECR with build artifacts."
 }
 
-output "lb_arn" {
-  value = aws_lb.app_nlb.arn
-}
+#output "lb_arn" {
+#  value = aws_lb.app_nlb.arn
+#}
 
 output "cloudwatch_log_group_arn" {
   value       = module.ecs.cloudwatch_log_group_arn
