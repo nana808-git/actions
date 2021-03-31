@@ -1,7 +1,7 @@
 resource "aws_api_gateway_vpc_link" "main" {
   name        = "${var.cluster_name}-${var.environment}-vpc-link"
   description = "allows public API Gateway to talk to private NLB"
-  #target_arns = [module.ecs.lb_arn]
+  target_arns = [module.ecs.aws_lb.app_nlb.arn]
 }
 
 resource "aws_api_gateway_rest_api" "main" {
