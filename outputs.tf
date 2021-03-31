@@ -58,8 +58,5 @@ output "enable_ssl" {
   description = "Bool value of ssl is valid or not."
 }
 
-output "lb_dns_name" {
-  value       = module.ecs.nlb_dns_name
-  description = "DNS address linked to ALB. (automatically)"
-}
+
 

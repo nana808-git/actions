@@ -51,3 +51,8 @@ data "aws_network_interface" "nlb" {
     values = [element(local.target_subnets, count.index)]
   }
 }
+
+locals {
+  #namespace      = "${var.app}-${var.environment}"
+  target_subnets = split(",", var.availability_zones)
+}

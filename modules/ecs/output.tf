@@ -34,9 +34,6 @@ output "enable_ssl" {
   value = local.can_ssl
 }
 
-output "lb_dns_name" {
-  value = aws_alb.app_nlb.dns_name
-}
 
 output "ecs_cluster_arn" {
   description = "ARN of the ECS Cluster"
