@@ -23,7 +23,7 @@ variable "cluster_name" {
 }
 
 variable "target_arns" {
-  type = string
+  type = list(string)
   default = ""
 }
 
