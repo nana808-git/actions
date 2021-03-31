@@ -79,8 +79,6 @@ module "cdn" {
   environment_variables = var.environment_variables
   ssl_certificate_arn   = var.ssl_cert
   domain_name           = var.domain_name
-
-
 }
 
 module "rds" {
