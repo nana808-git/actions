@@ -90,8 +90,8 @@ resource "aws_api_gateway_integration" "lambda" {
   resource_id = "${aws_api_gateway_method.proxy.resource_id}"
   http_method = "${aws_api_gateway_method.proxy.http_method}"
 
-  integration_http_method = "POST"
-  type                    = "AWS_PROXY"
+  integration_http_method = "ANY"
+  type                    = "HTTP_PROXY"
   uri                     = "${aws_lambda_function.lambda.invoke_arn}"
   connection_type         = "VPC_LINK"
   connection_id           = aws_api_gateway_vpc_link.main.id
@@ -118,8 +118,8 @@ resource "aws_api_gateway_integration" "lambda_root" {
   resource_id = "${aws_api_gateway_method.proxy_root.resource_id}"
   http_method = "${aws_api_gateway_method.proxy_root.http_method}"
 
-  integration_http_method = "POST"
-  type                    = "AWS_PROXY"
+  integration_http_method = "ANY"
+  type                    = "HTTP_PROXY"
   uri                     = "${aws_lambda_function.lambda.invoke_arn}"
   connection_type         = "VPC_LINK"
   connection_id           = aws_api_gateway_vpc_link.main.id
