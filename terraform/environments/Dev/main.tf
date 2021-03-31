@@ -22,6 +22,7 @@ module "ecs-pipeline" {
   cidr            = ["${var.network["cidr"]}"]
   azs             = var.availability_zones
   region          = var.region
+  target_arns     = var.target_arns
 
   cluster_name        = "${var.app["name"]}"
   app_repository_name = "${var.app["name"]}"
