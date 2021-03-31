@@ -47,7 +47,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   ordered_cache_behavior {
-  #  path_pattern     = "/api/*"
+    path_pattern     = "default"
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = "s3"
