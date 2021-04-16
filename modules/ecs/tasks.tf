@@ -1,12 +1,3 @@
-data "aws_secretsmanager_secret_version" "creds" {
-  secret_id = "aop-secret-credentials"
-}
-
-locals {
-  aop-secret-credentials = jsondecode(
-    data.aws_secretsmanager_secret_version.creds.secret_string
-  )
-}
 
 data "template_file" "api_task" {
   template = file("${path.module}/task-definitions/api-task.json")
@@ -18,11 +9,11 @@ data "template_file" "api_task" {
     environment               = var.environment
     region                    = var.region
     SQL_SERVER                = "${var.db_endpoint}"
-    JUNGLESCOUT_USERNAME      = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
-    JUNGLESCOUT_PASSWORD      = local.aop-secret-credentials.JUNGLESCOUT_PASSWORD
-    SQL_DB_USER               = local.aop-secret-credentials.SQL_DB_USER 
-    SQL_DB_PASSWORD           = local.aop-secret-credentials.SQL_DB_PASSWORD
-    WORDPRESS_SECRET_KEY      = local.aop-secret-credentials.WORDPRESS_SECRET_KEY
+    JUNGLESCOUT_USERNAME           = "aopproduction@digitaltrends.com"
+    JUNGLESCOUT_PASSWORD           = "Dtrends#1"
+    SQL_DB_USER                    = "root"
+    SQL_DB_PASSWORD                = "admin123"
+    WORDPRESS_SECRET_KEY           = "obeiph65shooThiegeic"
     container_port            = var.container_port
     log_group                 = aws_cloudwatch_log_group.web-app.name
     desired_task_cpu          = var.desired_task_cpu

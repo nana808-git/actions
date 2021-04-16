@@ -1,8 +1,8 @@
-data "aws_acm_certificate" "ssl-cert" {
-  domain      = var.ssl_cert
-  statuses    = ["ISSUED"]
-  most_recent = true
-}
+#data "aws_acm_certificate" "ssl-cert" {
+#  domain      = var.ssl_cert
+#  statuses    = ["ISSUED"]
+#  most_recent = true
+#}
 
 module "vpc" { 
   source = "../../../modules/vpc" 
