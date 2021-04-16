@@ -12,6 +12,7 @@ data "template_file" "buildspec" {
 
   vars = {
     repository_url            = var.repository_url
+    repository_name           = var.repository_name
     region                    = var.region
     environment               = var.environment
     cluster_name              = var.cluster_name

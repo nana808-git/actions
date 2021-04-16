@@ -63,6 +63,10 @@ variable "repository_url" {
   description = "The url of the ECR repository"
 }
 
+variable "repository_name" {
+  description = "The name of the ECR repository"
+}
+
 variable "subnet_ids" {
   type        = list(string)
   description = "Subnet ids"

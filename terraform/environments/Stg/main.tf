@@ -48,7 +48,7 @@ module "ecs-pipeline" {
   git_repository = {
     BranchName       = "main"
     FullRepositoryId = "naboagye-eng/sleestak"
-    ConnectionArn    = "arn:aws:codestar-connections:us-east-1:667736119737:connection/2e9c6586-63fa-47bb-8852-2b301c5993f9"
+    ConnectionArn    = "arn:aws:codestar-connections:us-west-1:667736119737:connection/c4b85da7-c515-468c-997f-b216610ba7ee"
   }
 
   domain_name         = var.domain

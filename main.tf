@@ -19,6 +19,7 @@ module "pipeline" {
   repository_name                = var.repository_name
   git_repository                 = var.git_repository
   repository_url                 = module.ecs.repository_url
+  repository_name                = module.ecs.repository_name
   app_service_name               = module.ecs.service_name
   environment_variables          = var.environment_variables
   vpc_id                         = var.vpc_id

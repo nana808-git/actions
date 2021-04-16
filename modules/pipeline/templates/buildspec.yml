@@ -10,17 +10,29 @@ phases:
     commands:
       - echo Exporting Environmental variable ....
       - REPOSITORY_URI=${repository_url}
+      - IMAGE_REPO_NAME=${repository_name}
+      - IMAGE_TAG=latest
+      - TIME=$(date +"%Y%m%d_%H%m%S")
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 710789462061.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
       - echo Build started on `date`
+      - echo $TIME
+      - docker build \
+        -f ./server/Dockerfille \
+        -t $REPOSITORY_NAME:$IMAGE_TAG \
+        -t $REPOSITORY_NAME:cool \
+        -t $REPOSITORY_NAME:great \
       #- cd server
       #- npm install && npm run migrate:latest
       #- cd ..
   post_build:
     commands:
       - echo Build completed on `date`
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push $REPOSITORY_URI:cool
+      - docker push $REPOSITORY_URI:great
       - echo Writing image definitions file...
       - printf '[{"name":"${cluster_name}-${environment}-node-api","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
 artifacts:
