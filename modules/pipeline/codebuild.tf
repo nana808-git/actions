@@ -19,8 +19,8 @@ data "template_file" "buildspec" {
     container_name            = var.container_name
     security_group_ids        = join(",", var.subnet_ids)
     build_options             = local.build_options
-    COMMIT_ID                 = "${CODEBUILD_SOURCE_VERSION}"
-    COMMIT_REF                = "${CODEBUILD_WEBHOOK_MERGE_COMMIT}"
+    COMMIT_ID                 = "CODEBUILD_SOURCE_VERSION"
+    COMMIT_REF                = "CODEBUILD_WEBHOOK_MERGE_COMMIT"
     SQL_SERVER                = "${var.db_endpoint}"
     JUNGLESCOUT_USERNAME      = "${var.JUNGLESCOUT_USERNAME}"
     WORDPRESS_SECRET_KEY      = "${var.WORDPRESS_SECRET_KEY}"
