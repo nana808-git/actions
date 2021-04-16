@@ -30,17 +30,17 @@ jobs:
       
     - name: Terraform Init 
       id: init
-      run: terraform -chdir=terraform/environments/Dev init
+      run: terraform -chdir=terraform/environments/Stg init
  
     - name: Terraform Plan 
       id: plan
-      run: terraform -chdir=terraform/environments/Dev plan 
+      run: terraform -chdir=terraform/environments/Stg plan 
       continue-on-error: true
 
     - name: Terraform Apply 
-      run: terraform -chdir=terraform/environments/Dev apply -auto-approve
+      run: terraform -chdir=terraform/environments/Stg apply -auto-approve
 
     #- name: Terraform Destroy 
-    #  run: terraform -chdir=terraform/environments/Dev destroy -auto-approve
+    #  run: terraform -chdir=terraform/environments/Stg destroy -auto-approve
 
       
