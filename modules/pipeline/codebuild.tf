@@ -38,7 +38,7 @@ data "template_file" "serverspec" {
 }
 
 resource "aws_codebuild_project" "server_build" {
-  name          = "${var.cluster_name}-${var.environment}-codebuild"
+  name          = "${var.cluster_name}-${var.environment}-server-build"
   build_timeout = "10"
 
   service_role = aws_iam_role.codebuild_role.arn
@@ -108,7 +108,7 @@ resource "aws_codebuild_project" "server_build" {
 
 
 data "template_file" "clientspec" {
-  template = file("${path.module}/templates/serverspec.yml")
+  template = file("${path.module}/templates/clientspec.yml")
 
   vars = {
     repository_url            = var.repository_url
@@ -133,7 +133,7 @@ data "template_file" "clientspec" {
 
 
 resource "aws_codebuild_project" "client_build" {
-  name          = "${var.cluster_name}-${var.environment}-codebuild"
+  name          = "${var.cluster_name}-${var.environment}-client-build"
   build_timeout = "10"
 
   service_role = aws_iam_role.codebuild_role.arn
