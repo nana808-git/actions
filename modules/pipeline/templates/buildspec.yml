@@ -31,9 +31,9 @@ phases:
       - docker image ls
       #- docker image push --all-tags $REPOSITORY_URI/$IMAGE_REPO_NAME
       #- docker push $REPOSITORY_URI/IMAGE_REPO_NAME:$IMAGE_TAG
-      - docker push $REPOSITORY_URI/IMAGE_REPO_NAME:$COMMIT_REF
-      - docker push $REPOSITORY_URI/IMAGE_REPO_NAME:$COMMIT_ID
-      - docker push $REPOSITORY_URI/IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker push $REPOSITORY_URI:$COMMIT_REF
+      - docker push $REPOSITORY_URI:$COMMIT_ID
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"${cluster_name}-${environment}-node-api","imageUri":"%s"}]' $REPOSITORY_URI:latest > imagedefinitions.json
 artifacts:
