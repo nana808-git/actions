@@ -109,10 +109,6 @@ variable "ssm_allowed_parameters" {
   default     = ""
 }
 
-variable "repository_name" {
-  description = "Full name of ECR Repository"
-}
-
 variable "JUNGLESCOUT_USERNAME" {
   description = "RDS JS username"
   default     = ""
