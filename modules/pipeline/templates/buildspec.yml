@@ -26,7 +26,7 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - docker image push --all-tags $REPOSITORY_URI
+      - docker image push --all-tags $REPOSITORY_URI/$IMAGE_REPO_NAME
       #- docker push $REPOSITORY_URI:$IMAGE_TAG
       #- docker push $REPOSITORY_URI:cool
       #- docker push $REPOSITORY_URI:great
