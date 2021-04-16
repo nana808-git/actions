@@ -102,7 +102,7 @@ resource "aws_codebuild_project" "server_build" {
 
   source {
     type      = "CODEPIPELINE"
-    serverspec = data.template_file.severspec.rendered
+    buildspec = data.template_file.severspec.rendered
   }
 }
 
@@ -197,6 +197,6 @@ resource "aws_codebuild_project" "client_build" {
 
   source {
     type      = "CODEPIPELINE"
-    clientspec = data.template_file.clientspec.rendered
+    buildspec = data.template_file.clientspec.rendered
   }
 }
