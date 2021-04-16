@@ -68,7 +68,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["imagedefinitions"]
 
       configuration = {
-        ProjectName = "${var.cluster_name}-${var.environment}-codebuild"
+        ProjectName = "${var.cluster_name}-${var.environment}-server-build"
       }
     }
     action {
@@ -78,10 +78,10 @@ resource "aws_codepipeline" "pipeline" {
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["imagedefinitions"]
+      output_artifacts = ["React-App"]
 
       configuration = {
-        ProjectName = "${var.cluster_name}-${var.environment}-codebuild"
+        ProjectName = "${var.cluster_name}-${var.environment}-client-build"
       }
     }
   }
@@ -123,7 +123,7 @@ resource "aws_codepipeline" "pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"
-      input_artifacts = ["imagedefinitions"]
+      input_artifacts = ["React-App"]
       version         = "1"
       run_order       = "2"
 
