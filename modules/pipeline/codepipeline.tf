@@ -87,7 +87,7 @@ resource "aws_codepipeline" "pipeline" {
   }
 
   stage {
-    name = "Staging"
+    name = "QA"
     action {
       name             = "Approval"
       category         = "Approval"
@@ -104,7 +104,7 @@ resource "aws_codepipeline" "pipeline" {
   stage {
     name = "Deploy"
     action {
-      name            = "Backend-Production"
+      name            = "Backend-Staging"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
@@ -119,7 +119,7 @@ resource "aws_codepipeline" "pipeline" {
       }
     }
     action {
-      name            = "Frontend-Production"
+      name            = "Frontend-Staging"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"
