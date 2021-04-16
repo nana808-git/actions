@@ -1,8 +1,3 @@
-variable "app" {
-  type = map
-  default = {}
-}
-
 variable "availability_zones" {
   type = list
   default = []
@@ -21,6 +16,18 @@ variable "network" {
 variable "cluster_name" {
   type        = string
   description = "ecs cluster name"
+  default     = ""
+}
+
+variable "app" {
+  type        = string
+  description = "app name"
+  default     = ""
+}
+
+variable "ssl_web_prefix" {
+  type        = string
+  description = "HTTPS web prefix"
   default     = ""
 }
 
@@ -78,6 +85,12 @@ variable "repository_name" {
 variable "container_name" {
   type        = string
   description = "container app name"
+  default     = ""
+}
+
+variable "s3-bucket" {
+  type        = string
+  description = "staging s3-bucket name"
   default     = ""
 }
 
@@ -168,10 +181,17 @@ variable "ssl_certificate_arn" {
   default     = ""
 }
 
+variable "cloudfront_ssl" {
+  type        = string
+  description = "ssl cloudfront arn"
+  default     = ""
+}
+
 variable "ssl_cert" {
   type = string
   default = ""
 }
+
 
 variable "domain_name" {
   description = "domain name. (must be created in route53)"
@@ -244,3 +264,18 @@ variable "SQL_DB_PASSWORD" {
   default     = ""
 }
 
+variable "APP_WEB_URL" {
+  description = "staging site"
+  default     = ""
+}
+
+variable "WORDPRESS_SECRET_KEY" {
+  description = "WP secret"
+  default     = ""
+}
+
+variable "security_group" {
+  type        = set(string)
+  description = "security group"
+  #default     = ""
+}

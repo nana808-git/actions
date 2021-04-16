@@ -1,6 +1,7 @@
 variable "app" {
-  type = map
-  default = {}
+  type        = string
+  description = "app name"
+  default     = ""
 }
 
 variable "availability_zones" {
@@ -18,6 +19,12 @@ variable "network" {
   default = {}
 }
 
+variable "ssl_web_prefix" {
+  type        = string
+  description = "HTTPS web prefix"
+  default     = ""
+}
+
 variable "cluster_name" {
   description = "The cluster_name"
 }
@@ -25,7 +32,6 @@ variable "cluster_name" {
 variable "container_name" {
   description = "The container name"
 }
-
 
 variable "repository_url" {
   description = "The ecr URI"
@@ -39,12 +45,10 @@ variable "image" {
   description = "The container image"
 }
 
-
 variable "vpc_id" {
   type        = string
   description = "The VPC id"
 }
-
 
 variable "app_repository_name" {
   description = "Name of ECR Repository"
@@ -123,14 +127,4 @@ variable "alb_dns_name" {
 variable "subnet_ids" {
   type    = string
   default = "module.vpc.aws_subnet.public.*.id"
-}
-
-# How often to check the liveliness of the container
-variable "health_check_interval" {
-  default = "30"
-}
-
-# The amount time for Elastic Load Balancing to wait before changing the state of a deregistering target from draining to unused
-variable "deregistration_delay" {
-  default = "30"
 }

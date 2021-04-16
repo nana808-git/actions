@@ -10,17 +10,17 @@ output "service_name" {
   value = aws_ecs_service.web-api.name
 }
 
-#output "app_sg_id" {
-#  value = aws_security_group.app_sg.id
-#}
+output "app_sg_id" {
+  value = aws_security_group.app_sg.id
+}
 
-#output "alb_sg_id" {
-#  value = aws_security_group.alb_sg.id
-#}
+output "alb_sg_id" {
+  value = aws_security_group.alb_sg.id
+}
 
-#output "ecs_sg_id" {
-#  value = aws_security_group.ecs_sg.id
-#}
+output "ecs_sg_id" {
+  value = aws_security_group.ecs_sg.id
+}
 
 output "cloudwatch_log_group_arn" {
   value = aws_cloudwatch_log_group.web-app.arn
@@ -34,13 +34,9 @@ output "enable_ssl" {
   value = local.can_ssl
 }
 
-#output "lb_arn" {
-#  value = [aws_lb.app_nlb.arn]
-#}
-
-#output "lb_dns_name" {
-#  value = aws_lb.app_nlb.dns_name
-#}
+output "alb_dns_name" {
+  value = aws_alb.app_alb.dns_name
+}
 
 output "ecs_cluster_arn" {
   description = "ARN of the ECS Cluster"

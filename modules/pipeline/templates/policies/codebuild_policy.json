@@ -10,6 +10,14 @@
         "logs:CreateLogGroup",
         "logs:CreateLogStream",
         "logs:PutLogEvents",
+        "ec2:CreateNetworkInterface",
+        "ec2:DescribeDhcpOptions",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeVpcs",
+        "ec2:CreateNetworkInterfacePermission",
         "ecr:GetAuthorizationToken",
         "ecr:InitiateLayerUpload",
         "ecr:UploadLayerPart",
@@ -23,7 +31,7 @@
     {
       "Effect": "Allow",
       "Action": "codestar-connections:PassConnection",
-      "Resource": "arn:aws:codestar-connections:us-west-1:710789462061:connection/024d34e3-7643-4ffe-ab6a-93053546f46f"
+      "Resource": "*"
     },        
     {
       "Effect":"Allow",
@@ -31,10 +39,7 @@
         "s3:*"
       ],
       
-      "Resource": [
-        "${aws_s3_bucket_arn}",
-        "${aws_s3_bucket_arn}/*"
-      ]
+      "Resource": "*"
     }
   ]
 }

@@ -8,7 +8,8 @@
           "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
           "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
           "ec2:Describe*",
-          "ec2:AuthorizeSecurityGroupIngress"
+          "ec2:AuthorizeSecurityGroupIngress",
+          "ses:*"
         ],
         "Resource": [
           "*"

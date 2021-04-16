@@ -10,18 +10,14 @@ phases:
     commands:
       - echo Exporting Environmental variable ....
       - REPOSITORY_URI=${repository_url}
-      - SQL_SERVER=${SQL_SERVER}
-      - JUNGLESCOUT_USERNAME=${JUNGLESCOUT_USERNAME}
-      - SQL_DB_USER=${SQL_DB_USER}
-      - SQL_DB_PASSWORD=${SQL_DB_PASSWORD}
-      - SQL_DB_NAME=sleestak
-      - SQL_PORT=3306
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 710789462061.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
       - echo Build started on `date`
-      - cd server
-      - npm install && npm run migrate:latest
-      - cd ..
+      #- cd server
+      #- npm install && npm run migrate:latest
+      #- cd ..
   post_build:
     commands:
       - echo Build completed on `date`

@@ -1,9 +1,9 @@
 data "aws_secretsmanager_secret_version" "creds" {
-  secret_id = "ss-dev-db-creds"
+  secret_id = "aop-secret-credentials"
 }
 
 locals {
-  ss-dev-db-creds = jsondecode(
+  aop-secret-credentials = jsondecode(
     data.aws_secretsmanager_secret_version.creds.secret_string
   )
 }
@@ -18,14 +18,16 @@ data "template_file" "api_task" {
     environment               = var.environment
     region                    = var.region
     SQL_SERVER                = "${var.db_endpoint}"
-    JUNGLESCOUT_USERNAME      = local.ss-dev-db-creds.JUNGLESCOUT_USERNAME
-    JUNGLESCOUT_PASSWORD      = local.ss-dev-db-creds.JUNGLESCOUT_PASSWORD
-    SQL_DB_USER               = local.ss-dev-db-creds.SQL_DB_USER 
-    SQL_DB_PASSWORD           = local.ss-dev-db-creds.SQL_DB_PASSWORD
+    JUNGLESCOUT_USERNAME      = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
+    JUNGLESCOUT_PASSWORD      = local.aop-secret-credentials.JUNGLESCOUT_PASSWORD
+    SQL_DB_USER               = local.aop-secret-credentials.SQL_DB_USER 
+    SQL_DB_PASSWORD           = local.aop-secret-credentials.SQL_DB_PASSWORD
+    WORDPRESS_SECRET_KEY      = local.aop-secret-credentials.WORDPRESS_SECRET_KEY
     container_port            = var.container_port
     log_group                 = aws_cloudwatch_log_group.web-app.name
     desired_task_cpu          = var.desired_task_cpu
     desired_task_memory       = var.desired_task_memory
+    APP_WEB_URL               = "${var.ssl_web_prefix}${var.app}.${var.domain_name}"
     environment_variables_str = join(
       ",",
       formatlist(

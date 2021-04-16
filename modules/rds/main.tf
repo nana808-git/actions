@@ -5,11 +5,11 @@ resource "aws_db_subnet_group" "db-subnet-grp" {
 }
 
 data "aws_secretsmanager_secret_version" "creds" {
-  secret_id = "ss-dev-db-creds"
+  secret_id = "aop-secret-credentials"
 }
 
 locals {
-  ss-dev-db-creds = jsondecode(
+  aop-secret-credentials = jsondecode(
     data.aws_secretsmanager_secret_version.creds.secret_string
   )
 }
@@ -22,18 +22,19 @@ resource "aws_db_instance" "db" {
   port              = var.db_port
   instance_class    = var.db_instance_type
   name              = var.db_name
-  username          = local.ss-dev-db-creds.username
-  password          = local.ss-dev-db-creds.password
+  username          = local.aop-secret-credentials.username
+  password          = local.aop-secret-credentials.password
   
   vpc_security_group_ids = [aws_security_group.db-sg.id]
   multi_az               = false
   db_subnet_group_name   = aws_db_subnet_group.db-subnet-grp.id
-  #parameter_group_name   = "default.mariadb.10"
-  publicly_accessible    = true
+  publicly_accessible    = false
   skip_final_snapshot    = true
+  apply_immediately      = true
 
   tags = {
     Name = "${var.cluster_name}-${var.environment}-db"
   }
 }
+
 

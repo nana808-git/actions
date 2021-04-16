@@ -1,6 +1,12 @@
 variable "app" {
-  type = map
-  default = {}
+  type        = string
+  description = "app name"
+  default     = ""
+}
+
+variable "domain_name" {
+  type    = string
+  default = ""
 }
 
 variable "availability_zones" {
@@ -41,6 +47,12 @@ variable "git_repository" {
 
 variable "vpc_id" {
   description = "The VPC id"
+}
+
+variable "security_group" {
+  type        = set(string)
+  description = "security group"
+  #default     = ""
 }
 
 variable "environment" {
@@ -114,5 +126,27 @@ variable "SQL_DB_USER" {
 
 variable "SQL_DB_PASSWORD" {
   description = "RDS DB password"
+  default     = ""
+}
+
+variable "APP_WEB_URL" {
+  description = "staging site"
+  default     = ""
+}
+
+variable "WORDPRESS_SECRET_KEY" {
+  description = "WP secret"
+  default     = ""
+}
+
+variable "ssl_web_prefix" {
+  type        = string
+  description = "HTTPS web prefix"
+  default     = ""
+}
+
+variable "s3-bucket" {
+  type        = string
+  description = "staging s3-bucket name"
   default     = ""
 }

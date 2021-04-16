@@ -3,7 +3,7 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 resource "aws_cloudwatch_log_group" "web-app" {
-  name = "${var.cluster_name}-${var.environment}-logs"
+  name = "${var.cluster_name}-${var.environment}-cloudwatch-logs"
 
   tags = {
     Application = var.cluster_name

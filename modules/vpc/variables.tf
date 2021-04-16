@@ -1,16 +1,16 @@
 variable "network" {
-  type = "map"
+  type = map
 }
 
 variable "app" {
-  type = "map"
+  type = map
 }
 
 variable "availability_zones" {
-  type = "list"
+  type = list
 }
 
 variable "nat_count" {
-  type    = "string"
+  type    = string
   default = "1"
 }

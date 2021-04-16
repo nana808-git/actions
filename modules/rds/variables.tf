@@ -87,4 +87,3 @@ variable "subnet_ids" {
   description = "vpc subnet cidr block"
 }
 
-

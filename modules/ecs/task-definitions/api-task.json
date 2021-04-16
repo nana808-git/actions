@@ -31,12 +31,20 @@
           "value": "${JUNGLESCOUT_PASSWORD}"
         },
         {
+          "name": "WORDPRESS_SECRET_KEY",
+          "value": "${WORDPRESS_SECRET_KEY}"
+        },
+        {
           "name": "SQL_DB_USER",
           "value": "${SQL_DB_USER}"
         },
         {
           "name": "SQL_SERVER",
           "value": "${SQL_SERVER}"
+        },
+        {
+          "name": "APP_WEB_URL",
+          "value": "${APP_WEB_URL}"
         },
         {
           "name": "SQL_DB_PASSWORD",

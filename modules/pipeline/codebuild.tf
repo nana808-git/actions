@@ -20,9 +20,11 @@ data "template_file" "buildspec" {
     build_options             = local.build_options
     SQL_SERVER                = "${var.db_endpoint}"
     JUNGLESCOUT_USERNAME      = "${var.JUNGLESCOUT_USERNAME}"
+    WORDPRESS_SECRET_KEY      = "${var.WORDPRESS_SECRET_KEY}"
     JUNGLESCOUT_PASSWORD      = "${var.JUNGLESCOUT_PASSWORD}"
     SQL_DB_USER               = "${var.SQL_DB_USER}"
     SQL_DB_PASSWORD           = "${var.SQL_DB_PASSWORD}"
+    APP_WEB_URL               = "${var.app}.${var.domain_name}"
   }
 }
 
@@ -43,6 +45,12 @@ resource "aws_codebuild_project" "app_build" {
     type = "CODEPIPELINE"
   }
 
+  vpc_config {
+    vpc_id = var.vpc_id
+    subnets = var.subnet_ids 
+    security_group_ids = var.security_group
+  }
+
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
 
@@ -61,6 +69,10 @@ resource "aws_codebuild_project" "app_build" {
       value = "${var.JUNGLESCOUT_PASSWORD}"
     }
     environment_variable {
+      name  = "WORDPRESS_SECRET_KEY"
+      value = "${var.WORDPRESS_SECRET_KEY}"
+    }
+    environment_variable {
       name  = "SQL_DB_USER"
       value = "${var.SQL_DB_USER}"
     }
@@ -75,6 +87,10 @@ resource "aws_codebuild_project" "app_build" {
     environment_variable {
       name  = "SQL_DB_NAME"
       value = "sleestak"
+    }
+    environment_variable {
+      name  = "APP_WEB_URL"
+      value = "${var.APP_WEB_URL}"
     }
     environment_variable {
       name  = "SQL_PORT"

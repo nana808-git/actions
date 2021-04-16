@@ -1,8 +1,3 @@
-variable "app" {
-  type = map
-  default = {}
-}
-
 variable "availability_zones" {
   type = list
   default = []
@@ -21,7 +16,6 @@ variable "network" {
 variable "cluster_name" {
   description = "The cluster_name"
 }
-
 
 variable "vpc_id" {
   type        = string
@@ -44,6 +38,11 @@ variable "container_port" {
   description = "ALB target port"
 }
 
+variable "app" {
+  type        = string
+  description = "app name"
+  default     = ""
+}
 
 variable "helth_check_path" {
   description = ""
@@ -55,9 +54,9 @@ variable "environment_variables" {
   description = "ecs task environment variables"
 }
 
-variable "ssl_certificate_arn" {
+variable "ssl_certificate_id" {
   type        = string
-  description = "ssl certification arn"
+  description = "ssl certification id"
   default     = ""
 }
 
@@ -74,4 +73,10 @@ variable "domain_name" {
 variable "alb_dns_name" {
   type    = string
   default = ""
+}
+
+variable "cloudfront_ssl" {
+  type        = string
+  description = "ssl cloudfront arn"
+  default     = ""
 }
