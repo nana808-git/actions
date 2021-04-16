@@ -4,7 +4,15 @@ resource "aws_db_subnet_group" "db-subnet-grp" {
   subnet_ids  = var.subnet_ids
 }
 
+data "aws_secretsmanager_secret_version" "creds" {
+  secret_id = "aop-secret-credentials"
+}
 
+locals {
+  aop-secret-credentials = jsondecode(
+    data.aws_secretsmanager_secret_version.creds.secret_string
+  )
+}
 
 resource "aws_db_instance" "db" {
   identifier        = "${var.cluster_name}-${var.environment}-db-instance"
