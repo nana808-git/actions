@@ -24,7 +24,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   enabled             = true
   default_root_object = "index.html"
 
-  aliases = ["${var.app}.${var.domain_name}"]
+  #aliases = ["${var.app}.${var.domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
