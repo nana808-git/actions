@@ -59,7 +59,7 @@ resource "aws_codepipeline" "pipeline" {
   stage {
     name = "Build"
     action {
-      name             = "DB-Migration"
+      name             = "App-Build"
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
@@ -71,6 +71,7 @@ resource "aws_codepipeline" "pipeline" {
         ProjectName = "${var.cluster_name}-${var.environment}-codebuild"
       }
     }
+
   }
 
   stage {
