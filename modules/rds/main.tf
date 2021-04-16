@@ -14,8 +14,8 @@ resource "aws_db_instance" "db" {
   port              = var.db_port
   instance_class    = var.db_instance_type
   name              = var.db_name
-  username          = "root"
-  password          = "admin123"
+  username          = local.aop-secret-credentials.username
+  password          = local.aop-secret-credentials.password
   
   vpc_security_group_ids = [aws_security_group.db-sg.id]
   multi_az               = false

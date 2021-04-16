@@ -1,4 +1,12 @@
+data "aws_secretsmanager_secret_version" "creds" {
+  secret_id = "aop-secret-credentials"
+}
 
+locals {
+  aop-secret-credentials = jsondecode(
+    data.aws_secretsmanager_secret_version.creds.secret_string
+  )
+}
 
 module "pipeline" {
   source = "./modules/pipeline"
@@ -26,11 +34,11 @@ module "pipeline" {
   domain_name                    = var.domain_name
   APP_WEB_URL                    = "${var.ssl_web_prefix}${var.app}.${var.domain_name}"
 
-  JUNGLESCOUT_USERNAME           = "aopproduction@digitaltrends.com"
-  JUNGLESCOUT_PASSWORD           = "Dtrends#1"
-  SQL_DB_USER                    = "root"
-  SQL_DB_PASSWORD                = "admin123"
-  WORDPRESS_SECRET_KEY           = "obeiph65shooThiegeic"
+  JUNGLESCOUT_USERNAME           = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
+  JUNGLESCOUT_PASSWORD           = local.aop-secret-credentials.JUNGLESCOUT_PASSWORD
+  SQL_DB_USER                    = local.aop-secret-credentials.SQL_DB_USER
+  SQL_DB_PASSWORD                = local.aop-secret-credentials.SQL_DB_PASSWORD
+  WORDPRESS_SECRET_KEY           = local.aop-secret-credentials.WORDPRESS_SECRET_KEY
 }
 
 module "ecs" {
