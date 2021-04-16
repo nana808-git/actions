@@ -19,7 +19,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo $TIME
-      - docker build -f ./server/Dockerfille -t $REPOSITORY_URI:$IMAGE_TAG .
+      - docker build -f ./server/Dockerfile -t $REPOSITORY_URI:$IMAGE_TAG .
       - docker tag $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:cool  $REPOSITORY_URI:cool -- build-arg build_commit_hash=cool -- build-arg release_tag=great 
       #- cd server
       #- npm install && npm run migrate:latest
