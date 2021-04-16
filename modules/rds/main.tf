@@ -4,15 +4,7 @@ resource "aws_db_subnet_group" "db-subnet-grp" {
   subnet_ids  = var.subnet_ids
 }
 
-data "aws_secretsmanager_secret_version" "creds" {
-  secret_id = "aop-secret-credentials"
-}
 
-locals {
-  aop-secret-credentials = jsondecode(
-    data.aws_secretsmanager_secret_version.creds.secret_string
-  )
-}
 
 resource "aws_db_instance" "db" {
   identifier        = "${var.cluster_name}-${var.environment}-db-instance"
@@ -22,8 +14,8 @@ resource "aws_db_instance" "db" {
   port              = var.db_port
   instance_class    = var.db_instance_type
   name              = var.db_name
-  username          = local.aop-secret-credentials.username
-  password          = local.aop-secret-credentials.password
+  username          = "root"
+  password          = "admin123"
   
   vpc_security_group_ids = [aws_security_group.db-sg.id]
   multi_az               = false
