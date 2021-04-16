@@ -55,3 +55,4 @@ module "ecs-pipeline" {
   ssl_certificate_arn = var.certificate_arn
   #cloudfront_ssl      = var.cloudfront_certificate_id
 }
+
