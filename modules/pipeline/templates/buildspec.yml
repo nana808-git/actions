@@ -24,6 +24,9 @@ phases:
         -t $REPOSITORY_NAME:$IMAGE_TAG \
         -t $REPOSITORY_NAME:cool \
         -t $REPOSITORY_NAME:great \
+        -- build-arg build_commit_hash=cool \
+        -- build-arg release_tag=great \
+        .
       #- cd server
       #- npm install && npm run migrate:latest
       #- cd ..
