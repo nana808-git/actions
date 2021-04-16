@@ -13,7 +13,7 @@ resource "aws_codebuild_source_credential" "source-credentials" {
   token       = "{{resolve:secretsmanager:GITHUB_ACCESS_TOKEN:SecretString:GITHUB_ACCESS_TOKEN}}"
 }
 
-data "template_file" "serverspec" {
+data "template_file" "buildspec" {
   template = file("${path.module}/templates/serverspec.yml")
 
   vars = {
@@ -102,7 +102,7 @@ resource "aws_codebuild_project" "server_build" {
 
   source {
     type      = "CODEPIPELINE"
-    buildspec = data.template_file.severspec.rendered
+    buildspec = data.template_file.buildspec.rendered
   }
 }
 
