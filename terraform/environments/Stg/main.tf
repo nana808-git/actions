@@ -42,7 +42,7 @@ module "ecs-pipeline" {
   db_engine            = "mariadb"
   db_version           = "10.4.13"
   db_profile           = "mariadb"
-  db_allocated_storage = "50"
+  db_allocated_storage = "5"
   db_name              = "sleestak"
 
   git_repository = {

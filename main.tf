@@ -73,5 +73,38 @@ module "ecs" {
   availability_zones    = var.public_subnets
 }
 
+module "cdn" {
+
+  source = "./modules/cdn"
+  vpc_id                = var.vpc_id
+  cluster_name          = var.cluster_name
+  app                   = var.app
+  environment           = var.environment
+  alb_dns_name          = module.ecs.alb_dns_name
+  app_repository_name   = var.app_repository_name
+  alb_port              = var.alb_port
+  container_port        = var.container_port
+  helth_check_path      = var.helth_check_path
+  environment_variables = var.environment_variables
+  ssl_certificate_id    = var.cloudfront_ssl
+  domain_name           = var.domain_name 
+}
+
+module "rds" {
+  source = "./modules/rds"
+  db_instance_type               = var.db_instance_type
+  db_name                        = var.db_name
+  db_port                        = var.db_port
+  db_profile                     = var.db_profile
+  db_initialize                  = var.db_initialize
+  db_engine                      = var.db_engine
+  db_version                     = var.db_version
+  db_allocated_storage           = var.db_allocated_storage 
+  cluster_name                   = var.cluster_name
+  environment                    = var.environment
+  vpc_id                         = var.vpc_id
+  cidr                           = var.cidr
+  subnet_ids                     = var.private_subnets
+}
 
 
