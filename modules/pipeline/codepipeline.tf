@@ -59,7 +59,7 @@ resource "aws_codepipeline" "pipeline" {
   stage {
     name = "Build"
     action {
-      name             = "App-Build"
+      name             = "Server-Build"
       category         = "Build"
       owner            = "AWS"
       provider         = "CodeBuild"
@@ -71,7 +71,19 @@ resource "aws_codepipeline" "pipeline" {
         ProjectName = "${var.cluster_name}-${var.environment}-codebuild"
       }
     }
+    action {
+      name             = "Client-Build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["Github-Source"]
+      output_artifacts = ["imagedefinitions"]
 
+      configuration = {
+        ProjectName = "${var.cluster_name}-${var.environment}-codebuild"
+      }
+    }
   }
 
   stage {
