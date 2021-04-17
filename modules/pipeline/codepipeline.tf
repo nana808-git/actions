@@ -128,7 +128,7 @@ resource "aws_codepipeline" "pipeline" {
       run_order       = "2"
 
       configuration = {
-        BucketName = "${var.s3-bucket}"
+        BucketName = "${var.s3-bucket}-stg"
         Extract = "true"
       }
     }
