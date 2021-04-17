@@ -43,6 +43,7 @@
     {
       "Action": [
         "ecs:*",
+        "ecr:*",
         "events:DescribeRule",
         "events:DeleteRule",
         "events:ListRuleNamesByTarget",

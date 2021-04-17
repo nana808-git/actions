@@ -36,7 +36,8 @@
     {
       "Effect":"Allow",
       "Action": [
-        "s3:*"
+        "s3:*",
+        "ecs:*"
       ],
       
       "Resource": "*"
