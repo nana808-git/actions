@@ -53,12 +53,3 @@ output "ecr_repository_urls" {
   value       = aws_ecr_repository.web-app.*.repository_url
 }
 
-#output "cloudwatch_log_group_names" {
-#  description = "List of Names of Cloudwatch Log Groups"
-#  value       = aws_cloudwatch_log_group.this.*.name
-#}
-
-#output "cloudwatch_log_group_retention_days" {
-#  description = "List of Retention in Days configuration of Cloudwatch Log Groups"
-#  value       = aws_cloudwatch_log_group.this.*.retention_in_days
-#}

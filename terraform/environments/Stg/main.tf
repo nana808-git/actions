@@ -64,11 +64,10 @@ module "pipeline" {
   source = "../../../modules/pipeline"
   cluster_name                   = "${var.app["name"]}"
   environment                    = "${var.app["env"]}"
-  #image                          = var.image
+  image                          = module.ecs.repository_url:latest
   codestar_connector_credentials = var.codestar_connector_credentials
-  #container_name                 = var.container_name
-  #app_repository_name            = var.app_repository_name
-  #git_repository                 = var.git_repository
+  container_name                 = "${var.app["name"]}-${var.app["env"]}-node-api"
+  app_repository_name            = module.ecs.repository_name
   repository_url                 = module.ecs.repository_url
   repository_name                = module.ecs.repository_name
   app_service_name               = module.ecs.service_name
