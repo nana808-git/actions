@@ -246,6 +246,7 @@ variable "security_group" {
 
 variable "db_endpoint" {
   description = "RDS Host name"
+  default     = var.db_endpoint
 }
 
 variable "repository_url" {
