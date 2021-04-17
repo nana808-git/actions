@@ -30,6 +30,6 @@ phases:
       #- cd client/build && zip -r ../build_${{ github.sha }}.zip *
   artifacts:
     files:
-      - '**/*'
+      - imagedefinitions.json
     discard-paths: yes
     name: build_${{ github.sha }}.zip
