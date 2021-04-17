@@ -45,11 +45,7 @@ module "ecs-infra" {
   db_allocated_storage = "50"
   db_name              = "sleestak"
 
-  git_repository = {
-    BranchName       = "main"
-    FullRepositoryId = "DigitalTrends/sleestak"
-    ConnectionArn    = "arn:aws:codestar-connections:us-west-1:710789462061:connection/ea01e68c-4c90-46b4-aba6-b1c10521a04f"
-  }
+
 
   domain_name         = var.domain
   ssl_certificate_arn = var.certificate_arn

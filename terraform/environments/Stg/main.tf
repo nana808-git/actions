@@ -90,6 +90,8 @@ module "pipeline" {
   SQL_DB_PASSWORD                = local.aop-secret-credentials.SQL_DB_PASSWORD
   WORDPRESS_SECRET_KEY           = local.aop-secret-credentials.WORDPRESS_SECRET_KEY
 
+  prd_env                        = "prd"
+
   git_repository = {
     BranchName       = "main"
     FullRepositoryId = "naboagye-eng/sleestak"

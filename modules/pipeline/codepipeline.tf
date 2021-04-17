@@ -12,7 +12,7 @@ resource "aws_codepipeline" "pipeline" {
   }
 
   artifact_store {
-    location = "${aws_s3_bucket.source.bucket}-test"
+    location = "${var.cluster_name}-${var.prd_env}-react-build"
     type     = "S3"
     region   = "us-east-2"
   }

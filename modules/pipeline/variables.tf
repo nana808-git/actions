@@ -49,6 +49,10 @@ variable "vpc_id" {
   description = "The VPC id"
 }
 
+variable "prd_env" {
+  description = "The prod env"
+}
+
 variable "security_group" {
   type        = set(string)
   description = "security group"
