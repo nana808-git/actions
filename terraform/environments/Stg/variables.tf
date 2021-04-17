@@ -117,7 +117,7 @@ variable "s3-bucket" {
 
 variable "pipeline_s3_arn" {
   description = "The s3 pipeline arn"
-  default     = module.cdn.pipeline_s3_arn
+  default     = "module.cdn.pipeline_s3_arn"
 }
 
 variable "db_endpoint" {
