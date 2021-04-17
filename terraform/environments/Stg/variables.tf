@@ -120,10 +120,10 @@ variable "pipeline_s3_arn" {
   default     = "module.cdn.pipeline_s3_arn"
 }
 
-variable "db_endpoint" {
-  description = "RDS Host name"
+#variable "db_endpoint" {
+#  description = "RDS Host name"
   #default     = "module.rds.db_endpoint"
-}
+#}
 
 variable "repository_url" {
   description = "The url of the ECR repository"
