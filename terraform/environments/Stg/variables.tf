@@ -143,6 +143,6 @@ variable "environment_variables" {
 
   default = {
     SQL_DB_NAME = "sleestak",
-    SQL_PORT = "3306",
+    SQL_PORT = "3306"
   }
 }
