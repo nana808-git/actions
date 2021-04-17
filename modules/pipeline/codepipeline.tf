@@ -64,7 +64,7 @@ resource "aws_codepipeline" "pipeline" {
   }
 
   stage {
-    name = "Build-Stg"
+    name = "Build-Staging"
     action {
       name             = "Server-Build"
       category         = "Build"
@@ -109,7 +109,7 @@ resource "aws_codepipeline" "pipeline" {
   }
 
   stage {
-    name = "Deploy-Stg"
+    name = "Deploy-Staging"
     action {
       name            = "Backend-Staging"
       category        = "Deploy"
@@ -135,7 +135,7 @@ resource "aws_codepipeline" "pipeline" {
       run_order       = "2"
 
       configuration = {
-        BucketName = "${var.s3-bucket}-stg"
+        BucketName = "${var.cluster_name}-${var.environment}-aop-bucket"
         Extract = "true"
       }
     }
@@ -157,7 +157,7 @@ resource "aws_codepipeline" "pipeline" {
   }
 
   stage {
-    name = "Build-Prd"
+    name = "Build-Production"
     action {
       name             = "Server-Build"
       category         = "Build"
@@ -187,7 +187,7 @@ resource "aws_codepipeline" "pipeline" {
   }
 
   stage {
-    name = "Deploy-Prd"
+    name = "Deploy-Production"
     action {
       name            = "Backend-Production"
       category        = "Deploy"
@@ -215,7 +215,7 @@ resource "aws_codepipeline" "pipeline" {
       run_order       = "2"
 
       configuration = {
-        BucketName = "${var.s3-bucket}-test"
+        BucketName = "${var.cluster_name}-${var.prd_env}-aop-bucket"
         Extract = "true"
       }
     }
