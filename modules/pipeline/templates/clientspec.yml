@@ -28,6 +28,8 @@ phases:
       - npm run lint:client
       - echo Zipping the files !!!
       
+
+      
 artifacts:
   files:
     - '**/*'
