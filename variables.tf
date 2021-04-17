@@ -187,7 +187,6 @@ variable "ssl_cert" {
   default = ""
 }
 
-
 variable "domain_name" {
   description = "domain name. (must be created in route53)"
   type        = string
@@ -273,4 +272,16 @@ variable "security_group" {
   type        = set(string)
   description = "security group"
   #default     = ""
+}
+
+variable "db_endpoint" {
+  description = "RDS Host name"
+}
+
+variable "repository_url" {
+  description = "The url of the ECR repository"
+}
+
+variable "app_service_name" {
+  description = "Service name"
 }

@@ -91,3 +91,48 @@ variable "build_args" {
   type        = map(string)
   default     = {}
 }
+
+variable "image" {
+  description = "The container image"
+  type        = string
+  default     = ""
+}
+variable "app_repository_name" {
+  type        = string
+  description = "ecr repository name"
+  default     = ""
+}
+
+variable "repository_name" {
+  description = "Full name of ECR Repository"
+}
+
+variable "container_name" {
+  type        = string
+  description = "container app name"
+  default     = ""
+}
+
+variable "s3-bucket" {
+  type        = string
+  description = "staging s3-bucket name"
+  default     = ""
+}
+
+variable "security_group" {
+  type        = set(string)
+  description = "security group"
+  #default     = ""
+}
+
+variable "db_endpoint" {
+  description = "RDS Host name"
+}
+
+variable "repository_url" {
+  description = "The url of the ECR repository"
+}
+
+variable "app_service_name" {
+  description = "Service name"
+}
