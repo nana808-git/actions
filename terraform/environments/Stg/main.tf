@@ -44,7 +44,7 @@ module "ecs-infra" {
   repository_url                 = var.repository_url
   repository_name                = var.repository_name
   app_service_name               = var.app_service_name
-  db_endpoint           = module.rds.db_endpoint
+  db_endpoint           = var.db_endpoint
   pipeline_s3_arn                = var.pipeline_s3_arn
 
   alb_port         = "80"
@@ -83,7 +83,7 @@ module "pipeline" {
   build_args                     = var.build_args
   subnet_ids                     = module.vpc.private_subnet_ids
   security_group                 = module.vpc.default_security_group_id
-  db_endpoint                    = module.ecs-infra.db_endpoint
+  db_endpoint                    = var.db_endpoint
   ssl_web_prefix                 = "https://"
   #app                            = "aop"
   domain_name                    = var.domain
