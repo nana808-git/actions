@@ -27,8 +27,8 @@ phases:
       - echo Linting time !!!
       - npm run lint:client
       - echo Zipping the files !!!
-  #artifacts:
-  #  files:
-  #    - '**/*'
-  #  discard-paths: yes
-  #  name: build_${{ github.sha }}.zip
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
+  name: build_${{ github.sha }}.zip
