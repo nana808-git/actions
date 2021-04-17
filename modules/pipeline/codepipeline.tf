@@ -5,15 +5,16 @@ resource "aws_codepipeline" "pipeline" {
   tags = {
     Name        = "${var.cluster_name}-${var.environment}-pipeline"  
   }
-  artifact_stores {
-    us-east-1 = {
-      location = "${aws_s3_bucket.source.bucket}"
-      type     = "S3"
-    }
-    us-east-2 = {
-      location = "${aws_s3_bucket.source.bucket}-test"
-      type     = "S3"
-    }
+  artifact_store {
+    location = "${aws_s3_bucket.source.bucket}"
+    type     = "S3"
+    region   = "us-east-1"
+  }
+
+  artifact_store {
+    location = "${aws_s3_bucket.source.bucket}-test"
+    type     = "S3"
+    region   = "us-east-1"
   }
 
   stage {
