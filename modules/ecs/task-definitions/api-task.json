@@ -21,7 +21,7 @@
         }
       },
       "environment": [
-        ${environment_variables_str},
+        
         {
           "name": "JUNGLESCOUT_USERNAME",
           "value": "${JUNGLESCOUT_USERNAME}"
