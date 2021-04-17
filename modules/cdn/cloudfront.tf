@@ -125,4 +125,3 @@ resource "aws_route53_record" "website_cdn_redirect_record" {
 
   records = ["${aws_cloudfront_distribution.distribution.domain_name}"]
 }
-
