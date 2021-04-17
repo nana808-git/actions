@@ -40,7 +40,9 @@ module "ecs-infra" {
   app_repository_name = "${var.app["name"]}"
   container_name      = "${var.app["name"]}"
   environment         = "${var.app["env"]}"
-  repository_name     = "${var.app["name"]}-${var.app["env"]}-ecr-node" 
+  #repository_name     = "${var.app["name"]}-${var.app["env"]}-ecr-node" 
+  repository_url                 = var.repository_url
+  repository_name                = var.repository_name
   db_endpoint           = var.db_endpoint
   pipeline_s3_arn                = var.pipeline_s3_arn
 
