@@ -3,13 +3,13 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14.x
+      nodejs: 14
     commands:
-      - echo Installed Nodejs .....
+      - echo Installed Nodejs ...
   pre_build:
     commands:
      - echo Build started on `date`
-     - echo Install Dependencies !!!
+     - echo Install Dependencies ...
      - npm run install:client
   build:
     commands:
@@ -24,12 +24,11 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Linting time !!!
+      - echo Linting time ...
       - npm run lint:client
-      - echo Zipping the files !!!
-      #- cd client/build && zip -r ../build_${{ github.sha }}.zip *
+      - echo Zipping the files ...
   artifacts:
     files:
-      - imagedefinitions.json
+      - '**/*'
     discard-paths: yes
     name: build_${{ github.sha }}.zip
