@@ -64,7 +64,7 @@ module "pipeline" {
   source = "../../../modules/pipeline"
   cluster_name                   = "${var.app["name"]}"
   environment                    = "${var.app["env"]}"
-  image                          = module.ecs.repository_url:latest
+  image                          = "module.ecs.repository_url:latest"
   codestar_connector_credentials = var.codestar_connector_credentials
   container_name                 = "${var.app["name"]}-${var.app["env"]}-node-api"
   app_repository_name            = module.ecs.repository_name
