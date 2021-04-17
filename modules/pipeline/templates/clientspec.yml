@@ -29,6 +29,6 @@ phases:
       - echo Zipping the files !!!
 artifacts:
   files:
-    - '**/*'
+    - imagedefinitions
   discard-paths: yes
   #name: build_${{ github.sha }}.zip
