@@ -100,11 +100,6 @@ variable "environment" {
   default     = ""
 }
 
-variable "git_repository" {
-  type        = map(string)
-  description = "git repository. It must contain the following key: owner, name, branch"
-}
-
 variable "helth_check_path" {
   type        = string
   description = "target group helth check path"
