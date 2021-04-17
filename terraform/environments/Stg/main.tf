@@ -64,17 +64,17 @@ module "pipeline" {
   source = "../../../modules/pipeline"
   cluster_name                   = "${var.app["name"]}"
   environment                    = "${var.app["env"]}"
-  image                          = "module.ecs.repository_url:latest"
+  image                          = "module.ecs-infra.ecs.repository_url:latest"
   codestar_connector_credentials = var.codestar_connector_credentials
   container_name                 = "${var.app["name"]}-${var.app["env"]}-node-api"
-  app_repository_name            = module.ecs.repository_name
-  repository_url                 = module.ecs.repository_url
-  repository_name                = module.ecs.repository_name
-  app_service_name               = module.ecs.service_name
+  app_repository_name            = module.ecs-infra.ecs.repository_name
+  repository_url                 = module.ecs-infra.ecs.repository_url
+  repository_name                = module.ecs-infra.ecs.repository_name
+  app_service_name               = module.ecs-infra.ecs.service_name
   environment_variables          = var.environment_variables
   vpc_id                         = module.vpc.id
-  db_endpoint                    = module.rds.db_endpoint
-  s3-bucket                      = module.cdn.s3-bucket
+  db_endpoint                    = module.ecs-infra.rds.db_endpoint
+  s3-bucket                      = module.ecs-infra.cdn.s3-bucket
 
   build_options                  = var.build_options
   build_args                     = var.build_args
@@ -83,7 +83,7 @@ module "pipeline" {
   ssl_web_prefix                 = "https://"
   #app                            = "aop"
   domain_name                    = var.domain_name
-  APP_WEB_URL                    = "${var.ssl_web_prefix}${var.app}.${var.domain_name}"
+  #APP_WEB_URL                    = "${var.ssl_web_prefix}${var.app}.${var.domain_name}"
   JUNGLESCOUT_USERNAME           = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
   JUNGLESCOUT_PASSWORD           = local.aop-secret-credentials.JUNGLESCOUT_PASSWORD
   SQL_DB_USER                    = local.aop-secret-credentials.SQL_DB_USER
