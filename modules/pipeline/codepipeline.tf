@@ -57,7 +57,7 @@ resource "aws_codepipeline" "pipeline" {
   }
 
   stage {
-    name = "Build"
+    name = "Build-Stg"
     action {
       name             = "Server-Build"
       category         = "Build"
@@ -65,7 +65,7 @@ resource "aws_codepipeline" "pipeline" {
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["imagedefinitions"]
+      output_artifacts = ["Backend-Output-Stg"]
 
       configuration = {
         ProjectName = "${var.cluster_name}-${var.environment}-server-build"
@@ -78,7 +78,7 @@ resource "aws_codepipeline" "pipeline" {
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["React-App"]
+      output_artifacts = ["Frontend_Output_stg"]
 
       configuration = {
         ProjectName = "${var.cluster_name}-${var.environment}-client-build"
@@ -102,13 +102,13 @@ resource "aws_codepipeline" "pipeline" {
   }
 
   stage {
-    name = "Deploy"
+    name = "Deploy-Stg"
     action {
       name            = "Backend-Staging"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
-      input_artifacts = ["imagedefinitions"]
+      input_artifacts = ["Backend-Output-Stg"]
       version         = "1"
       run_order       = "1"
 
@@ -123,7 +123,7 @@ resource "aws_codepipeline" "pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"
-      input_artifacts = ["React-App"]
+      input_artifacts = ["Frontend_Output_stg"]
       version         = "1"
       run_order       = "2"
 
@@ -148,15 +148,46 @@ resource "aws_codepipeline" "pipeline" {
       }
     }
   }
-  
+
   stage {
-    name = "Deploy"
+    name = "Build-Prd"
+    action {
+      name             = "Server-Build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["Github-Source"]
+      output_artifacts = ["Backend-Output-Prd"]
+
+      configuration = {
+        ProjectName = "${var.cluster_name}-${var.environment}-server-build"
+      }
+    }
+    action {
+      name             = "Client-Build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["Github-Source"]
+      output_artifacts = ["Frontend_Output_stg"]
+
+      configuration = {
+        ProjectName = "${var.cluster_name}-${var.environment}-client-build"
+      }
+    }
+  }
+
+  stage {
+    name = "Deploy-Prd"
     action {
       name            = "Backend-Production"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
-      input_artifacts = ["imagedefinitions"]
+      region           = "us-east-2"
+      input_artifacts = ["Backend-Output-Prd"]
       version         = "1"
       run_order       = "1"
 
@@ -171,7 +202,8 @@ resource "aws_codepipeline" "pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"
-      input_artifacts = ["React-App"]
+      region           = "us-east-2"
+      input_artifacts = ["Frontend_Output_Prd"]
       version         = "1"
       run_order       = "2"
 
