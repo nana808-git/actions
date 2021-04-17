@@ -251,12 +251,12 @@ variable "db_endpoint" {
 
 variable "repository_url" {
   description = "The url of the ECR repository"
-  default     = "module.ecs.repository_url"
+  #default     = "module.ecs.repository_url"
 }
 
 variable "app_service_name" {
   description = "Service name"
-  default     = "module.ecs.app_service_name"
+  #default     = "module.ecs.app_service_name"
 }
 
 variable "pipeline_s3_arn" {

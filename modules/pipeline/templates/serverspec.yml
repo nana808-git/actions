@@ -14,7 +14,7 @@ phases:
       - IMAGE_TAG=latest
       - TIME=$(date +"%Y%m%d_%H%m%S")
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 667736119737.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 667736119737.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
       - echo Build started on `date`
@@ -32,7 +32,7 @@ phases:
       #- docker push $REPOSITORY_URI/IMAGE_REPO_NAME:$IMAGE_TAG
       #- docker push $REPOSITORY_URI:$COMMIT_REF
       #- docker push $REPOSITORY_URI:$COMMIT_ID
-      - docker push 667736119737.dkr.ecr.us-east-1.amazonaws.com/zz-stg-ecr-node
+      - docker push $REPOSITORY_URI
       - echo Writing image definitions file...
       - printf '[{"name":"${cluster_name}-${environment}-node-api","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
