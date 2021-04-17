@@ -34,7 +34,7 @@ data "template_file" "api_task" {
         "{\"name\":%q,\"value\":%q}",
         keys(var.environment_variables),
         values(var.environment_variables),
-      )
+      ),
     )
   }
 }
