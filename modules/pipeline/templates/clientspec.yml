@@ -9,12 +9,12 @@ phases:
   pre_build:
     commands:
      - echo Build started on `date`
-     - echo Install Dependencies ....
+     - echo Install Dependencies !!!
      - npm run install:client
   build:
     commands:
       - echo Build started on `date`
-      - echo Run Production build
+      - echo Run Production build !!!
       # setting CI=false is unfortunately the only way to stop react-scripts from treating warnings like errors
       # https://github.com/facebook/create-react-app/issues/3657#issuecomment-437945302
       - CI=false
@@ -24,7 +24,10 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Linting time !
+      - echo Linting time !!!
       - npm run lint:client
-#artifacts:
-#  files:
+      - echo Zipping the files !!!
+      #- cd client/build && zip -r ../build_${{ github.sha }}.zip *
+  artifacts:
+    files:
+      - 'client/build/**/*'
