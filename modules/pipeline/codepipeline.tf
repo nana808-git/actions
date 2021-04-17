@@ -5,7 +5,7 @@ resource "aws_codepipeline" "pipeline" {
   tags = {
     Name        = "${var.cluster_name}-${var.environment}-pipeline"  
   }
-  artifact_store {
+  artifact_stores {
     location = "${aws_s3_bucket.source.bucket}"
     type     = "S3"
   }
