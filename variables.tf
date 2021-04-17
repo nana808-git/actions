@@ -258,3 +258,7 @@ variable "app_service_name" {
   description = "Service name"
   default     = "module.ecs.app_service_name"
 }
+
+variable "pipeline_s3_arn" {
+  description = "The s3 pipeline arn"
+}
