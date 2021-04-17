@@ -34,7 +34,7 @@ module "ecs-infra" {
   region          = var.region
   security_group  = module.vpc.default_security_group_id
 
-  app                 = "aop"
+  app                 = "aop-stg"
   ssl_web_prefix      = "https://"
   cluster_name        = "${var.app["name"]}"
   app_repository_name = "${var.app["name"]}"
