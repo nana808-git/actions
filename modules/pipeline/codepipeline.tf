@@ -85,7 +85,7 @@ resource "aws_codepipeline" "pipeline" {
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["Frontend_Output_stg"]
+      output_artifacts = ["Frontend-Output-Stg"]
 
       configuration = {
         ProjectName = "${var.cluster_name}-${var.environment}-client-build"
@@ -130,7 +130,7 @@ resource "aws_codepipeline" "pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"
-      input_artifacts = ["Frontend_Output_stg"]
+      input_artifacts = ["Frontend-Output-Stg"]
       version         = "1"
       run_order       = "2"
 
@@ -178,7 +178,7 @@ resource "aws_codepipeline" "pipeline" {
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["Frontend_Output_stg"]
+      output_artifacts = ["Frontend-Output-Prd"]
 
       configuration = {
         ProjectName = "${var.cluster_name}-${var.environment}-client-build"
@@ -210,7 +210,7 @@ resource "aws_codepipeline" "pipeline" {
       owner           = "AWS"
       provider        = "S3"
       region           = "us-east-2"
-      input_artifacts = ["Frontend_Output_Prd"]
+      input_artifacts = ["Frontend-Output-Prd"]
       version         = "1"
       run_order       = "2"
 
