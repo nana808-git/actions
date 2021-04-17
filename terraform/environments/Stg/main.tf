@@ -83,6 +83,7 @@ module "pipeline" {
   ssl_web_prefix                 = "https://"
   #app                            = "aop"
   domain_name                    = var.domain
+  pipeline_s3_arn                = module.cdn.pipeline_s3_arn
   #APP_WEB_URL                    = "${var.ssl_web_prefix}${var.app}.${var.domain_name}"
   JUNGLESCOUT_USERNAME           = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
   JUNGLESCOUT_PASSWORD           = local.aop-secret-credentials.JUNGLESCOUT_PASSWORD

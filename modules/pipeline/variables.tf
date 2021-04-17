@@ -49,6 +49,10 @@ variable "vpc_id" {
   description = "The VPC id"
 }
 
+variable "pipeline_s3_arn" {
+  description = "The s3 pipeline arn"
+}
+
 variable "prd_env" {
   description = "The prod env"
 }
