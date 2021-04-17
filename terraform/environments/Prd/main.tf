@@ -23,6 +23,7 @@ module "ecs-infra" {
   azs             = var.availability_zones
   region          = var.region
   security_group  = module.vpc.default_security_group_id
+  db_endpoint           = var.db_endpoint
 
   app                 = "aop"
   ssl_web_prefix      = "https://"
