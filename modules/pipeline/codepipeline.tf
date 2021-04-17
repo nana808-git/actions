@@ -87,7 +87,7 @@ resource "aws_codepipeline" "pipeline" {
   }
 
   stage {
-    name = "QA"
+    name = "Staging Approval"
     action {
       name             = "Approval"
       category         = "Approval"
@@ -96,7 +96,7 @@ resource "aws_codepipeline" "pipeline" {
       version          = "1"
 
       configuration = {
-        CustomData = "Approve or Reject this change after running tests "
+        CustomData = "Approve or Reject to Staging Env "
       }
     }
   }
@@ -120,6 +120,54 @@ resource "aws_codepipeline" "pipeline" {
     }
     action {
       name            = "Frontend-Staging"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "S3"
+      input_artifacts = ["React-App"]
+      version         = "1"
+      run_order       = "2"
+
+      configuration = {
+        BucketName = "${var.s3-bucket}"
+        Extract = "true"
+      }
+    }
+  }
+
+  stage {
+    name = "Staging Approval"
+    action {
+      name             = "Approval"
+      category         = "Approval"
+      owner            = "AWS"
+      provider         = "Manual"
+      version          = "1"
+
+      configuration = {
+        CustomData = "Approve or Reject to Staging Env "
+      }
+    }
+  }
+  
+  stage {
+    name = "Deploy"
+    action {
+      name            = "Backend-Production"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "ECS"
+      input_artifacts = ["imagedefinitions"]
+      version         = "1"
+      run_order       = "1"
+
+      configuration = {
+        ClusterName = "${var.cluster_name}-${var.environment}-ecs-node"
+        ServiceName = "${var.cluster_name}-${var.environment}-node-api"
+        FileName    = "imagedefinitions.json"
+      }
+    }
+    action {
+      name            = "Frontend-Production"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"

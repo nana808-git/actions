@@ -3,13 +3,28 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14
+      nodejs: 14.x
     commands:
       - echo Installed Nodejs .....
   pre_build:
     commands:
      - echo Build started on `date`
+     - echo Install Dependencies ....
+     - npm run install:client
   build:
     commands:
       - echo Build started on `date`
-    
+      - echo Run Production build
+      # setting CI=false is unfortunately the only way to stop react-scripts from treating warnings like errors
+      # https://github.com/facebook/create-react-app/issues/3657#issuecomment-437945302
+      - CI=false
+      - npm run build:client
+      # Run tests and code coverage report
+      # npm tun test:client #-- --coverage 
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Linting time !
+      - npm run lint:client
+#artifacts:
+#  files:

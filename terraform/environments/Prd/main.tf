@@ -13,7 +13,7 @@ module "vpc" {
   app                = var.app
 }
 
-module "ecs-pipeline" {
+module "ecs-infra" {
   source = "../../.."
 
   vpc_id          = module.vpc.id

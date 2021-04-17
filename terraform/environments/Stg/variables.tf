@@ -80,4 +80,14 @@ variable "escluster_instance_type" {
   default = "t2.medium.elasticsearch"
 }
 
+variable "build_options" {
+  type        = string
+  default     = ""
+  description = "Docker build options. ex: '-f ./build/Dockerfile' "
+}
 
+variable "build_args" {
+  description = "docker build args."
+  type        = map(string)
+  default     = {}
+}
