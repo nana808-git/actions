@@ -97,11 +97,6 @@ variable "image" {
   type        = string
   default     = "module.ecs.image"
 }
-variable "app_repository_name" {
-  type        = string
-  description = "ecr repository name"
-  default     = "module.ecs.app_repository_name"
-}
 
 variable "repository_name" {
   description = "Full name of ECR Repository"

@@ -69,7 +69,7 @@ module "pipeline" {
   image                          = var.image
   #codestar_connector_credentials = var.codestar_connector_credentials
   container_name                 = var.container_name
-  app_repository_name            = var.repository_name
+  app_repository_name            = "${var.app["name"]}"
   repository_url                 = var.repository_url
   repository_name                = var.repository_name
   app_service_name               = var.app_service_name
