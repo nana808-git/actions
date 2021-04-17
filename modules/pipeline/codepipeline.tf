@@ -6,7 +6,7 @@ resource "aws_codepipeline" "pipeline" {
     Name        = "${var.cluster_name}-${var.environment}-pipeline"  
   }
   artifact_store {
-    location = "${aws_s3_bucket.source.bucket}"
+    location = "${var.cluster_name}-${var.environment}-react-build"
     type     = "S3"
     region   = "us-east-1"
   }
