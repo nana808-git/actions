@@ -14,7 +14,7 @@ resource "aws_codepipeline" "pipeline" {
   artifact_store {
     location = "${aws_s3_bucket.source.bucket}-test"
     type     = "S3"
-    region   = "us-east-1"
+    region   = "us-east-2"
   }
 
   stage {
