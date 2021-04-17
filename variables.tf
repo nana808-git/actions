@@ -1,27 +1,17 @@
-variable "availability_zones" {
-  type = list
-  default = []
-}
-
 variable "region" {
   type = string
   default = ""
 }
 
-variable "network" {
-  type = map
-  default = {}
+variable "app" {
+  type        = string
+  description = "app name"
+  default     = ""
 }
 
 variable "cluster_name" {
   type        = string
   description = "ecs cluster name"
-  default     = ""
-}
-
-variable "app" {
-  type        = string
-  description = "app name"
   default     = ""
 }
 
@@ -34,7 +24,7 @@ variable "ssl_web_prefix" {
 variable "image" {
   description = "The container image"
   type        = string
-  default     = ""
+  default     = "module.ecs.image"
 }
 
 variable "vpc_id" {
@@ -80,19 +70,15 @@ variable "app_repository_name" {
 
 variable "repository_name" {
   description = "Full name of ECR Repository"
+  default     = "module.ecs.repository_name"
 }
 
 variable "container_name" {
   type        = string
   description = "container app name"
-  default     = ""
+  default     = "module.ecs.container_name"
 }
 
-variable "s3-bucket" {
-  type        = string
-  description = "staging s3-bucket name"
-  default     = ""
-}
 
 variable "environment" {
   type        = string
@@ -152,23 +138,9 @@ variable "environment_variables" {
   type        = map(string)
   description = "ecs task environment variables"
 
-  default = {
-    SQL_DB_NAME = "sleestak",
-    SQL_PORT = "3306",
-  }
+  default = {}
 }
 
-variable "build_options" {
-  type        = string
-  default     = ""
-  description = "Docker build options. ex: '-f ./build/Dockerfile' "
-}
-
-variable "build_args" {
-  description = "docker build args."
-  type        = map(string)
-  default     = {}
-}
 
 variable "ssl_certificate_arn" {
   type        = string
@@ -193,10 +165,10 @@ variable "domain_name" {
   default     = ""
 }
 
-variable "codestar_connector_credentials" {
-  type = string
-  default = ""
-}
+#variable "codestar_connector_credentials" {
+#  type = string
+#  default = ""
+#}
 
 variable "db_instance_type" {
   description = "RDS instance type"
@@ -280,8 +252,10 @@ variable "db_endpoint" {
 
 variable "repository_url" {
   description = "The url of the ECR repository"
+  default     = "module.ecs.repository_url"
 }
 
 variable "app_service_name" {
   description = "Service name"
+  default     = "module.ecs.app_service_name"
 }

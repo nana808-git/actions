@@ -96,9 +96,9 @@ variable "build_options" {
   description = "Docker build options. ex: '-f ./build/Dockerfile' "
 }
 
-variable "codestar_connector_credentials" {
-  type = string
-}
+#variable "codestar_connector_credentials" {
+#  type = string
+#}
 
 variable "codepipeline_events_enabled" {
   default = false

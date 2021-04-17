@@ -7,6 +7,6 @@ resource "aws_route53_zone" "main" {
   }
 
   lifecycle {
-    ignore_changes = ["vpc"]
+    ignore_changes = [vpc]
   }
 }

@@ -41,6 +41,7 @@ module "ecs-infra" {
   container_name      = "${var.app["name"]}"
   environment         = "${var.app["env"]}"
   repository_name     = "${var.app["name"]}-${var.app["env"]}-ecr-node" 
+  db_endpoint           = var.db_endpoint
 
   alb_port         = "80"
   container_port   = "3000"
@@ -62,24 +63,23 @@ module "ecs-infra" {
 
 module "pipeline" {
   source = "../../../modules/pipeline"
+  vpc_id          = module.vpc.id
   cluster_name                   = "${var.app["name"]}"
   environment                    = "${var.app["env"]}"
   image                          = var.image
-  codestar_connector_credentials = var.codestar_connector_credentials
+  #codestar_connector_credentials = var.codestar_connector_credentials
   container_name                 = var.container_name
   app_repository_name            = var.repository_name
   repository_url                 = var.repository_url
   repository_name                = var.repository_name
-  app_service_name               = var.service_name
+  app_service_name               = var.app_service_name
   environment_variables          = var.environment_variables
-  vpc_id                         = module.vpc.id
-  db_endpoint                    = var.db_endpoint
-  s3-bucket                      = var.s3-bucket
 
   build_options                  = var.build_options
   build_args                     = var.build_args
   subnet_ids                     = module.vpc.private_subnet_ids
-  security_group                 = var.security_group
+  security_group                 = module.vpc.default_security_group_id
+  db_endpoint                    = var.db_endpoint
   ssl_web_prefix                 = "https://"
   #app                            = "aop"
   domain_name                    = var.domain
