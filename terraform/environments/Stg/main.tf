@@ -70,7 +70,7 @@ module "pipeline" {
   app_repository_name            = var.repository_name
   repository_url                 = var.repository_url
   repository_name                = var.repository_name
-  app_service_name               = var..service_name
+  app_service_name               = var.service_name
   environment_variables          = var.environment_variables
   vpc_id                         = module.vpc.id
   db_endpoint                    = var.db_endpoint
