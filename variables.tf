@@ -138,10 +138,7 @@ variable "environment_variables" {
   type        = map(string)
   description = "ecs task environment variables"
 
-  default = {
-    SQL_DB_NAME = "sleestak",
-    SQL_PORT = "3306",
-  }
+  default = {}
 }
 
 variable "ssl_certificate_arn" {
