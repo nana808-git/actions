@@ -137,10 +137,7 @@ variable "desired_task_memory" {
 variable "environment_variables" {
   type        = map(string)
   description = "ecs task environment variables"
-
-  default = {}
 }
-
 
 variable "ssl_certificate_arn" {
   type        = string
