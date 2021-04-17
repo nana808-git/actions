@@ -31,3 +31,5 @@ phases:
   artifacts:
     files:
       - '**/*'
+    discard-paths: yes
+    name: build_${{ github.sha }}.zip
