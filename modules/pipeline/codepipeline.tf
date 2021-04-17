@@ -118,22 +118,9 @@ resource "aws_codepipeline" "pipeline" {
         FileName    = "imagedefinitions.json"
       }
     }
-    action {
-      name            = "Frontend-Staging"
-      category        = "Deploy"
-      owner           = "AWS"
-      provider        = "S3"
-      input_artifacts = ["React-App"]
-      version         = "1"
-      run_order       = "2"
-
-      configuration = {
-        BucketName = "${var.s3-bucket}"
-        Extract = "true"
-      }
-    }
+ 
+    
   }
-
 }
 
 locals {
