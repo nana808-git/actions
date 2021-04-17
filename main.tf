@@ -6,7 +6,7 @@ module "ecs" {
   image                 = var.image
   region                = var.region
   repository_url        = module.ecs.repository_url
-  db_endpoint           = module.rds.db_endpoint
+  db_endpoint           = var.db_endpoint
   container_name        = var.container_name
   app_repository_name   = var.app_repository_name
   repository_name       = var.repository_name
