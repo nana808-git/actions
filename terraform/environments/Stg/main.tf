@@ -83,7 +83,7 @@ module "pipeline" {
   build_args                     = var.build_args
   subnet_ids                     = module.vpc.private_subnet_ids
   security_group                 = module.vpc.default_security_group_id
-  db_endpoint                    = var.db_endpoint
+  db_endpoint                    = module.ecs-infra.db_endpoint
   ssl_web_prefix                 = "https://"
   #app                            = "aop"
   domain_name                    = var.domain
