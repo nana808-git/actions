@@ -6,13 +6,13 @@ resource "aws_codepipeline" "pipeline" {
     Name        = "${var.cluster_name}-${var.environment}-pipeline"  
   }
   artifact_store {
-    location = "${var.cluster_name}-${var.environment}-react-build"
+    location = "${var.cluster_name}-${var.environment}-codepipeline-build"
     type     = "S3"
     region   = "us-east-1"
   }
 
   artifact_store {
-    location = "${var.cluster_name}-${var.prd_env}-react-build"
+    location = "${var.cluster_name}-${var.prd_env}-codepipeline-build"
     type     = "S3"
     region   = "us-east-2"
   }
