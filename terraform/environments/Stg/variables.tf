@@ -142,7 +142,7 @@ variable "environment_variables" {
   description = "ecs task environment variables"
 
   default = {
-    SQL_DB_NAME = "sleestak",
+    SQL_DB_NAME = "sleestak"
     SQL_PORT = "3306"
   }
 }
