@@ -6,8 +6,14 @@ resource "aws_codepipeline" "pipeline" {
     Name        = "${var.cluster_name}-${var.environment}-pipeline"  
   }
   artifact_stores {
-    location = "${aws_s3_bucket.source.bucket}"
-    type     = "S3"
+    us-east-1 = {
+      location = "${aws_s3_bucket.source.bucket}"
+      type     = "S3"
+    }
+    us-east-2 = {
+      location = "${aws_s3_bucket.source.bucket}-test"
+      type     = "S3"
+    }
   }
 
   stage {
