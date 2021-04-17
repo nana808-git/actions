@@ -24,6 +24,7 @@ module "ecs-infra" {
   region          = var.region
   security_group  = module.vpc.default_security_group_id
   db_endpoint           = var.db_endpoint
+  pipeline_s3_arn                = var.pipeline_s3_arn
 
   app                 = "aop"
   ssl_web_prefix      = "https://"

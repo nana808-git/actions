@@ -42,6 +42,7 @@ module "ecs-infra" {
   environment         = "${var.app["env"]}"
   repository_name     = "${var.app["name"]}-${var.app["env"]}-ecr-node" 
   db_endpoint           = var.db_endpoint
+  pipeline_s3_arn                = var.pipeline_s3_arn
 
   alb_port         = "80"
   container_port   = "3000"
