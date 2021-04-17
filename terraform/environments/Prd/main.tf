@@ -54,7 +54,3 @@ module "ecs-infra" {
 }
 
 
-
-
-
-
