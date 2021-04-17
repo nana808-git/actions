@@ -79,7 +79,7 @@ module "pipeline" {
   build_options                  = var.build_options
   build_args                     = var.build_args
   subnet_ids                     = module.vpc.private_subnet_ids
-  #security_group                 = var.security_group
+  security_group                 = module.vpc.default_security_group_id
   ssl_web_prefix                 = "https://"
   #app                            = "aop"
   domain_name                    = var.domain
