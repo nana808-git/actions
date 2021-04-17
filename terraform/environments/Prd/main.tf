@@ -35,6 +35,7 @@ module "ecs-infra" {
   #repository_name     = "${var.app["name"]}-${var.app["env"]}-ecr-node" 
   repository_url                 = var.repository_url
   repository_name                = var.repository_name
+  app_service_name               = var.app_service_name
 
   alb_port         = "80"
   container_port   = "3000"
