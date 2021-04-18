@@ -41,7 +41,7 @@ variable "db_endpoint" {
   description = "RDS Host name"
 }
 
-variable "image" {
+variable "image_tag" {
   description = "The container image"
 }
 

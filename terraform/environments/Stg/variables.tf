@@ -30,44 +30,6 @@ variable "network" {
   }
 }
 
-variable "node_volume_size" {
-  type = string
-  default = "10"
-}
-
-variable "node_instance_type" {
-  type = string
-  default = "t2.large"
-}
-
-variable "nosql_volume_size" {
-  type = string
-  default = "10"
-}
-
-variable "nosql_instance_type" {
-  type = string
-  default = "t2.large"
-}
-
-variable "nat_count" {
-  type = string
-  default = "1"
-}
-
-variable "escluster_instance_count" {
-  type = string
-  default = "2"
-}
-
-variable "escluster_instance_type" {
-  type = string
-  default = "t2.medium.elasticsearch"
-}
-
-
-
-
 variable "certificate_arn" {
   type = string
   default = ""
@@ -89,30 +51,6 @@ variable "helth_check_path" {
   default     = ""
 }
 
-variable "desired_tasks" {
-  type        = number
-  description = "number of containers desired to run app task"
-}
-
-variable "min_tasks" {
-  type        = number
-  description = "minimum"
-}
-
-variable "max_tasks" {
-  type        = number
-  description = "maximum"
-}
-
-variable "cpu_to_scale_up" {
-  type        = number
-  description = "cpu % to scale up the number of containers"
-}
-
-variable "cpu_to_scale_down" {
-  type        = number
-  description = "cpu % to scale down the number of containers"
-}
 
 variable "desired_task_cpu" {
   type        = string
@@ -136,12 +74,6 @@ variable "build_args" {
   description = "docker build args."
   type        = map(string)
   default     = {}
-}
-
-variable "image" {
-  description = "The container image"
-  type        = string
-  default     = ""
 }
 
 variable "repository_name" {
@@ -176,10 +108,7 @@ variable "repository_url" {
   default     = ""
 }
 
-variable "app_service_name" {
-  description = "Service name"
-  default     = ""
-}
+
 
 variable "alb_port" {
   type        = string

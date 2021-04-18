@@ -30,55 +30,38 @@ variable "network" {
   }
 }
 
-
 variable "certificate_arn" {
   type = string
-  default = "arn:aws:acm:us-east-2:667736119737:certificate/06695160-eb02-4be0-96d5-e1d86e50847c"
+  default = ""
 }
 
 variable "domain" {
   type = string
-  default = "nana808test.com"
+  default = ""
 }
 
 variable "ssl_cert" {
   type = string
-  default = "nana808test.com"
+  default = ""
 }
 
-variable "node_volume_size" {
-  type = string
-  default = "10"
+variable "helth_check_path" {
+  type        = string
+  description = "target group helth check path"
+  default     = ""
 }
 
-variable "node_instance_type" {
-  type = string
-  default = "t2.large"
+
+variable "desired_task_cpu" {
+  type        = string
+  description = "desired cpu to run your tasks"
+  default     = ""
 }
 
-variable "nosql_volume_size" {
-  type = string
-  default = "10"
-}
-
-variable "nosql_instance_type" {
-  type = string
-  default = "t2.large"
-}
-
-variable "nat_count" {
-  type = string
-  default = "1"
-}
-
-variable "escluster_instance_count" {
-  type = string
-  default = "2"
-}
-
-variable "escluster_instance_type" {
-  type = string
-  default = "t2.medium.elasticsearch"
+variable "desired_task_memory" {
+  type        = string
+  description = "desired memory to run your tasks"
+  default     = ""
 }
 
 variable "build_options" {
@@ -93,53 +76,44 @@ variable "build_args" {
   default     = {}
 }
 
-variable "image" {
-  description = "The container image"
-  type        = string
-  default     = "module.ecs.image"
-}
-
 variable "repository_name" {
   description = "Full name of ECR Repository"
-  default     = "module.ecs.repository_name"
+  default     = ""
 }
 
 variable "container_name" {
   type        = string
   description = "container app name"
-  default     = "module.ecs.container_name"
+  default     = ""
 }
 
 variable "s3-bucket" {
   type        = string
   description = "staging s3-bucket name"
-  default     = "module.cdn.s3-bucket"
+  default     = ""
 }
 
 variable "pipeline_s3_arn" {
   description = "The s3 pipeline arn"
-  default     = "module.cdn.pipeline_s3_arn"
+  default     = ""
 }
 
 variable "db_endpoint" {
   description = "RDS Host name"
-  default     = "module.rds.db_endpoint"
+  default     = ""
 }
 
 variable "repository_url" {
   description = "The url of the ECR repository"
-  default     = "module.ecs.repository_url"
+  default     = ""
 }
 
-variable "app_service_name" {
-  description = "Service name"
-  default     = "module.ecs.app_service_name"
-}
+
 
 variable "alb_port" {
   type        = string
   description = "origin application load balancer port"
-  default     = "module.ecs.alb_port"
+  default     = ""
 }
 
 variable "environment_variables" {

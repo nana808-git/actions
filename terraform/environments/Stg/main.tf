@@ -12,11 +12,11 @@ locals {
   aop-secret-credentials = jsondecode(
     data.aws_secretsmanager_secret_version.creds.secret_string
   )
-  #db_endpoint = mudule.rds.db_endpoint
 }
 
 module "vpc" { 
   source = "../../../modules/vpc" 
+
   availability_zones = var.availability_zones
   nat_count          = var.nat_count
   network            = var.network
@@ -25,25 +25,27 @@ module "vpc" {
 
 module "ecs" {
   source                = "../../../modules/ecs"
+
   vpc_id                = module.vpc.id
   cluster_name          = "${var.app["name"]}"
   environment           = "${var.app["env"]}"
-  image                 = var.image
+  #image                 = var.image
   region                = var.region
   repository_url        = module.ecs.repository_url
-  db_endpoint           = mudule.rds.db_endpoint
+  db_endpoint           = module.rds.db_endpoint
   container_name        = "${var.app["name"]}"
   app_repository_name   = "${var.app["name"]}"
   repository_name       = module.ecs.repository_name
   alb_port              = "80"
   container_port        = "3000"
-  min_tasks             = 2
-  max_tasks             = 4
-  cpu_to_scale_up       = 80
-  cpu_to_scale_down     = 30
-  desired_tasks         = 2
+  min_tasks             = "2"
+  max_tasks             = "4"
+  cpu_to_scale_up       = "80"
+  cpu_to_scale_down     = "30"
+  desired_tasks         = "2"
   desired_task_cpu      = "256"
   desired_task_memory   = "512"
+  image_tag             = "latest"
   app                   = "aop-stg"
   ssl_web_prefix        = "https://"
 
@@ -54,25 +56,9 @@ module "ecs" {
   availability_zones    = module.vpc.public_subnet_ids
 }
 
-module "cdn" {
-
-  source = "../../../modules/cdn"
-  vpc_id                = module.vpc.id
-  cluster_name          = "${var.app["name"]}"
-  app                   = "aop-stg"
-  environment           = "${var.app["env"]}"
-  alb_dns_name          = module.ecs.alb_dns_name
-  app_repository_name   = "${var.app["name"]}"
-  alb_port              = "80"
-  container_port        = "3000"
-  helth_check_path      = "/"
-  environment_variables = var.environment_variables
-  #ssl_certificate_id    = var.cloudfront_certificate_id
-  domain_name           = "nana808test.com"
-}
-
 module "rds" {
   source = "../../../modules/rds"
+
   db_instance_type               = "db.m5.large"
   db_name                        = "sleestak"
   db_port                        = "3306"
@@ -88,18 +74,35 @@ module "rds" {
   subnet_ids                     = module.vpc.private_subnet_ids
 }
 
+module "cdn" {
+  source = "../../../modules/cdn"
+
+  vpc_id                = module.vpc.id
+  cluster_name          = "${var.app["name"]}"
+  app                   = "aop-stg"
+  environment           = "${var.app["env"]}"
+  alb_dns_name          = module.ecs.alb_dns_name
+  app_repository_name   = "${var.app["name"]}"
+  alb_port              = "80"
+  container_port        = "3000"
+  helth_check_path      = "/"
+  environment_variables = var.environment_variables
+  #ssl_certificate_id    = var.cloudfront_certificate_id
+  domain_name           = "nana808test.com"
+}
+
 module "pipeline" {
   source = "../../../modules/pipeline"
+
   vpc_id          = module.vpc.id
   cluster_name                   = "${var.app["name"]}"
   environment                    = "${var.app["env"]}"
-  image                          = module.ecs.image
-  #codestar_connector_credentials = var.codestar_connector_credentials
+  #image                          = module.ecs.image
   container_name                 = "${var.app["name"]}"
   app_repository_name            = "${var.app["name"]}"
   repository_url                 = module.ecs.repository_url
   repository_name                = module.ecs.repository_name
-  app_service_name               = moudule.ecs.service_name
+  #app_service_name               = moudule.ecs.service_name
   environment_variables          = var.environment_variables
 
   build_options                  = var.build_options
@@ -126,5 +129,3 @@ module "pipeline" {
     ConnectionArn    = "arn:aws:codestar-connections:us-west-1:667736119737:connection/c4b85da7-c515-468c-997f-b216610ba7ee"
   }
 }
-
-

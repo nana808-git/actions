@@ -1,7 +1,7 @@
 [
     {
       "name": "${cluster_name}-${environment}-node-api",
-      "image": "${image}",
+      "image": "${var.repository_url}:${var.image_tag}",
       "portMappings": [
         {
           "containerPort": ${container_port},

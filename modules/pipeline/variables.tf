@@ -28,17 +28,13 @@ variable "cluster_name" {
   description = "The cluster_name"
 }
 
-variable "image" {
-  description = "The container image"
-}
+
 
 variable "app_repository_name" {
   description = "ECR Repository name"
 }
 
-variable "app_service_name" {
-  description = "Service name"
-}
+
 
 variable "git_repository" {
   type        = map(string)
