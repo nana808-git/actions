@@ -45,7 +45,7 @@ module "ecs" {
   desired_task_cpu      = "256"
   desired_task_memory   = "512"
   app                   = "aop-stg"
-  ssl_web_prefix        = var.ssl_web_prefix
+  ssl_web_prefix        = "https://"
 
   helth_check_path      = "/"
   environment_variables = var.environment_variables
