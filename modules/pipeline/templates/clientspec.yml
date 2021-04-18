@@ -27,11 +27,12 @@ phases:
       - echo Linting time !!!
       - npm run lint:client
       - echo Zipping the files !!!
+      - cd client/build && zip -r ../buildoutput.zip *
       
 artifacts:
-  #files:
-  #  - 'client/build/*'
-  #discard-paths: yes
-  base-directory: 'client/build/*'
+  files:
+    - 'client/buildoutput.zip'
+  discard-paths: yes
+  #base-directory: 'client/build/'
   #name: build-$(date +%Y-%m-%d)
 
