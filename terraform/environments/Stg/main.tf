@@ -92,7 +92,7 @@ module "cdn" {
 }
 
 module "pipeline" {
-  source = "../../../modules/pipeline"
+  source = "../../../modules/pipelines/Stg"
 
   vpc_id          = module.vpc.id
   cluster_name                   = "${var.app["name"]}"
