@@ -32,10 +32,6 @@ variable "app_repository_name" {
   description = "ECR Repository name"
 }
 
-variable "prd_region" {
-  description = "The prod region"
-}
-
 variable "git_repository" {
   type        = map(string)
   description = "ecs task environment variables"
