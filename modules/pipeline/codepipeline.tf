@@ -241,7 +241,3 @@ resource "aws_codepipeline_webhook" "pipeline" {
     match_equals = "refs/heads/{Branch}"
   }
 }
-
-
-
-
