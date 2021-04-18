@@ -1,5 +1,5 @@
 data "aws_acm_certificate" "ssl-cert" {
-  domain      = var.ssl_cert
+  domain      = "nana808test.com"
   statuses    = ["ISSUED"]
   most_recent = true
 }
@@ -37,11 +37,11 @@ module "ecs" {
   repository_name       = module.ecs.repository_name
   alb_port              = "80"
   container_port        = "3000"
-  min_tasks             = "2"
-  max_tasks             = "4"
-  cpu_to_scale_up       = "80"
-  cpu_to_scale_down     = "30"
-  desired_tasks         = "2"
+  min_tasks             = 2
+  max_tasks             = 4
+  cpu_to_scale_up       = 80
+  cpu_to_scale_down     = 30
+  desired_tasks         = 2
   desired_task_cpu      = "256"
   desired_task_memory   = "512"
   app                   = "aop-stg"
@@ -49,8 +49,8 @@ module "ecs" {
 
   helth_check_path      = "/"
   environment_variables = var.environment_variables
-  ssl_certificate_arn   = var.certificate_arn
-  domain_name           = var.domain
+  ssl_certificate_arn   = "arn:aws:acm:us-east-1:667736119737:certificate/8a4cdeec-e44c-42c0-b4ce-c1d2dc12f657"
+  domain_name           = "nana808test.com"
   availability_zones    = module.vpc.public_subnet_ids
 }
 
@@ -68,7 +68,7 @@ module "cdn" {
   helth_check_path      = "/"
   environment_variables = var.environment_variables
   #ssl_certificate_id    = var.cloudfront_certificate_id
-  domain_name           = var.domain
+  domain_name           = "nana808test.com"
 }
 
 module "rds" {
@@ -109,7 +109,7 @@ module "pipeline" {
   db_endpoint                    = module.rds.db_endpoint
   ssl_web_prefix                 = "https://"
   #app                            = "aop"
-  domain_name                    = var.domain
+  domain_name                    = "nana808test.com"
   pipeline_s3_arn                = module.cdn.pipeline_s3_arn
   #APP_WEB_URL                    = "${var.ssl_web_prefix}${var.app}.${var.domain_name}"
   JUNGLESCOUT_USERNAME           = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
