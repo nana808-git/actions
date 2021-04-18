@@ -91,6 +91,18 @@ resource "aws_codepipeline" "pipeline" {
         ProjectName = "${var.cluster_name}-${var.environment}-client-build"
       }
     }
+    action {
+      name             = "DB-Migration"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["Github-Source"]
+      output_artifacts = ["DB-Output-Stg"]
+
+      configuration = {
+        ProjectName = "${var.cluster_name}-${var.environment}-db-migration"
+      }
   }
 
   stage {
@@ -184,6 +196,18 @@ resource "aws_codepipeline" "pipeline" {
         ProjectName = "${var.cluster_name}-${var.environment}-client-build"
       }
     }
+    action {
+      name             = "DB-Migration"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["Github-Source"]
+      output_artifacts = ["DB-Output-Prd"]
+
+      configuration = {
+        ProjectName = "${var.cluster_name}-${var.prd_env}-db-migration"
+      }
   }
 
   stage {
@@ -199,8 +223,8 @@ resource "aws_codepipeline" "pipeline" {
       run_order       = "1"
 
       configuration = {
-        ClusterName = "${var.cluster_name}-${var.environment}-ecs-node-test"
-        ServiceName = "${var.cluster_name}-${var.environment}-node-api-test"
+        ClusterName = "${var.cluster_name}-${var.prd_env}-ecs-node"
+        ServiceName = "${var.cluster_name}-${var.prd_env}-node-api"
         FileName    = "imagedefinitions.json"
       }
     }
