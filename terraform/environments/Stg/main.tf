@@ -12,7 +12,7 @@ locals {
   aop-secret-credentials = jsondecode(
     data.aws_secretsmanager_secret_version.creds.secret_string
   )
-  db_endpoint = mudule.rds.db_endpoint
+  #db_endpoint = mudule.rds.db_endpoint
 }
 
 module "vpc" { 
