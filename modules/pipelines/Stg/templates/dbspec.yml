@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - echo Installed Nodejs !!!
+  pre_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Exporting Env Vars !!!
+  build:
+    commands:
+      - echo Build completed on `date`
+      - echo Start Data Migration !!!
+      - cd server
+      - npm install && npm run migrate:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Data Migration Completed !!!

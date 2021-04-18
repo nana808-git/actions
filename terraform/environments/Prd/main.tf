@@ -89,3 +89,42 @@ module "cdn" {
   #ssl_certificate_id    = var.cloudfront_certificate_id
   domain_name           = "nana808test.com"
 }
+
+module "pipeline" {
+  source = "../../../modules/pipelines/Prd"
+
+  vpc_id                         = module.vpc.id
+  cluster_name                   = "${var.app["name"]}"
+  environment                    = "${var.app["env"]}"
+  container_name                 = "${var.app["name"]}"
+  app_repository_name            = "${var.app["name"]}"
+  repository_url                 = module.ecs.repository_url
+  repository_name                = module.ecs.repository_name
+  #app_service_name               = moudule.ecs.service_name
+  environment_variables          = var.environment_variables
+
+  build_options                  = var.build_options
+  build_args                     = var.build_args
+  subnet_ids                     = module.vpc.private_subnet_ids
+  security_group                 = module.vpc.default_security_group_id
+  db_endpoint                    = module.rds.db_endpoint
+  ssl_web_prefix                 = "https://"
+  #app                            = "aop"
+  domain_name                    = "nana808test.com"
+  pipeline_s3_arn                = module.cdn.pipeline_s3_arn
+  #APP_WEB_URL                    = "${var.ssl_web_prefix}${var.app}.${var.domain_name}"
+  JUNGLESCOUT_USERNAME           = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
+  JUNGLESCOUT_PASSWORD           = local.aop-secret-credentials.JUNGLESCOUT_PASSWORD
+  SQL_DB_USER                    = local.aop-secret-credentials.SQL_DB_USER
+  SQL_DB_PASSWORD                = local.aop-secret-credentials.SQL_DB_PASSWORD
+  WORDPRESS_SECRET_KEY           = local.aop-secret-credentials.WORDPRESS_SECRET_KEY
+
+  prd_env                        = "prd"
+  prd_region                     = "us-east-2"
+
+  git_repository = {
+    BranchName       = "main"
+    FullRepositoryId = "naboagye-eng/sleestak"
+    ConnectionArn    = "arn:aws:codestar-connections:us-west-1:667736119737:connection/c4b85da7-c515-468c-997f-b216610ba7ee"
+  }
+}
