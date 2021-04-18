@@ -15,8 +15,8 @@ data "template_file" "api_task" {
     cluster_name              = var.cluster_name
     container_name            = "${var.cluster_name}-${var.environment}-node-api"
     environment               = var.environment
-    image_tag                 = var.image_tag
-    repository_url            = var.repository_url
+    image_tag                 = "${var.repository_url}:${var.image_tag}
+    #repository_url            = var.repository_url
     region                    = var.region
     SQL_SERVER                = var.db_endpoint
     JUNGLESCOUT_USERNAME      = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
