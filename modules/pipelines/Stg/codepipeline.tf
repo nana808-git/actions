@@ -181,7 +181,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["Backend-Output-Prd"]
 
       configuration = {
-        ProjectName = "${var.cluster_name}-${var.environment}-server-build"
+        ProjectName = "${var.cluster_name}-${var.prd_env}-server-build"
       }
     }
     action {
@@ -195,7 +195,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["Frontend-Output-Prd"]
 
       configuration = {
-        ProjectName = "${var.cluster_name}-${var.environment}-client-build"
+        ProjectName = "${var.cluster_name}-${var.prd_env}-client-build"
       }
     }
     action {
