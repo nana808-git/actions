@@ -30,54 +30,23 @@ variable "network" {
   }
 }
 
+
+
+
+
 variable "certificate_arn" {
   type = string
-  default = "arn:aws:acm:us-east-1:667736119737:certificate/8a4cdeec-e44c-42c0-b4ce-c1d2dc12f657"
+  default = ""
 }
 
 variable "domain" {
   type = string
-  default = "nana808test.com"
+  default = ""
 }
 
 variable "ssl_cert" {
   type = string
-  default = "nana808test.com"
-}
-
-variable "node_volume_size" {
-  type = string
-  default = "10"
-}
-
-variable "node_instance_type" {
-  type = string
-  default = "t2.large"
-}
-
-variable "nosql_volume_size" {
-  type = string
-  default = "10"
-}
-
-variable "nosql_instance_type" {
-  type = string
-  default = "t2.large"
-}
-
-variable "nat_count" {
-  type = string
-  default = "1"
-}
-
-variable "escluster_instance_count" {
-  type = string
-  default = "2"
-}
-
-variable "escluster_instance_type" {
-  type = string
-  default = "t2.medium.elasticsearch"
+  default = ""
 }
 
 variable "helth_check_path" {
