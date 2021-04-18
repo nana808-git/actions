@@ -12,10 +12,10 @@ data "template_file" "api_task" {
   template = file("${path.module}/task-definitions/api-task.json")
 
   vars = {
-    #image                     = "${var.repository_url}:latest"
     cluster_name              = var.cluster_name
     container_name            = "${var.cluster_name}-${var.environment}-node-api"
     environment               = var.environment
+    image_tag                 = var.image_tag
     region                    = var.region
     SQL_SERVER                = var.db_endpoint
     JUNGLESCOUT_USERNAME      = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
