@@ -80,6 +80,54 @@ variable "escluster_instance_type" {
   default = "t2.medium.elasticsearch"
 }
 
+variable "helth_check_path" {
+  type        = string
+  description = "target group helth check path"
+  default     = ""
+}
+
+variable "desired_tasks" {
+  type        = number
+  description = "number of containers desired to run app task"
+  default     = 2
+}
+
+variable "min_tasks" {
+  type        = number
+  description = "minimum"
+  default     = 2
+}
+
+variable "max_tasks" {
+  type        = number
+  description = "maximum"
+  default     = 4
+}
+
+variable "cpu_to_scale_up" {
+  type        = number
+  description = "cpu % to scale up the number of containers"
+  default     = 80
+}
+
+variable "cpu_to_scale_down" {
+  type        = number
+  description = "cpu % to scale down the number of containers"
+  default     = 30
+}
+
+variable "desired_task_cpu" {
+  type        = string
+  description = "desired cpu to run your tasks"
+  default     = "256"
+}
+
+variable "desired_task_memory" {
+  type        = string
+  description = "desired memory to run your tasks"
+  default     = "512"
+}
+
 variable "build_options" {
   type        = string
   default     = ""

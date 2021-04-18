@@ -17,53 +17,75 @@ locals {
 
 module "vpc" { 
   source = "../../../modules/vpc" 
-
   availability_zones = var.availability_zones
   nat_count          = var.nat_count
   network            = var.network
   app                = var.app
 }
 
-module "ecs-infra" {
-  source = "../../.."
+module "ecs" {
+  source                = "../../../modules/ecs"
+  vpc_id                = module.vpc.id
+  cluster_name          = "${var.app["name"]}"
+  environment           = "${var.app["env"]}"
+  image                 = var.image
+  region                = var.region
+  repository_url        = module.ecs.repository_url
+  db_endpoint           = mudule.rds.db_endpoint
+  container_name        = "${var.app["name"]}"
+  app_repository_name   = "${var.app["name"]}"
+  repository_name       = module.ecs.repository_name
+  alb_port              = "80"
+  container_port        = "3000"
+  min_tasks             = "2"
+  max_tasks             = "4"
+  cpu_to_scale_up       = "80"
+  cpu_to_scale_down     = "30"
+  desired_tasks         = "2"
+  desired_task_cpu      = "256"
+  desired_task_memory   = "512"
+  app                   = "aop-stg"
+  ssl_web_prefix        = var.ssl_web_prefix
 
-  vpc_id          = module.vpc.id
-  public_subnets  = module.vpc.public_subnet_ids
-  private_subnets = module.vpc.private_subnet_ids
-  cidr            = ["${var.network["cidr"]}"]
-  azs             = var.availability_zones
-  region          = var.region
-  security_group  = module.vpc.default_security_group_id
+  helth_check_path      = "/"
+  environment_variables = var.environment_variables
+  ssl_certificate_arn   = var.certificate_arn
+  domain_name           = var.domain
+  availability_zones    = module.vpc.public_subnet_ids
+}
 
-  app                 = "aop-stg"
-  ssl_web_prefix      = "https://"
-  cluster_name        = "${var.app["name"]}"
-  app_repository_name = "${var.app["name"]}"
-  container_name      = "${var.app["name"]}"
-  environment         = "${var.app["env"]}"
-  #repository_name     = "${var.app["name"]}-${var.app["env"]}-ecr-node" 
-  repository_url                 = var.repository_url
-  repository_name                = var.repository_name
-  app_service_name               = var.app_service_name
-  db_endpoint           = var.db_endpoint
-  pipeline_s3_arn                = var.pipeline_s3_arn
+module "cdn" {
 
-  alb_port         = "80"
-  container_port   = "3000"
-  helth_check_path = "/"
+  source = "../../../modules/cdn"
+  vpc_id                = module.vpc.id
+  cluster_name          = "${var.app["name"]}"
+  app                   = "aop-stg"
+  environment           = "${var.app["env"]}"
+  alb_dns_name          = module.ecs.alb_dns_name
+  app_repository_name   = "${var.app["name"]}"
+  alb_port              = "80"
+  container_port        = "3000"
+  helth_check_path      = "/"
+  environment_variables = var.environment_variables
+  #ssl_certificate_id    = var.cloudfront_certificate_id
+  domain_name           = var.domain
+}
 
-  db_instance_type     = "db.m5.large"
-  db_initialize        = "yes"
-  db_port              = "3306"
-  db_engine            = "mariadb"
-  db_version           = "10.4.13"
-  db_profile           = "mariadb"
-  db_allocated_storage = "5"
-  db_name              = "sleestak"
-
-  domain_name         = var.domain
-  ssl_certificate_arn = var.certificate_arn
-  #cloudfront_ssl      = var.cloudfront_certificate_id
+module "rds" {
+  source = "../../../modules/rds"
+  db_instance_type               = "db.m5.large"
+  db_name                        = "sleestak"
+  db_port                        = "3306"
+  db_profile                     = "mariadb"
+  db_initialize                  = "yes"
+  db_engine                      = "mariadb"
+  db_version                     = "10.4.13"
+  db_allocated_storage           = "20"
+  cluster_name                   = "${var.app["name"]}"
+  environment                    = "${var.app["env"]}"
+  vpc_id                         = module.vpc.id
+  cidr                           = ["${var.network["cidr"]}"]
+  subnet_ids                     = module.vpc.private_subnet_ids
 }
 
 module "pipeline" {
