@@ -1,5 +1,5 @@
 data "aws_acm_certificate" "ssl-cert" {
-  domain      = var.ssl_cert
+  domain      = "nana808test.com"
   statuses    = ["ISSUED"]
   most_recent = true
 }
@@ -49,8 +49,8 @@ module "ecs" {
 
   helth_check_path      = "/"
   environment_variables = var.environment_variables
-  ssl_certificate_arn   = var.certificate_arn
-  domain_name           = var.domain
+  ssl_certificate_arn   = "arn:aws:acm:us-east-2:667736119737:certificate/06695160-eb02-4be0-96d5-e1d86e50847c"
+  domain_name           = "nana808test.com"
   availability_zones    = module.vpc.public_subnet_ids
 }
 
@@ -67,8 +67,8 @@ module "cdn" {
   container_port        = "3000"
   helth_check_path      = "/"
   environment_variables = var.environment_variables
-  #ssl_certificate_id    = var.cloudfront_certificate_id
-  domain_name           = var.domain
+  #ssl_certificate_id    = "arn:aws:acm:us-east-2:667736119737:certificate/06695160-eb02-4be0-96d5-e1d86e50847c"
+  domain_name           = "nana808test.com"
 }
 
 module "rds" {

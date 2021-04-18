@@ -30,6 +30,40 @@ variable "network" {
   }
 }
 
+variable "node_volume_size" {
+  type = string
+  default = "10"
+}
+
+variable "node_instance_type" {
+  type = string
+  default = "t2.large"
+}
+
+variable "nosql_volume_size" {
+  type = string
+  default = "10"
+}
+
+variable "nosql_instance_type" {
+  type = string
+  default = "t2.large"
+}
+
+variable "nat_count" {
+  type = string
+  default = "1"
+}
+
+variable "escluster_instance_count" {
+  type = string
+  default = "2"
+}
+
+variable "escluster_instance_type" {
+  type = string
+  default = "t2.medium.elasticsearch"
+}
 
 
 
@@ -58,31 +92,26 @@ variable "helth_check_path" {
 variable "desired_tasks" {
   type        = number
   description = "number of containers desired to run app task"
-  default     = ""
 }
 
 variable "min_tasks" {
   type        = number
   description = "minimum"
-  default     = ""
 }
 
 variable "max_tasks" {
   type        = number
   description = "maximum"
-  default     = ""
 }
 
 variable "cpu_to_scale_up" {
   type        = number
   description = "cpu % to scale up the number of containers"
-  default     = ""
 }
 
 variable "cpu_to_scale_down" {
   type        = number
   description = "cpu % to scale down the number of containers"
-  default     = ""
 }
 
 variable "desired_task_cpu" {
