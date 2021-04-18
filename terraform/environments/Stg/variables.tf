@@ -30,6 +30,41 @@ variable "network" {
   }
 }
 
+variable "node_volume_size" {
+  type = string
+  default = "10"
+}
+
+variable "node_instance_type" {
+  type = string
+  default = "t2.large"
+}
+
+variable "nosql_volume_size" {
+  type = string
+  default = "10"
+}
+
+variable "nosql_instance_type" {
+  type = string
+  default = "t2.large"
+}
+
+variable "nat_count" {
+  type = string
+  default = "1"
+}
+
+variable "escluster_instance_count" {
+  type = string
+  default = "2"
+}
+
+variable "escluster_instance_type" {
+  type = string
+  default = "t2.medium.elasticsearch"
+}
+
 variable "certificate_arn" {
   type = string
   default = ""
