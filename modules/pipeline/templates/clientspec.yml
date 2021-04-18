@@ -30,8 +30,8 @@ phases:
       
 artifacts:
   files:
-    - 'build/**/*'
+    - 'server/build/**/*'
   discard-paths: yes
-  base-directory: 'build'
+  #base-directory: 'build'
   name: build-$(date +%Y-%m-%d)
 
