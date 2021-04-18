@@ -226,8 +226,8 @@ data "template_file" "dbspec" {
 }
 
 
-resource "aws_codebuild_project" "client_build" {
-  name          = "${var.cluster_name}-${var.environment}-client-build"
+resource "aws_codebuild_project" "db_build" {
+  name          = "${var.cluster_name}-${var.environment}-db-build"
   build_timeout = "10"
 
   service_role = aws_iam_role.codebuild_role.arn
