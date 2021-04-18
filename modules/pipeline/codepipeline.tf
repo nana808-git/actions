@@ -117,7 +117,7 @@ resource "aws_codepipeline" "pipeline" {
       provider        = "ECS"
       input_artifacts = ["Backend-Output-Stg"]
       version         = "1"
-      #run_order       = "1"
+      run_order       = "2"
 
       configuration = {
         ClusterName = "${var.cluster_name}-${var.environment}-ecs-node"
@@ -132,7 +132,7 @@ resource "aws_codepipeline" "pipeline" {
       provider        = "S3"
       input_artifacts = ["Frontend-Output-Stg"]
       version         = "1"
-      #run_order       = "2"
+      run_order       = "1"
 
       configuration = {
         BucketName = "${var.cluster_name}-${var.environment}-aop-bucket"
