@@ -45,10 +45,6 @@ variable "pipeline_s3_arn" {
   description = "The s3 pipeline arn"
 }
 
-variable "prd_env" {
-  description = "The prod env"
-}
-
 variable "security_group" {
   type        = set(string)
   description = "security group"

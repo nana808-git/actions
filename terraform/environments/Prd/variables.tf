@@ -143,8 +143,6 @@ variable "repository_url" {
   default     = ""
 }
 
-
-
 variable "alb_port" {
   type        = string
   description = "origin application load balancer port"

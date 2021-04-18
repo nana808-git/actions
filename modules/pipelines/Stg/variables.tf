@@ -34,7 +34,6 @@ variable "app_repository_name" {
 
 variable "prd_region" {
   description = "The prod region"
-  default     = ""
 }
 
 variable "git_repository" {

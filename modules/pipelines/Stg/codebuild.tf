@@ -20,7 +20,6 @@ data "template_file" "serverspec" {
     repository_url            = var.repository_url
     repository_name           = var.repository_name
     region                    = var.region
-    prd_region                = "us-east-2"
     environment               = var.environment
     cluster_name              = var.cluster_name
     container_name            = var.container_name
@@ -114,7 +113,6 @@ data "template_file" "clientspec" {
     repository_url            = var.repository_url
     repository_name           = var.repository_name
     region                    = var.region
-    prd_region                = var.prd_region
     environment               = var.environment
     cluster_name              = var.cluster_name
     container_name            = var.container_name
@@ -209,7 +207,6 @@ data "template_file" "dbspec" {
     repository_url            = var.repository_url
     repository_name           = var.repository_name
     region                    = var.region
-    prd_region                = var.prd_region
     environment               = var.environment
     cluster_name              = var.cluster_name
     container_name            = var.container_name
