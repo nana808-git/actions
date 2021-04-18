@@ -122,7 +122,7 @@ variable "pipeline_s3_arn" {
 
 variable "db_endpoint" {
   description = "RDS Host name"
-  #default     = "module.ecs.db_endpoint"
+  default     = "locals.db_endpoint"
 }
 
 variable "repository_url" {
