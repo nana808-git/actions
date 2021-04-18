@@ -30,10 +30,6 @@ variable "network" {
   }
 }
 
-variable "prd_region" {
-  description = "The prod region"
-}
-
 variable "node_volume_size" {
   type = string
   default = "10"

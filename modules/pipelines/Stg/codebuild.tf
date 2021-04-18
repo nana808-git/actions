@@ -107,7 +107,6 @@ resource "aws_codebuild_project" "server_build" {
   }
 }
 
-
 data "template_file" "clientspec" {
   template = file("${path.module}/templates/clientspec.yml")
 

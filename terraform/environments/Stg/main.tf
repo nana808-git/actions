@@ -94,10 +94,9 @@ module "cdn" {
 module "pipeline" {
   source = "../../../modules/pipelines/Stg"
 
-  vpc_id          = module.vpc.id
+  vpc_id                         = module.vpc.id
   cluster_name                   = "${var.app["name"]}"
   environment                    = "${var.app["env"]}"
-  #image                          = module.ecs.image
   container_name                 = "${var.app["name"]}"
   app_repository_name            = "${var.app["name"]}"
   repository_url                 = module.ecs.repository_url
