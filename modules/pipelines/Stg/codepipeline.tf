@@ -52,7 +52,6 @@ resource "aws_codepipeline" "pipeline" {
       owner = "AWS"
       provider = "CodeStarSourceConnection"
       version = "1"
-      #run_order = "2"
       output_artifacts = ["Github-Source"]
       configuration = {
         FullRepositoryId = "${lookup(var.git_repository,"FullRepositoryId")}"
