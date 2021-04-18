@@ -8,13 +8,13 @@ resource "aws_codepipeline" "pipeline" {
   artifact_store {
     location = "${var.cluster_name}-${var.environment}-codepipeline-build"
     type     = "S3"
-    region   = "us-east-1"
+    region   = "${var.region}"
   }
 
   artifact_store {
     location = "${var.cluster_name}-${var.prd_env}-codepipeline-build"
     type     = "S3"
-    region   = "us-east-2"
+    region   = "${var.prd_region}"
   }
 
   stage {
@@ -203,6 +203,7 @@ resource "aws_codepipeline" "pipeline" {
       owner            = "AWS"
       provider         = "CodeBuild"
       version          = "1"
+      region           = "${var.prd_region}"
       input_artifacts  = ["Github-Source"]
       output_artifacts = ["DB-Output-Prd"]
 
@@ -219,7 +220,7 @@ resource "aws_codepipeline" "pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
-      region           = "us-east-2"
+      region           = "${var.prd_region}"
       input_artifacts = ["Backend-Output-Prd"]
       version         = "1"
       run_order       = "1"
@@ -235,7 +236,7 @@ resource "aws_codepipeline" "pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"
-      region           = "us-east-2"
+      region           = "${var.prd_region}"
       input_artifacts = ["Frontend-Output-Prd"]
       version         = "1"
       run_order       = "2"

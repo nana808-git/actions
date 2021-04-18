@@ -122,6 +122,7 @@ module "pipeline" {
   WORDPRESS_SECRET_KEY           = local.aop-secret-credentials.WORDPRESS_SECRET_KEY
 
   prd_env                        = "prd"
+  prd_region                     = "us-east-2"
 
   git_repository = {
     BranchName       = "main"

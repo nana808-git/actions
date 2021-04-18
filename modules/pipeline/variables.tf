@@ -28,13 +28,13 @@ variable "cluster_name" {
   description = "The cluster_name"
 }
 
-
-
 variable "app_repository_name" {
   description = "ECR Repository name"
 }
 
-
+variable "prd_region" {
+  description = "The prod region"
+}
 
 variable "git_repository" {
   type        = map(string)
@@ -99,10 +99,6 @@ variable "build_options" {
   default     = ""
   description = "Docker build options. ex: '-f ./build/Dockerfile' "
 }
-
-#variable "codestar_connector_credentials" {
-#  type = string
-#}
 
 variable "codepipeline_events_enabled" {
   default = false
