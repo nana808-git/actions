@@ -29,9 +29,9 @@ phases:
       - echo Zipping the files !!!
       
 artifacts:
-  files:
-    - 'client/build/*'
-  discard-paths: yes
-  #base-directory: 'build'
-  name: build-$(date +%Y-%m-%d)
+  #files:
+  #  - 'client/build/*'
+  #discard-paths: yes
+  base-directory: 'client/build/*'
+  #name: build-$(date +%Y-%m-%d)
 
