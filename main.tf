@@ -1,3 +1,8 @@
+locals {
+  db_endpoint = mudule.rds.db_endpoint
+}
+
+
 module "ecs" {
   source                = "./modules/ecs"
   vpc_id                = var.vpc_id
@@ -6,7 +11,7 @@ module "ecs" {
   image                 = var.image
   region                = var.region
   repository_url        = module.ecs.repository_url
-  db_endpoint           = mudule.rds.db_endpoint
+  db_endpoint           = locals.db_endpoint
   container_name        = var.container_name
   app_repository_name   = var.app_repository_name
   repository_name       = var.repository_name

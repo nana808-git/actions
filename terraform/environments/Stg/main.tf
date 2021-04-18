@@ -12,6 +12,7 @@ locals {
   aop-secret-credentials = jsondecode(
     data.aws_secretsmanager_secret_version.creds.secret_string
   )
+  db_endpoint = mudule.rds.db_endpoint
 }
 
 module "vpc" { 
@@ -44,7 +45,7 @@ module "ecs-infra" {
   repository_url                 = var.repository_url
   repository_name                = var.repository_name
   app_service_name               = var.app_service_name
-  db_endpoint           = var.db_endpoint
+  db_endpoint           = locals.db_endpoint
   pipeline_s3_arn                = var.pipeline_s3_arn
 
   alb_port         = "80"
