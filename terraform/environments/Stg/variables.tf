@@ -89,43 +89,43 @@ variable "helth_check_path" {
 variable "desired_tasks" {
   type        = number
   description = "number of containers desired to run app task"
-  default     = 2
+  default     = ""
 }
 
 variable "min_tasks" {
   type        = number
   description = "minimum"
-  default     = 2
+  default     = ""
 }
 
 variable "max_tasks" {
   type        = number
   description = "maximum"
-  default     = 4
+  default     = ""
 }
 
 variable "cpu_to_scale_up" {
   type        = number
   description = "cpu % to scale up the number of containers"
-  default     = 80
+  default     = ""
 }
 
 variable "cpu_to_scale_down" {
   type        = number
   description = "cpu % to scale down the number of containers"
-  default     = 30
+  default     = ""
 }
 
 variable "desired_task_cpu" {
   type        = string
   description = "desired cpu to run your tasks"
-  default     = "256"
+  default     = ""
 }
 
 variable "desired_task_memory" {
   type        = string
   description = "desired memory to run your tasks"
-  default     = "512"
+  default     = ""
 }
 
 variable "build_options" {
@@ -143,50 +143,50 @@ variable "build_args" {
 variable "image" {
   description = "The container image"
   type        = string
-  default     = "module.ecs.image"
+  default     = ""
 }
 
 variable "repository_name" {
   description = "Full name of ECR Repository"
-  default     = "module.ecs.repository_name"
+  default     = ""
 }
 
 variable "container_name" {
   type        = string
   description = "container app name"
-  default     = "module.ecs.container_name"
+  default     = ""
 }
 
 variable "s3-bucket" {
   type        = string
   description = "staging s3-bucket name"
-  default     = "module.cdn.s3-bucket"
+  default     = ""
 }
 
 variable "pipeline_s3_arn" {
   description = "The s3 pipeline arn"
-  default     = "module.cdn.pipeline_s3_arn"
+  default     = ""
 }
 
 variable "db_endpoint" {
   description = "RDS Host name"
-  default     = "module.rds.db_endpoint"
+  default     = ""
 }
 
 variable "repository_url" {
   description = "The url of the ECR repository"
-  default     = "module.ecs.repository_url"
+  default     = ""
 }
 
 variable "app_service_name" {
   description = "Service name"
-  default     = "module.ecs.app_service_name"
+  default     = ""
 }
 
 variable "alb_port" {
   type        = string
   description = "origin application load balancer port"
-  default     = "module.ecs.alb_port"
+  default     = ""
 }
 
 variable "environment_variables" {
