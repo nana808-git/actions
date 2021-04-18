@@ -1,10 +1,10 @@
 [
     {
       "name": "${cluster_name}-${environment}-node-api",
-      "image": "${image_tag}",
+      "image": "${image}",
       "portMappings": [
         {
-          "containerPort": ${container_port},
+          "containerPort": "${container_port}",
           "hostPort": ${container_port}
         }
       ],
