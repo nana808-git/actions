@@ -176,6 +176,7 @@ resource "aws_codepipeline" "pipeline" {
       owner            = "AWS"
       provider         = "CodeBuild"
       version          = "1"
+      region           = "${var.prd_region}"
       input_artifacts  = ["Github-Source"]
       output_artifacts = ["Backend-Output-Prd"]
 
@@ -189,6 +190,7 @@ resource "aws_codepipeline" "pipeline" {
       owner            = "AWS"
       provider         = "CodeBuild"
       version          = "1"
+      region           = "${var.prd_region}"
       input_artifacts  = ["Github-Source"]
       output_artifacts = ["Frontend-Output-Prd"]
 
