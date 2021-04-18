@@ -103,6 +103,7 @@ resource "aws_codepipeline" "pipeline" {
       configuration = {
         ProjectName = "${var.cluster_name}-${var.environment}-db-migration"
       }
+    }
   }
 
   stage {
