@@ -1,56 +1,56 @@
 [
-    {
-      "name": "${cluster_name}-${environment}-node-api",
-      "image": "${image}",
-      "portMappings": [
-        {
-          "containerPort": "${container_port}",
-          "hostPort": ${container_port}
-        }
-      ],
-      "cpu": ${desired_task_cpu},
-      "memory": ${desired_task_memory},
-      "networkMode": "awsvpc",
-      "essential": true,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-          "awslogs-group": "${log_group}",
-          "awslogs-region": "${region}",
-          "awslogs-stream-prefix": "${cluster_name}-${environment}-node-api"
-        }
+  {
+    "name": "${cluster_name}-${environment}-node-api",
+    "image": "${image}",
+    "portMappings": [
+      {
+        "containerPort": ${container_port},
+        "hostPort": ${container_port}
+      }
+    ],
+    "cpu": ${desired_task_cpu},
+    "memory": ${desired_task_memory},
+    "networkMode": "awsvpc",
+    "essential": true,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "${log_group}",
+        "awslogs-region": "${region}",
+        "awslogs-stream-prefix": "${cluster_name}-${environment}-node-api"
+      }
+    },
+    "environment": [
+      ${environment_variables_str}
+      {
+        "name": "JUNGLESCOUT_USERNAME",
+        "value": "${JUNGLESCOUT_USERNAME}"
       },
-      "environment": [
-        ${environment_variables_str}
-        {
-          "name": "JUNGLESCOUT_USERNAME",
-          "value": "${JUNGLESCOUT_USERNAME}"
-        },
-        {
-          "name": "JUNGLESCOUT_PASSWORD",
-          "value": "${JUNGLESCOUT_PASSWORD}"
-        },
-        {
-          "name": "WORDPRESS_SECRET_KEY",
-          "value": "${WORDPRESS_SECRET_KEY}"
-        },
-        {
-          "name": "SQL_DB_USER",
-          "value": "${SQL_DB_USER}"
-        },
-        {
-          "name": "SQL_SERVER",
-          "value": "${SQL_SERVER}"
-        },
-        {
-          "name": "APP_WEB_URL",
-          "value": "${APP_WEB_URL}"
-        },
-        {
-          "name": "SQL_DB_PASSWORD",
-          "value": "${SQL_DB_PASSWORD}"
-        }
-      ]
-    }
-  ]
+      {
+        "name": "JUNGLESCOUT_PASSWORD",
+        "value": "${JUNGLESCOUT_PASSWORD}"
+      },
+      {
+        "name": "WORDPRESS_SECRET_KEY",
+        "value": "${WORDPRESS_SECRET_KEY}"
+      },
+      {
+        "name": "SQL_DB_USER",
+        "value": "${SQL_DB_USER}"
+      },
+      {
+        "name": "SQL_SERVER",
+        "value": "${SQL_SERVER}"
+      },
+      {
+        "name": "APP_WEB_URL",
+        "value": "${APP_WEB_URL}"
+      },
+      {
+        "name": "SQL_DB_PASSWORD",
+        "value": "${SQL_DB_PASSWORD}"
+      }
+    ]
+  }
+]
 
