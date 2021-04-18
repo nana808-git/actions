@@ -14,7 +14,7 @@ resource "aws_codepipeline" "pipeline" {
   artifact_store {
     location = "${var.cluster_name}-${var.prd_env}-codepipeline-build"
     type     = "S3"
-    region   = "${var.prd_region}"
+    region   = "us-east-2"
   }
 
   stage {
