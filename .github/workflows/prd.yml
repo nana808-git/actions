@@ -25,22 +25,22 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-2  
 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+  #  - name: Setup Terraform
+  #    uses: hashicorp/setup-terraform@v1
       
-    - name: Terraform Init 
-      id: init
-      run: terraform -chdir=terraform/environments/Prd init
+  #  - name: Terraform Init 
+  #    id: init
+  #    run: terraform -chdir=terraform/environments/Prd init
  
-    - name: Terraform Plan 
-      id: plan
-      run: terraform -chdir=terraform/environments/Prd plan 
-      continue-on-error: true
+  #  - name: Terraform Plan 
+  #    id: plan
+  #    run: terraform -chdir=terraform/environments/Prd plan 
+  #    continue-on-error: true
 
-    - name: Terraform Apply 
-      run: terraform -chdir=terraform/environments/Prd apply -auto-approve
+  #  - name: Terraform Apply 
+  #    run: terraform -chdir=terraform/environments/Prd apply -auto-approve
 
-    - name: Terraform Destroy 
-      run: terraform -chdir=terraform/environments/Prd destroy -auto-approve
+  #  - name: Terraform Destroy 
+  #    run: terraform -chdir=terraform/environments/Prd destroy -auto-approve
 
       
