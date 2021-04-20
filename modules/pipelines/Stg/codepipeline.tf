@@ -181,7 +181,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["Backend-Output-Prd"]
 
       configuration = {
-        ProjectName = "${var.cluster_name}-${var.prd_env}-server-build"
+        ProjectName = "${var.cluster_name}-${var.environment}-server-build"
       }
     }
     action {
@@ -195,7 +195,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["Frontend-Output-Prd"]
 
       configuration = {
-        ProjectName = "${var.cluster_name}-${var.prd_env}-client-build"
+        ProjectName = "${var.cluster_name}-${var.environment}-client-build"
       }
     }
     action {
@@ -243,7 +243,7 @@ resource "aws_codepipeline" "pipeline" {
       run_order       = "2"
 
       configuration = {
-        BucketName = "${var.cluster_name}-${var.prd_env}-aop-bucket"
+        BucketName = "${var.cluster_name}-${var.environment}-aop-bucket"
         Extract = "true"
       }
     }
@@ -266,6 +266,6 @@ resource "aws_codepipeline_webhook" "pipeline" {
 
   filter {
     json_path    = "$.ref"
-    match_equals = "refs/heads/{Branch}"
+    match_equals = "refs/tags/release-*"
   }
 }
