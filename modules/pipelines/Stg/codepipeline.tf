@@ -8,7 +8,7 @@ resource "aws_codepipeline" "pipeline" {
   artifact_store {
     location = "${var.cluster_name}-${var.environment}-codepipeline-build"
     type     = "S3"
-    region   = "${var.region}"
+    #region   = "${var.region}"
   }
 
   #artifact_store {
