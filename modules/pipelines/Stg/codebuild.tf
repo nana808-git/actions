@@ -249,7 +249,7 @@ resource "aws_codebuild_project" "db_build" {
       },
       "${var.environment_variables}"
     ]
-  
+  }
 
   source {
     type      = "CODEPIPELINE"
