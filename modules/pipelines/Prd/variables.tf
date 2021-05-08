@@ -24,6 +24,16 @@ variable "network" {
   default = {}
 }
 
+variable "cidr" {
+  type        = string
+  description = "vpc cidr block"
+}
+
+variable "vpc_peering_connection_id" {
+  type        = string
+  description = "vpc peering vpc_peering_connection_id"
+}
+
 variable "cluster_name" {
   description = "The cluster_name"
 }
@@ -39,10 +49,6 @@ variable "git_repository" {
 
 variable "vpc_id" {
   description = "The VPC id"
-}
-
-variable "pipeline_s3_arn" {
-  description = "The s3 pipeline arn"
 }
 
 variable "security_group" {
@@ -126,8 +132,18 @@ variable "APP_WEB_URL" {
   default     = ""
 }
 
+variable "ASANA_SECRET_KEY" {
+  description = "secret key"
+  default     = ""
+}
+
 variable "WORDPRESS_SECRET_KEY" {
   description = "WP secret"
+  default     = ""
+}
+
+variable "STG_SQL_SERVER" {
+  description = "staging db host"
   default     = ""
 }
 

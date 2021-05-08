@@ -24,3 +24,4 @@ resource "aws_security_group" "main" {
     Purpose     = "default"
   }
 }
+

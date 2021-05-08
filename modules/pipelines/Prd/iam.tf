@@ -6,10 +6,6 @@ resource "aws_iam_role" "codebuild_role" {
 
 data "template_file" "codebuild_policy" {
   template = file("${path.module}/templates/policies/codebuild_policy.json")
-
-  vars = {
-    aws_s3_bucket_arn = var.pipeline_s3_arn
-  }
 }
 
 resource "aws_iam_role_policy" "codebuild_policy" {

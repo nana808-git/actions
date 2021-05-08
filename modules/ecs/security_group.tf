@@ -30,14 +30,6 @@ resource "aws_security_group" "alb_sg" {
   description = "ALB Security Group"
   vpc_id      = var.vpc_id
 
-  #ingress {
-  #  #from_port   = var.alb_port
-  #  from_port     = var.container_port
-  #  to_port     = var.container_port
-  #  protocol    = "tcp"
-  #  cidr_blocks = ["0.0.0.0/0"]
-  #}
-
   ingress {
     from_port   = "80"
     to_port     = "80"
@@ -58,13 +50,6 @@ resource "aws_security_group" "alb_sg" {
     protocol  = "-1"
     self      = true
   }
-
-  #  from_port   = "0"
-  #  to_port     = "0"
-  #  protocol    = "-1"
-  #  cidr_blocks = ["10.100.96.0/20"]
-  #  security_groups = ["sg-0810255e173ddc79a"]
-  #}
 
   ingress {
     from_port   = "22"
@@ -105,13 +90,6 @@ resource "aws_security_group" "ecs_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  #ingress {
-  #  from_port   = 8
-  #  to_port     = 0
-  #  protocol    = "icmp"
-  #  cidr_blocks = ["0.0.0.0/0"]
-  #}
 
   tags = {
     Name        = "${var.cluster_name}-${var.environment}-ecs-svc-sg"

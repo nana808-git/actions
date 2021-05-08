@@ -10,12 +10,14 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Exporting Env Vars !!!
+      - environment=environment_variables
   build:
     commands:
       - echo Build completed on `date`
       - echo Start Data Migration !!!
       - cd server
       - npm install && npm run migrate:latest
+      - npm run script:asana
   post_build:
     commands:
       - echo Build completed on `date`

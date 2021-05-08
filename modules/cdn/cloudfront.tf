@@ -24,7 +24,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   enabled             = true
   default_root_object = "index.html"
 
-  #aliases = ["${var.app}.${var.domain_name}"]
+  aliases = ["${var.app}.${var.domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -42,7 +42,6 @@ resource "aws_cloudfront_distribution" "distribution" {
       }
     }
 
-    #viewer_protocol_policy = "allow-all"
     viewer_protocol_policy = "redirect-to-https"
   }
 
@@ -53,7 +52,6 @@ resource "aws_cloudfront_distribution" "distribution" {
     target_origin_id = "ELB"
     cache_policy_id  = "${aws_cloudfront_cache_policy.main.id}"
 
-    #viewer_protocol_policy = "allow-all"
     viewer_protocol_policy = "redirect-to-https"
   }
   restrictions {
@@ -63,10 +61,10 @@ resource "aws_cloudfront_distribution" "distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
-    #iam_certificate_id             = "${var.ssl_certificate_id}"
-    #ssl_support_method             = "sni-only"
-    #minimum_protocol_version       = "TLSv1.2_2019"
+    #cloudfront_default_certificate = true
+    iam_certificate_id             = "${var.ssl_certificate_id}"
+    ssl_support_method             = "sni-only"
+    minimum_protocol_version       = "TLSv1.2_2019"
   }
 
   custom_error_response {

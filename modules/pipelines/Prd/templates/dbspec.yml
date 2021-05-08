@@ -10,13 +10,24 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Exporting Env Vars !!!
+      - echo Install Dependencies !!!
+      - apt update
+      - apt install mariadb-server -y
   build:
     commands:
       - echo Build completed on `date`
       - echo Start Data Migration !!!
       - cd server
       - npm install && npm run migrate:latest
+      - npm run script:asana
+      - cd $CODEBUILD_SRC_DIR
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Data Migration Completed !!!
+      - echo Start Data Backup !!!
+      - mysqldump -h ${SQL_SERVER} -P 3306 -u ${SQL_DB_USER} -p${SQL_DB_PASSWORD} sleestak > ${file}
+      - mysql -h ${STG_SQL_SERVER} -P 3306 -u ${SQL_DB_USER} -p${SQL_DB_PASSWORD} sleestak < ${file}
+      - gzip ${file}
+      - aws s3 cp $CODEBUILD_SRC_DIR/${file}.gz s3://${cluster_name}-${environment}-db-backup
+      - rm ${file}.gz
+      - echo Data Backup Completed !!!

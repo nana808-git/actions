@@ -1,7 +1,7 @@
 variable "app" {
   type = map
   default = {
-    name = "rr"
+    name = "ss"
     env  = "stg"
   }
 }
@@ -9,14 +9,14 @@ variable "app" {
 variable "availability_zones" {
   type = list
   default = [
-    "us-east-1a", 
-    "us-east-1b",
+    "us-west-1c", 
+    "us-west-1b",
   ]
 }
 
 variable "region" {
   type = string
-  default = "us-east-1"
+  default = "us-west-1"
 }
 
 variable "network" {
@@ -70,6 +70,12 @@ variable "certificate_arn" {
   default = ""
 }
 
+variable "ssl_certificate_id" {
+  type        = string
+  description = "ssl certification id"
+  default     = ""
+}
+
 variable "domain" {
   type = string
   default = ""
@@ -85,7 +91,6 @@ variable "helth_check_path" {
   description = "target group helth check path"
   default     = ""
 }
-
 
 variable "desired_task_cpu" {
   type        = string
@@ -142,8 +147,6 @@ variable "repository_url" {
   description = "The url of the ECR repository"
   default     = ""
 }
-
-
 
 variable "alb_port" {
   type        = string

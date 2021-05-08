@@ -1,13 +1,3 @@
-data "aws_secretsmanager_secret_version" "creds" {
-  secret_id = "aop-secret-credentials"
-}
-
-locals {
-  aop-secret-credentials = jsondecode(
-    data.aws_secretsmanager_secret_version.creds.secret_string
-  )
-}
-
 data "template_file" "api_task" {
   template = file("${path.module}/task-definitions/api-task.json")
 
@@ -18,16 +8,18 @@ data "template_file" "api_task" {
     image                     = "${var.repository_url}:${var.image_tag}"
     region                    = var.region
     SQL_SERVER                = var.db_endpoint
-    JUNGLESCOUT_USERNAME      = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
-    JUNGLESCOUT_PASSWORD      = local.aop-secret-credentials.JUNGLESCOUT_PASSWORD
-    SQL_DB_USER               = local.aop-secret-credentials.SQL_DB_USER 
-    SQL_DB_PASSWORD           = local.aop-secret-credentials.SQL_DB_PASSWORD
-    WORDPRESS_SECRET_KEY      = local.aop-secret-credentials.WORDPRESS_SECRET_KEY
+    JUNGLESCOUT_USERNAME      = var.JUNGLESCOUT_USERNAME
+    JUNGLESCOUT_PASSWORD      = var.JUNGLESCOUT_PASSWORD
+    SQL_DB_USER               = var.SQL_DB_USER 
+    SQL_DB_PASSWORD           = var.SQL_DB_PASSWORD
+    WORDPRESS_SECRET_KEY      = var.WORDPRESS_SECRET_KEY
+    APP_WEB_URL               = var.APP_WEB_URL 
+    ASANA_SECRET_KEY          = var.ASANA_SECRET_KEY              
     container_port            = var.container_port
     log_group                 = aws_cloudwatch_log_group.web-app.name
     desired_task_cpu          = var.desired_task_cpu
     desired_task_memory       = var.desired_task_memory
-    APP_WEB_URL               = "${var.ssl_web_prefix}${var.app}.${var.domain_name}"
+   
     environment_variables_str = join(
       ",",
       formatlist(

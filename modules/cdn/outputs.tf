@@ -14,10 +14,3 @@ output "cache_policy" {
   value = "${aws_cloudfront_cache_policy.main.id}"
 }
 
-output "pipeline_s3_id" {
-  value = "${aws_s3_bucket.source.id}"
-}
-
-output "pipeline_s3_arn" {
-  value = "${aws_s3_bucket.source.arn}"
-}

@@ -7,7 +7,7 @@ data "template_file" "codepipeline_policy" {
   template = file("${path.module}/templates/policies/codepipeline.json")
 
   vars = {
-    aws_s3_bucket_arn = var.pipeline_s3_arn
+    aws_s3_bucket_arn = aws_codepipeline.pipeline.arn
   }
 }
 
@@ -44,7 +44,7 @@ data "template_file" "codebuild_policy" {
   template = file("${path.module}/templates/policies/codebuild_policy.json")
 
   vars = {
-    aws_s3_bucket_arn = var.pipeline_s3_arn
+    aws_s3_bucket_arn = aws_codepipeline.pipeline.arn
   }
 }
 

@@ -7,12 +7,6 @@ locals {
   build_options = format("%s %s", var.build_options, local.needsBuildArgs ? local.buildArgsCommandStr : "")
 }
 
-resource "aws_codebuild_source_credential" "source-credentials" {
-  auth_type   = "PERSONAL_ACCESS_TOKEN"
-  server_type = "GITHUB"
-  token       = "{{resolve:secretsmanager:GITHUB_ACCESS_TOKEN:SecretString:GITHUB_ACCESS_TOKEN}}"
-}
-
 data "template_file" "serverspec" {
   template = file("${path.module}/templates/serverspec.yml")
 
@@ -25,15 +19,15 @@ data "template_file" "serverspec" {
     container_name            = var.container_name
     security_group_ids        = join(",", var.subnet_ids)
     build_options             = local.build_options
-    COMMIT_ID                 = "CODEBUILD_SOURCE_VERSION"
-    COMMIT_REF                = "CODEBUILD_WEBHOOK_MERGE_COMMIT"
     SQL_SERVER                = "${var.db_endpoint}"
-    JUNGLESCOUT_USERNAME      = "${var.JUNGLESCOUT_USERNAME}"
-    WORDPRESS_SECRET_KEY      = "${var.WORDPRESS_SECRET_KEY}"
-    JUNGLESCOUT_PASSWORD      = "${var.JUNGLESCOUT_PASSWORD}"
-    SQL_DB_USER               = "${var.SQL_DB_USER}"
-    SQL_DB_PASSWORD           = "${var.SQL_DB_PASSWORD}"
-    APP_WEB_URL               = "${var.app}.${var.domain_name}"
+    JUNGLESCOUT_USERNAME      = var.JUNGLESCOUT_USERNAME
+    WORDPRESS_SECRET_KEY      = var.WORDPRESS_SECRET_KEY
+    JUNGLESCOUT_PASSWORD      = var.JUNGLESCOUT_PASSWORD
+    SQL_DB_USER               = var.SQL_DB_USER
+    SQL_DB_PASSWORD           = var.SQL_DB_PASSWORD
+    APP_WEB_URL               = var.APP_WEB_URL
+    ASANA_SECRET_KEY          = var.ASANA_SECRET_KEY
+    STG_SQL_SERVER            = var.STG_SQL_SERVER
   }
 }
 
@@ -91,8 +85,16 @@ resource "aws_codebuild_project" "server_build" {
       value = "sleestak"
     }
     environment_variable {
+      name  = "ASANA_SECRET_KEY"
+      value = "${var.ASANA_SECRET_KEY}"
+    }
+    environment_variable {
       name  = "APP_WEB_URL"
       value = "${var.APP_WEB_URL}"
+    }
+    environment_variable {
+      name  = "STG_SQL_SERVER"
+      value = "${var.STG_SQL_SERVER}"
     }
     environment_variable {
       name  = "SQL_PORT"
@@ -119,15 +121,15 @@ data "template_file" "clientspec" {
     container_name            = var.container_name
     security_group_ids        = join(",", var.subnet_ids)
     build_options             = local.build_options
-    COMMIT_ID                 = "CODEBUILD_SOURCE_VERSION"
-    COMMIT_REF                = "CODEBUILD_WEBHOOK_MERGE_COMMIT"
     SQL_SERVER                = "${var.db_endpoint}"
-    JUNGLESCOUT_USERNAME      = "${var.JUNGLESCOUT_USERNAME}"
-    WORDPRESS_SECRET_KEY      = "${var.WORDPRESS_SECRET_KEY}"
-    JUNGLESCOUT_PASSWORD      = "${var.JUNGLESCOUT_PASSWORD}"
-    SQL_DB_USER               = "${var.SQL_DB_USER}"
-    SQL_DB_PASSWORD           = "${var.SQL_DB_PASSWORD}"
-    APP_WEB_URL               = "${var.app}.${var.domain_name}"
+    JUNGLESCOUT_USERNAME      = var.JUNGLESCOUT_USERNAME
+    WORDPRESS_SECRET_KEY      = var.WORDPRESS_SECRET_KEY
+    JUNGLESCOUT_PASSWORD      = var.JUNGLESCOUT_PASSWORD
+    SQL_DB_USER               = var.SQL_DB_USER
+    SQL_DB_PASSWORD           = var.SQL_DB_PASSWORD
+    APP_WEB_URL               = var.APP_WEB_URL
+    ASANA_SECRET_KEY          = var.ASANA_SECRET_KEY
+    STG_SQL_SERVER            = var.STG_SQL_SERVER
   }
 }
 
@@ -186,6 +188,14 @@ resource "aws_codebuild_project" "client_build" {
       value = "sleestak"
     }
     environment_variable {
+      name  = "ASANA_SECRET_KEY"
+      value = "${var.ASANA_SECRET_KEY}"
+    }
+    environment_variable {
+      name  = "STG_SQL_SERVER"
+      value = "${var.STG_SQL_SERVER}"
+    }
+    environment_variable {
       name  = "APP_WEB_URL"
       value = "${var.APP_WEB_URL}"
     }
@@ -213,15 +223,16 @@ data "template_file" "dbspec" {
     container_name            = var.container_name
     security_group_ids        = join(",", var.subnet_ids)
     build_options             = local.build_options
-    COMMIT_ID                 = "CODEBUILD_SOURCE_VERSION"
-    COMMIT_REF                = "CODEBUILD_WEBHOOK_MERGE_COMMIT"
     SQL_SERVER                = "${var.db_endpoint}"
-    JUNGLESCOUT_USERNAME      = "${var.JUNGLESCOUT_USERNAME}"
-    WORDPRESS_SECRET_KEY      = "${var.WORDPRESS_SECRET_KEY}"
-    JUNGLESCOUT_PASSWORD      = "${var.JUNGLESCOUT_PASSWORD}"
-    SQL_DB_USER               = "${var.SQL_DB_USER}"
-    SQL_DB_PASSWORD           = "${var.SQL_DB_PASSWORD}"
-    APP_WEB_URL               = "${var.app}.${var.domain_name}"
+    file                      = "db-backup-$CODEBUILD_RESOLVED_SOURCE_VERSION.sql"
+    JUNGLESCOUT_USERNAME      = var.JUNGLESCOUT_USERNAME
+    WORDPRESS_SECRET_KEY      = var.WORDPRESS_SECRET_KEY
+    JUNGLESCOUT_PASSWORD      = var.JUNGLESCOUT_PASSWORD
+    SQL_DB_USER               = var.SQL_DB_USER
+    SQL_DB_PASSWORD           = var.SQL_DB_PASSWORD
+    APP_WEB_URL               = var.APP_WEB_URL
+    ASANA_SECRET_KEY          = var.ASANA_SECRET_KEY
+    STG_SQL_SERVER            = var.STG_SQL_SERVER
   }
 }
 
@@ -277,6 +288,14 @@ resource "aws_codebuild_project" "db_build" {
     environment_variable {
       name  = "SQL_DB_NAME"
       value = "sleestak"
+    }
+    environment_variable {
+      name  = "ASANA_SECRET_KEY"
+      value = "${var.ASANA_SECRET_KEY}"
+    }
+    environment_variable {
+      name  = "STG_SQL_SERVER"
+      value = "${var.STG_SQL_SERVER}"
     }
     environment_variable {
       name  = "APP_WEB_URL"

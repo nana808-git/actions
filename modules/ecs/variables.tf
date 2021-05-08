@@ -128,3 +128,38 @@ variable "subnet_ids" {
   type    = string
   default = "module.vpc.aws_subnet.public.*.id"
 }
+
+variable "JUNGLESCOUT_USERNAME" {
+  description = "RDS JS username"
+  default     = ""
+}
+
+variable "JUNGLESCOUT_PASSWORD" {
+  description = "RDS JS password"
+  default     = ""
+}
+
+variable "SQL_DB_USER" {
+  description = "RDS DB user"
+  default     = ""
+}
+
+variable "SQL_DB_PASSWORD" {
+  description = "RDS DB password"
+  default     = ""
+}
+
+variable "APP_WEB_URL" {
+  description = "staging site"
+  default     = ""
+}
+
+variable "ASANA_SECRET_KEY" {
+  description = "secret key"
+  default     = ""
+}
+
+variable "WORDPRESS_SECRET_KEY" {
+  description = "WP secret"
+  default     = ""
+}

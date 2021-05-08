@@ -1,7 +1,7 @@
 variable "app" {
   type = map
   default = {
-    name = "rr"
+    name = "ss"
     env  = "prd"
   }
 }
@@ -68,6 +68,12 @@ variable "escluster_instance_type" {
 variable "certificate_arn" {
   type = string
   default = ""
+}
+
+variable "ssl_certificate_id" {
+  type        = string
+  description = "ssl certification id"
+  default     = ""
 }
 
 variable "domain" {

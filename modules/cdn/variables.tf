@@ -49,11 +49,6 @@ variable "helth_check_path" {
   default     = "/"
 }
 
-variable "environment_variables" {
-  type        = map(string)
-  description = "ecs task environment variables"
-}
-
 variable "ssl_certificate_id" {
   type        = string
   description = "ssl certification id"

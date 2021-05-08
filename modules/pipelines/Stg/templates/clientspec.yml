@@ -27,12 +27,14 @@ phases:
       - echo Linting time !!!
       - npm run lint:client
       - echo Zipping the files !!!
-      - cd client/build && zip -r ../buildoutput.zip *
-      
+      - cd client/build &&  zip -r ../build-$CODEBUILD_RESOLVED_SOURCE_VERSION.zip *
+      - echo Copying Files !!!
+
 artifacts:
   files:
-    - 'client/buildoutput.zip'
-  discard-paths: yes
-  #base-directory: 'client/build/'
-  #name: build-$(date +%Y-%m-%d)
+    - '**/*'
+  discard-paths: no
+  base-directory: 'client/build'
+  exclude-paths: 'client/build'
+
 

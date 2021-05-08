@@ -23,6 +23,16 @@ variable "db_instance_type" {
   default     = ""
 }
 
+variable "backup_retention_period" {
+  description = "RDS instance backup retention period"
+  default     = ""
+}
+
+variable "backup_window" {
+  description = "RDS instance backup window"
+  default     = ""
+}
+
 variable "db_name" {
   description = "RDS DB name"
   default     = ""

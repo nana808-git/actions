@@ -1,7 +1,6 @@
-data "aws_acm_certificate" "ssl-cert" {
-  domain      = "nana808test.com"
-  statuses    = ["ISSUED"]
-  most_recent = true
+data "aws_iam_server_certificate" "ssl-cert" {
+  name_prefix = "Star_dtmediagrp.com"
+  latest      = true
 }
 
 data "aws_secretsmanager_secret_version" "creds" {
@@ -17,10 +16,12 @@ locals {
 module "vpc" { 
   source = "../../../modules/vpc" 
 
-  availability_zones = var.availability_zones
-  nat_count          = var.nat_count
-  network            = var.network
-  app                = var.app
+  availability_zones        = var.availability_zones
+  nat_count                 = var.nat_count
+  network                   = var.network
+  app                       = var.app
+  vpc_peering_connection_id = "pcx-0940ede3ef7b14df4"
+  peered_cidr               = "10.100.96.0/20"
 }
 
 module "ecs" {
@@ -48,17 +49,25 @@ module "ecs" {
   app                   = "aop"
   ssl_web_prefix        = "https://"
 
+  APP_WEB_URL           = local.aop-secret-credentials.APP_WEB_URL
+  JUNGLESCOUT_USERNAME  = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
+  JUNGLESCOUT_PASSWORD  = local.aop-secret-credentials.JUNGLESCOUT_PASSWORD
+  SQL_DB_USER           = local.aop-secret-credentials.SQL_DB_USER
+  SQL_DB_PASSWORD       = local.aop-secret-credentials.SQL_DB_PASSWORD
+  WORDPRESS_SECRET_KEY  = local.aop-secret-credentials.WORDPRESS_SECRET_KEY
+  ASANA_SECRET_KEY      = local.aop-secret-credentials.ASANA_SECRET_KEY
+
   helth_check_path      = "/"
   environment_variables = var.environment_variables
-  ssl_certificate_arn   = "arn:aws:acm:us-east-2:667736119737:certificate/06695160-eb02-4be0-96d5-e1d86e50847c"
-  domain_name           = "nana808test.com"
+  ssl_certificate_arn   = "arn:aws:iam::710789462061:server-certificate/Star_dtmediagrp.com"
+  domain_name           = "dtmediagrp.com"
   availability_zones    = module.vpc.public_subnet_ids
 }
 
 module "rds" {
   source = "../../../modules/rds"
 
-  db_instance_type               = "db.m5.large"
+  db_instance_type               = "db.t3.medium"
   db_name                        = "sleestak"
   db_port                        = "3306"
   db_profile                     = "mariadb"
@@ -66,6 +75,8 @@ module "rds" {
   db_engine                      = "mariadb"
   db_version                     = "10.4.13"
   db_allocated_storage           = "20"
+  backup_retention_period        = "7"
+  backup_window                  = "05:00-06:00"
   cluster_name                   = "${var.app["name"]}"
   environment                    = "${var.app["env"]}"
   vpc_id                         = module.vpc.id
@@ -85,22 +96,21 @@ module "cdn" {
   alb_port              = "80"
   container_port        = "3000"
   helth_check_path      = "/"
-  environment_variables = var.environment_variables
-  #ssl_certificate_id    = var.cloudfront_certificate_id
-  domain_name           = "nana808test.com"
+  domain_name           = "dtmediagrp.com"
+  ssl_certificate_id    = "ASCA2K7S2PAWRMDVOM4LW"
 }
 
 module "pipeline" {
   source = "../../../modules/pipelines/Prd"
 
   vpc_id                         = module.vpc.id
+  cidr                           = "${var.network["cidr"]}"
   cluster_name                   = "${var.app["name"]}"
   environment                    = "${var.app["env"]}"
   container_name                 = "${var.app["name"]}"
   app_repository_name            = "${var.app["name"]}"
   repository_url                 = module.ecs.repository_url
   repository_name                = module.ecs.repository_name
-  #app_service_name               = moudule.ecs.service_name
   environment_variables          = var.environment_variables
 
   build_options                  = var.build_options
@@ -109,19 +119,22 @@ module "pipeline" {
   security_group                 = module.vpc.default_security_group_id
   db_endpoint                    = module.rds.db_endpoint
   ssl_web_prefix                 = "https://"
-  #app                            = "aop"
-  domain_name                    = "nana808test.com"
-  pipeline_s3_arn                = module.cdn.pipeline_s3_arn
-  #APP_WEB_URL                    = "${var.ssl_web_prefix}${var.app}.${var.domain_name}"
+  domain_name                    = "dtmediagrp.com"
+
+  vpc_peering_connection_id      = "pcx-0940ede3ef7b14df4"
+
+  APP_WEB_URL                    = local.aop-secret-credentials.APP_WEB_URL
   JUNGLESCOUT_USERNAME           = local.aop-secret-credentials.JUNGLESCOUT_USERNAME
   JUNGLESCOUT_PASSWORD           = local.aop-secret-credentials.JUNGLESCOUT_PASSWORD
   SQL_DB_USER                    = local.aop-secret-credentials.SQL_DB_USER
   SQL_DB_PASSWORD                = local.aop-secret-credentials.SQL_DB_PASSWORD
   WORDPRESS_SECRET_KEY           = local.aop-secret-credentials.WORDPRESS_SECRET_KEY
+  ASANA_SECRET_KEY               = local.aop-secret-credentials.ASANA_SECRET_KEY
+  STG_SQL_SERVER                 = local.aop-secret-credentials.STG_SQL_SERVER
 
   git_repository = {
     BranchName       = "main"
-    FullRepositoryId = "naboagye-eng/sleestak"
-    ConnectionArn    = "arn:aws:codestar-connections:us-west-1:667736119737:connection/c4b85da7-c515-468c-997f-b216610ba7ee"
+    FullRepositoryId = "DigitalTrends/sleestak"
+    ConnectionArn    = "arn:aws:codestar-connections:us-west-1:710789462061:connection/ea01e68c-4c90-46b4-aba6-b1c10521a04f"
   }
 }

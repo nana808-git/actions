@@ -7,12 +7,6 @@ locals {
   build_options = format("%s %s", var.build_options, local.needsBuildArgs ? local.buildArgsCommandStr : "")
 }
 
-resource "aws_codebuild_source_credential" "source-credentials" {
-  auth_type   = "PERSONAL_ACCESS_TOKEN"
-  server_type = "GITHUB"
-  token       = "{{resolve:secretsmanager:GITHUB_ACCESS_TOKEN:SecretString:GITHUB_ACCESS_TOKEN}}"
-}
-
 data "template_file" "serverspec" {
   template = file("${path.module}/templates/serverspec.yml")
 
@@ -25,15 +19,14 @@ data "template_file" "serverspec" {
     container_name            = var.container_name
     security_group_ids        = join(",", var.subnet_ids)
     build_options             = local.build_options
-    COMMIT_ID                 = "CODEBUILD_SOURCE_VERSION"
-    COMMIT_REF                = "CODEBUILD_WEBHOOK_MERGE_COMMIT"
-    SQL_SERVER                = "${var.db_endpoint}"
-    JUNGLESCOUT_USERNAME      = "${var.JUNGLESCOUT_USERNAME}"
-    WORDPRESS_SECRET_KEY      = "${var.WORDPRESS_SECRET_KEY}"
-    JUNGLESCOUT_PASSWORD      = "${var.JUNGLESCOUT_PASSWORD}"
-    SQL_DB_USER               = "${var.SQL_DB_USER}"
-    SQL_DB_PASSWORD           = "${var.SQL_DB_PASSWORD}"
-    APP_WEB_URL               = "${var.app}.${var.domain_name}"
+    SQL_SERVER                = var.db_endpoint
+    JUNGLESCOUT_USERNAME      = var.JUNGLESCOUT_USERNAME
+    WORDPRESS_SECRET_KEY      = var.WORDPRESS_SECRET_KEY
+    JUNGLESCOUT_PASSWORD      = var.JUNGLESCOUT_PASSWORD
+    SQL_DB_USER               = var.SQL_DB_USER
+    SQL_DB_PASSWORD           = var.SQL_DB_PASSWORD
+    APP_WEB_URL               = var.APP_WEB_URL
+    ASANA_SECRET_KEY          = var.ASANA_SECRET_KEY
   }
 }
 
@@ -87,17 +80,13 @@ resource "aws_codebuild_project" "server_build" {
       value = "${var.SQL_DB_PASSWORD}"
     }
     environment_variable {
-      name  = "SQL_DB_NAME"
-      value = "sleestak"
+      name  = "ASANA_SECRET_KEY"
+      value = "${var.ASANA_SECRET_KEY}"
     }
     environment_variable {
       name  = "APP_WEB_URL"
       value = "${var.APP_WEB_URL}"
-    }
-    environment_variable {
-      name  = "SQL_PORT"
-      value = "3306"
-    }      
+    }     
   }
 
   source {
@@ -118,15 +107,14 @@ data "template_file" "clientspec" {
     container_name            = var.container_name
     security_group_ids        = join(",", var.subnet_ids)
     build_options             = local.build_options
-    COMMIT_ID                 = "CODEBUILD_SOURCE_VERSION"
-    COMMIT_REF                = "CODEBUILD_WEBHOOK_MERGE_COMMIT"
     SQL_SERVER                = "${var.db_endpoint}"
-    JUNGLESCOUT_USERNAME      = "${var.JUNGLESCOUT_USERNAME}"
-    WORDPRESS_SECRET_KEY      = "${var.WORDPRESS_SECRET_KEY}"
-    JUNGLESCOUT_PASSWORD      = "${var.JUNGLESCOUT_PASSWORD}"
-    SQL_DB_USER               = "${var.SQL_DB_USER}"
-    SQL_DB_PASSWORD           = "${var.SQL_DB_PASSWORD}"
-    APP_WEB_URL               = "${var.app}.${var.domain_name}"
+    JUNGLESCOUT_USERNAME      = var.JUNGLESCOUT_USERNAME
+    WORDPRESS_SECRET_KEY      = var.WORDPRESS_SECRET_KEY
+    JUNGLESCOUT_PASSWORD      = var.JUNGLESCOUT_PASSWORD
+    SQL_DB_USER               = var.SQL_DB_USER
+    SQL_DB_PASSWORD           = var.SQL_DB_PASSWORD
+    APP_WEB_URL               = var.APP_WEB_URL
+    ASANA_SECRET_KEY          = var.ASANA_SECRET_KEY
   }
 }
 
@@ -185,6 +173,10 @@ resource "aws_codebuild_project" "client_build" {
       value = "sleestak"
     }
     environment_variable {
+      name  = "ASANA_SECRET_KEY"
+      value = "${var.ASANA_SECRET_KEY}"
+    }
+    environment_variable {
       name  = "APP_WEB_URL"
       value = "${var.APP_WEB_URL}"
     }
@@ -212,15 +204,14 @@ data "template_file" "dbspec" {
     container_name            = var.container_name
     security_group_ids        = join(",", var.subnet_ids)
     build_options             = local.build_options
-    COMMIT_ID                 = "CODEBUILD_SOURCE_VERSION"
-    COMMIT_REF                = "CODEBUILD_WEBHOOK_MERGE_COMMIT"
     SQL_SERVER                = "${var.db_endpoint}"
-    JUNGLESCOUT_USERNAME      = "${var.JUNGLESCOUT_USERNAME}"
-    WORDPRESS_SECRET_KEY      = "${var.WORDPRESS_SECRET_KEY}"
-    JUNGLESCOUT_PASSWORD      = "${var.JUNGLESCOUT_PASSWORD}"
-    SQL_DB_USER               = "${var.SQL_DB_USER}"
-    SQL_DB_PASSWORD           = "${var.SQL_DB_PASSWORD}"
-    APP_WEB_URL               = "${var.app}.${var.domain_name}"
+    JUNGLESCOUT_USERNAME      = var.JUNGLESCOUT_USERNAME
+    WORDPRESS_SECRET_KEY      = var.WORDPRESS_SECRET_KEY
+    JUNGLESCOUT_PASSWORD      = var.JUNGLESCOUT_PASSWORD
+    SQL_DB_USER               = var.SQL_DB_USER
+    SQL_DB_PASSWORD           = var.SQL_DB_PASSWORD
+    APP_WEB_URL               = var.APP_WEB_URL
+    ASANA_SECRET_KEY          = var.ASANA_SECRET_KEY
   }
 }
 
@@ -249,43 +240,18 @@ resource "aws_codebuild_project" "db_build" {
     type            = "LINUX_CONTAINER"
     privileged_mode = true
 
-    environment_variable {
-      name  = "JUNGLESCOUT_USERNAME"
-      value = "${var.JUNGLESCOUT_USERNAME}"
-    }
-    environment_variable {
-      name  = "JUNGLESCOUT_PASSWORD"
-      value = "${var.JUNGLESCOUT_PASSWORD}"
-    }
-    environment_variable {
-      name  = "WORDPRESS_SECRET_KEY"
-      value = "${var.WORDPRESS_SECRET_KEY}"
-    }
-    environment_variable {
-      name  = "SQL_DB_USER"
-      value = "${var.SQL_DB_USER}"
-    }
-    environment_variable {
-      name  = "SQL_SERVER"
-      value = "${var.db_endpoint}"
-    }
-    environment_variable {
-      name  = "SQL_DB_PASSWORD"
-      value = "${var.SQL_DB_PASSWORD}"
-    }
-    environment_variable {
-      name  = "SQL_DB_NAME"
-      value = "sleestak"
-    }
-    environment_variable {
-      name  = "APP_WEB_URL"
-      value = "${var.APP_WEB_URL}"
-    }
-    environment_variable {
-      name  = "SQL_PORT"
-      value = "3306"
-    }      
-  }
+
+
+    #environment_variable = "${var.environment_variables}"
+    
+    environment_variable = [
+      {
+        "name"  = "JUNGLESCOUT_USERNAME"
+        "value" = "${var.JUNGLESCOUT_USERNAME}"
+      },
+      "${var.environment_variables}"
+    ]
+  
 
   source {
     type      = "CODEPIPELINE"

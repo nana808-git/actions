@@ -25,12 +25,16 @@ resource "aws_db_instance" "db" {
   username          = local.aop-secret-credentials.username
   password          = local.aop-secret-credentials.password
   
-  vpc_security_group_ids = [aws_security_group.db-sg.id]
-  multi_az               = false
-  db_subnet_group_name   = aws_db_subnet_group.db-subnet-grp.id
-  publicly_accessible    = false
-  skip_final_snapshot    = true
-  apply_immediately      = true
+  vpc_security_group_ids  = [aws_security_group.db-sg.id]
+  multi_az                = false
+  db_subnet_group_name    = aws_db_subnet_group.db-subnet-grp.id
+  publicly_accessible     = false
+  skip_final_snapshot     = true
+  apply_immediately       = true
+  deletion_protection     = true
+  backup_retention_period = var.backup_retention_period
+  backup_window           = var.backup_window
+  enabled_cloudwatch_logs_exports = ["general", "error"]
 
   tags = {
     Name = "${var.cluster_name}-${var.environment}-db"

@@ -6,46 +6,19 @@ resource "aws_codepipeline" "pipeline" {
     Name        = "${var.cluster_name}-${var.environment}-pipeline"  
   }
   artifact_store {
-    location = "${var.cluster_name}-${var.environment}-codepipeline-build"
+    location = "${var.cluster_name}-${var.environment}-codepipeline-artifacts"
     type     = "S3"
-    #region   = "${var.region}"
+    region   = "${var.region}"
   }
 
-  #artifact_store {
-  #  location = "${var.cluster_name}-${var.prd_env}-codepipeline-build"
-  #  type     = "S3"
-  #  region   = "${var.prd_region}"
-  #}
+  artifact_store {
+    location = "${var.cluster_name}-${var.prd_env}-codepipeline-artifacts"
+    type     = "S3"
+    region   = "${var.prd_region}"
+  }
 
   stage {
     name = "Source"
-#    action {
-#      name = "Image"
-#      category = "Source"
-#      owner = "AWS"
-#      provider = "ECR"
-#      version = "1"
-#      #run_order = "1"
-#      output_artifacts = ["ECR-Image"]
-#      configuration = {
-#        RepositoryName = "${var.cluster_name}-${var.environment}-ecr-node"
-#        ImageTag       = "latest"
-#      }
-#    }
-#    action {
-#      name = "React-App"
-#      category = "Source"
-#      owner = "AWS"
-#      provider = "S3"
-#      version = "1"
-#      output_artifacts = ["React-App"]
-#
-#      configuration = {
-#        S3Bucket = "${aws_s3_bucket.build-bucket.bucket}"
-#        S3ObjectKey = "build-output.zip"
-#        PollForSourceChanges = "false"
-#      }
-#    }
     action {
       name = "GitHub"
       category = "Source"
@@ -71,7 +44,7 @@ resource "aws_codepipeline" "pipeline" {
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["Backend-Output-Stg"]
+      output_artifacts = ["Backend-Output-${var.environment}"]
 
       configuration = {
         ProjectName = "${var.cluster_name}-${var.environment}-server-build"
@@ -84,7 +57,7 @@ resource "aws_codepipeline" "pipeline" {
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["Frontend-Output-Stg"]
+      output_artifacts = ["Frontend-Output-${var.environment}"]
 
       configuration = {
         ProjectName = "${var.cluster_name}-${var.environment}-client-build"
@@ -97,7 +70,7 @@ resource "aws_codepipeline" "pipeline" {
       provider         = "CodeBuild"
       version          = "1"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["DB-Output-Stg"]
+      output_artifacts = ["DB-Output-${var.environment}"]
 
       configuration = {
         ProjectName = "${var.cluster_name}-${var.environment}-db-migration"
@@ -127,9 +100,9 @@ resource "aws_codepipeline" "pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
-      input_artifacts = ["Backend-Output-Stg"]
+      input_artifacts = ["Backend-Output-${var.environment}"]
       version         = "1"
-      run_order       = "2"
+      run_order       = "1"
 
       configuration = {
         ClusterName = "${var.cluster_name}-${var.environment}-ecs-node"
@@ -138,13 +111,13 @@ resource "aws_codepipeline" "pipeline" {
       }
     }
     action {
-      name            = "Frontend-Staging"
+      name            = "React-App"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"
-      input_artifacts = ["Frontend-Output-Stg"]
+      input_artifacts = ["Frontend-Output-${var.environment}"]
       version         = "1"
-      run_order       = "1"
+      run_order       = "2"
 
       configuration = {
         BucketName = "${var.cluster_name}-${var.environment}-aop-bucket"
@@ -176,12 +149,12 @@ resource "aws_codepipeline" "pipeline" {
       owner            = "AWS"
       provider         = "CodeBuild"
       version          = "1"
-      #region           = "${var.prd_region}"
+      region           = "${var.prd_region}"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["Backend-Output-Prd"]
+      output_artifacts = ["Backend-Output-${var.prd_env}"]
 
       configuration = {
-        ProjectName = "${var.cluster_name}-${var.environment}-server-build"
+        ProjectName = "${var.cluster_name}-${var.prd_env}-server-build"
       }
     }
     action {
@@ -190,12 +163,12 @@ resource "aws_codepipeline" "pipeline" {
       owner            = "AWS"
       provider         = "CodeBuild"
       version          = "1"
-      #region           = "${var.prd_region}"
+      region           = "${var.prd_region}"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["Frontend-Output-Prd"]
+      output_artifacts = ["Frontend-Output-${var.prd_env}"]
 
       configuration = {
-        ProjectName = "${var.cluster_name}-${var.environment}-client-build"
+        ProjectName = "${var.cluster_name}-${var.prd_env}-client-build"
       }
     }
     action {
@@ -204,9 +177,9 @@ resource "aws_codepipeline" "pipeline" {
       owner            = "AWS"
       provider         = "CodeBuild"
       version          = "1"
-      #region           = "${var.prd_region}"
+      region           = "${var.prd_region}"
       input_artifacts  = ["Github-Source"]
-      output_artifacts = ["DB-Output-Prd"]
+      output_artifacts = ["DB-Output-${var.prd_env}"]
 
       configuration = {
         ProjectName = "${var.cluster_name}-${var.prd_env}-db-migration"
@@ -221,8 +194,8 @@ resource "aws_codepipeline" "pipeline" {
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
-      #region           = "${var.prd_region}"
-      input_artifacts = ["Backend-Output-Prd"]
+      region           = "${var.prd_region}"
+      input_artifacts = ["Backend-Output-${var.prd_env}"]
       version         = "1"
       run_order       = "1"
 
@@ -233,17 +206,17 @@ resource "aws_codepipeline" "pipeline" {
       }
     }
     action {
-      name            = "Frontend-Production"
+      name            = "React-App"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "S3"
-      #region           = "${var.prd_region}"
-      input_artifacts = ["Frontend-Output-Prd"]
+      region           = "${var.prd_region}"
+      input_artifacts = ["Frontend-Output-${var.prd_env}"]
       version         = "1"
       run_order       = "2"
 
       configuration = {
-        BucketName = "${var.cluster_name}-${var.environment}-aop-bucket"
+        BucketName = "${var.cluster_name}-${var.prd_env}-aop-bucket"
         Extract = "true"
       }
     }
