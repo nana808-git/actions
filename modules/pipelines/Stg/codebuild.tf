@@ -241,14 +241,15 @@ resource "aws_codebuild_project" "db_build" {
     privileged_mode = true
 
     #environment_variable = "${var.environment_variables}"
-    
-    "environment_variable" = [
+    [...]
+    environment_variable = [
       {
         "name"  = "JUNGLESCOUT_USERNAME"
         "value" = "${var.JUNGLESCOUT_USERNAME}"
       },
       "${var.environment_variables}"
     ]
+    [...]
   }
 
   source {
