@@ -34,15 +34,15 @@ module "pipeline" {
   environment                    = "${var.app["env"]}"
   container_name                 = "${var.app["name"]}"
   app_repository_name            = "${var.app["name"]}"
-  repository_url                 = module.ecs.repository_url
-  repository_name                = module.ecs.repository_name
+  repository_url                 = "bbb"
+  repository_name                = "vvv"
   environment_variables          = var.environment_variables
 
   build_options                  = var.build_options
   build_args                     = var.build_args
   subnet_ids                     = module.vpc.private_subnet_ids
   security_group                 = module.vpc.default_security_group_id
-  db_endpoint                    = module.rds.db_endpoint
+  db_endpoint                    = "xxx"
   ssl_web_prefix                 = "https://"
   domain_name                    = "dtmediagrp.com"
 
