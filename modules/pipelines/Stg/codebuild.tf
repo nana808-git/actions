@@ -240,8 +240,6 @@ resource "aws_codebuild_project" "db_build" {
     type            = "LINUX_CONTAINER"
     privileged_mode = true
 
-
-
     #environment_variable = "${var.environment_variables}"
     
     environment_variable = [
